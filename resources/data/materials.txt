@@ -1,0 +1,12 @@
+Material,        Elastic Modulus(PSI), Yield Strength(PSI), Density(lbs/in³), Notes
+Titanium 6Al-4V, 16500000,	           128000,              0.160,6% aluminum and 4% Vanadium
+Steel 4340T,	 29700000,	           160000,              0.284,Oil quenched and tempered
+Steel 4340N,	 29700000,	           114000,              0.284,Normalized
+Steel 4130T,	 29700000,	           110000,              0.284,Water quenched and tempered
+Steel 4130N,	 29700000,	           63100,               0.284,Normalized
+Steel 1018,	     29700000,	           53700,               0.284,
+Aluminum 7075-T6,10400000,	           73200,               0.102,
+Aluminum 6061-T6,10000000,	           39900,               0.098,
+Aluminum 2024-T6,10500000,	           50000,               0.100,
+PVC,	         410000,	           8000,                0.051,
+Carbon Fiber,33000000.0,640000.0,0.057,Dragonplate.com

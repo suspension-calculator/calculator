@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "suspension-calculator"
+version = "0.1.0"
+description = "A suspension calculator application"
+requires-python = ">=3.10"
+dependencies = [
+    "matplotlib",
+    "tkinter",
+]

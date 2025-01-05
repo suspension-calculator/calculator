@@ -23,7 +23,7 @@ ENV/
 *.code-workspace
 
 # Build artifacts and compiled files
-*.spec
+# *.spec  # Remove this line since you want to keep Calculator.spec
 *.pyd
 *.dll
 *.exe
@@ -34,3 +34,13 @@ ENV/
 # Local project-specific files that shouldn't be tracked
 *.log
 .env
+
+# MacOs virtual environment files
+venv/
+
+# Project specific additions
+# Keep the Lists directory as it's needed for the build
+!Lists/*.txt   # Allow tracking of txt files in Lists directory
+
+# Matplotlib temporary files
+.matplotlib/
