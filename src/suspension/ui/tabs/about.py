@@ -1,11 +1,11 @@
-# tab_frames/aboutTab.py
+# src/suspension/ui/tabs/about.py
 
 import tkinter as tk
 import tkinter.scrolledtext as st
-from VariableIO.initialize_IO import *
+from suspension.io.initialize_IO import *
 from suspension.ui.styles import *
-from VariableIO.save_suspension import save_susp,save_as_susp
-from VariableIO.load_suspension import load_susp
+from suspension.io.save_suspension import save_susp,save_as_susp
+from suspension.io.load_suspension import load_susp
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import numpy as np

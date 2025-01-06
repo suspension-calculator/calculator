@@ -1,9 +1,9 @@
-# VariablesIO/IO_Conversion/driveshaft_IO.py
+# src/suspension/io/IO_Conversion/driveshaft_IO.py
 
 def input_processing_driveshaft():
-    from VariableIO.initialize_IO import inputs
-    from VariableIO.variables import constant,S,x,y,z
-    from Functions.unit_conversion import in2mm, mm2in, kg2lb, lb2kg, kmh2mph, mph2kmh, npmm2lbpin, lbpin2npmm
+    from suspension.io.initialize_IO import inputs
+    from suspension.io.variables import constant,S,x,y,z
+    from suspension.core.functions.unit_conversion import in2mm, mm2in, kg2lb, lb2kg, kmh2mph, mph2kmh, npmm2lbpin, lbpin2npmm
     from math import radians
 
     #degree to rad conversion
@@ -54,9 +54,9 @@ def input_processing_driveshaft():
         
 
 def output_processing_driveshaft():
-    from VariableIO.initialize_IO import outputs
-    from VariableIO.variables import constant,travel,S
-    from Functions.unit_conversion import in2mm, mm2in, kg2lb, lb2kg, kmh2mph, mph2kmh, npmm2lbpin, lbpin2npmm, lb2N
+    from suspension.io.initialize_IO import outputs
+    from suspension.io.variables import constant,travel,S
+    from suspension.core.functions.unit_conversion import in2mm, mm2in, kg2lb, lb2kg, kmh2mph, mph2kmh, npmm2lbpin, lbpin2npmm, lb2N
     from math import pi
 
     outputs.F.T_Case_U_Joint = travel.F.T_case_U_joint_angle_rad*180/pi

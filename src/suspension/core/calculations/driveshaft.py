@@ -1,12 +1,12 @@
-# calculations/driveshaft.py
+# src/suspension/core/calculations/driveshaft.py
 def run_driveshaft():
     from math import acos, sqrt, sin, cos, tan
     import numpy as np
-    from Functions.axle_point_movement import on_axle_movement
-    from Functions.distance_3d import dis3D
+    from suspension.core.functions.axle_point_movement import on_axle_movement
+    from suspension.core.functions.distance_3d import dis3D
 
-    from VariableIO.variables import constant, travel, S, x,y,z
-    from VariableIO.IO_Conversion.driveshaft_IO import input_processing_driveshaft, output_processing_driveshaft
+    from suspension.io.variables import constant, travel, S, x,y,z
+    from suspension.io.IO_Conversion.driveshaft_IO import input_processing_driveshaft, output_processing_driveshaft
 
     input_processing_driveshaft()
 
@@ -106,7 +106,7 @@ def run_driveshaft():
     constant.R.driveshaft_length_delta = constant.R.driveshaft_max_length - constant.R.driveshaft_min_length
 
     #import matplotlib.pyplot as plt
-    #from VariableIO.initialize_IO import inputs,outputs
+    #from suspension.io.initialize_IO import inputs,outputs
     #plt.plot(temp1,temp2)
     #plt.show()
 

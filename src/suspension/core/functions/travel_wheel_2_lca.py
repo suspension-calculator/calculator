@@ -1,4 +1,4 @@
-# Functions/travel_wheel_2_lca.py
+# src/suspension/core/functions/travel_wheel_2_lca.py
 
 def wheel_2_lca(dZ, UA_Xi, UA_Zi, UF_X, UF_Z, LA_Xi, LA_Zi, LF_X, LF_Z, upperLength, lowerLength, sepAxle, sepFrame, wheel_Xi, wheel_Zi):
     # Find LCA Z travel that gives desired wheel Z travel
@@ -15,7 +15,7 @@ def wheel_2_lca(dZ, UA_Xi, UA_Zi, UF_X, UF_Z, LA_Xi, LA_Zi, LF_X, LF_Z, upperLen
     # wheel_*i is the ride wheel center
     #
     # Outputs: dZi is the control arm travel for a wheel center travel of dZ
-    from Functions.link_travel import travel_solve
+    from .link_travel import travel_solve
     from .axle_point_movement import on_axle_movement
     from .pinion_rotation import pinion_angle_change
 

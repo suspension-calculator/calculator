@@ -1,13 +1,13 @@
-# tab_frames/settingsTab.py
+# src/suspension/ui/tabs/settings.py
 
 import tkinter as tk
-from VariableIO.variables import S
-from VariableIO.initialize_IO import *
-from VariableIO.IO_Conversion.convert_all_inputs import unit_change
-from VariableIO.IO_Conversion.x_direction_change import flip_front_x
+from suspension.io.variables import S
+from suspension.io.initialize_IO import *
+from suspension.io.IO_Conversion.convert_all_inputs import unit_change
+from suspension.io.IO_Conversion.x_direction_change import flip_front_x
 from suspension.ui.styles import *
-from VariableIO.save_suspension import save_susp,save_as_susp
-from VariableIO.load_suspension import load_susp
+from suspension.io.save_suspension import save_susp,save_as_susp
+from suspension.io.load_suspension import load_susp
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
@@ -168,9 +168,9 @@ class settingsPage(tk.Frame):
             self.bind("<1>", lambda event: update_outputs())
         
         if True: # Update with option menu change
-            Unit.trace("w", update_outputs)   
-            invert_front.trace("w", update_outputs)  
-            tire_loading.trace("w", update_outputs)      
+            Unit.trace_add("write", update_outputs)   
+            invert_front.trace_add("write", update_outputs)  
+            tire_loading.trace_add("write", update_outputs)      
         
         update_outputs()
 

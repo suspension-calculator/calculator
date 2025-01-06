@@ -1,27 +1,27 @@
-# calculations/shocks.py
+# src/suspension/core/calculations/shocks.py
 
 def run_shocks():
     from math import atan2, pi, sqrt, sin, cos
     import numpy as np
 
 
-    from VariableIO.variables import constant, travel, S, x,y,z
-    from VariableIO.IO_Conversion.shocks_IO import input_processing_shocks, output_processing_shocks
+    from suspension.io.variables import constant, travel, S, x,y,z
+    from suspension.io.IO_Conversion.shocks_IO import input_processing_shocks, output_processing_shocks
 
-    from Functions.distance_2d import dis2D
-    from Functions.distance_3d import dis3D
-    #from Functions.unit_conversion import in2mm, mm2in, kg2lb, lb2kg, kmh2mph, mph2kmh, npmm2lbpin, lbpin2npmm
-    #from Functions.floor_2_zero import floor2zero
-    from Functions.rotation import rotate
-    from Functions.segment_seperation import SegSep
-    from Functions.line_intersection import LineIntersect
-    from Functions.link_travel import travel_solve
-    from Functions.travel_wheel_2_lca import wheel_2_lca
-    from Functions.axle_point_movement import on_axle_movement
-    from Functions.points_angle import point_angle
-    from Functions.line_seperation import LineSeperation
-    #from Functions.Y_equals_0 import ZeroY
-    from Functions.pinion_rotation import pinion_angle_change
+    from suspension.core.functions.distance_2d import dis2D
+    from suspension.core.functions.distance_3d import dis3D
+    #from suspension.core.functions.unit_conversion import in2mm, mm2in, kg2lb, lb2kg, kmh2mph, mph2kmh, npmm2lbpin, lbpin2npmm
+    #from suspension.core.functions.floor_2_zero import floor2zero
+    from suspension.core.functions.rotation import rotate
+    from suspension.core.functions.segment_seperation import SegSep
+    from suspension.core.functions.line_intersection import LineIntersect
+    from suspension.core.functions.link_travel import travel_solve
+    from suspension.core.functions.travel_wheel_2_lca import wheel_2_lca
+    from suspension.core.functions.axle_point_movement import on_axle_movement
+    from suspension.core.functions.points_angle import point_angle
+    from suspension.core.functions.line_seperation import LineSeperation
+    #from suspension.core.functions.Y_equals_0 import ZeroY
+    from suspension.core.functions.pinion_rotation import pinion_angle_change
 
     input_processing_shocks()
 

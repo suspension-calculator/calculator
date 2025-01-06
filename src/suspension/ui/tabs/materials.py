@@ -1,8 +1,8 @@
-# tab_frames/materialsTab.py
+# src/suspension/ui/tabs/materials.py
 
 import tkinter as tk
 from suspension.ui.styles import *
-from VariableIO.material_add import add_material
+from suspension.io.material_add import add_material
 
 class materialsPage(tk.Frame):
     def __init__(self,master):

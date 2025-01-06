@@ -1,4 +1,4 @@
-# Functions/link_travel.py
+# src/suspension/core/functions/link_travel.py
 
 def travel_solve(dZ, UA_Xi, UA_Zi, UF_X, UF_Z, LA_Xi, LA_Zi, LF_X, LF_Z, upperLength, lowerLength, sepAxle, sepFrame):
     # Find axle points for given lower axle Z change
@@ -16,7 +16,7 @@ def travel_solve(dZ, UA_Xi, UA_Zi, UF_X, UF_Z, LA_Xi, LA_Zi, LF_X, LF_Z, upperLe
     # Outputs: Upper Axle X, Upper Axle Z, Lower Axle X, Lower Axle Z
 
     from math import cos, sin, asin, acos, pi
-    from Functions.distance_2d import dis2D
+    from .distance_2d import dis2D
 
 
     LA_Zf = LA_Zi + dZ  # Determine Lower Axle Z

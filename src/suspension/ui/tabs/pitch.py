@@ -1,12 +1,12 @@
-# tab_frames/pitchTab.py
+# src/suspension/ui/tabs/pitch.py
 
 import tkinter as tk
-from VariableIO.variables import constant, S, PS, x,y,z
-from calculations.vehicle_pitch import run_vehicle_pitch
-from VariableIO.initialize_IO import *
+from suspension.io.variables import constant, S, PS, x,y,z
+from suspension.core.calculations.vehicle_pitch import run_vehicle_pitch
+from suspension.io.initialize_IO import *
 from suspension.ui.styles import *
-from VariableIO.save_suspension import save_susp,save_as_susp
-from VariableIO.load_suspension import load_susp
+from suspension.io.save_suspension import save_susp,save_as_susp
+from suspension.io.load_suspension import load_susp
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
@@ -142,7 +142,7 @@ class pitchPage(tk.Frame):
             self.bind("<1>", lambda event: update_outputs())
         
         if True: # Update with option menu change
-            #F_U_solid.trace("w", update_outputs)
+            #F_U_solid.trace_add("write", update_outputs)
             a=1          
         
         update_outputs()

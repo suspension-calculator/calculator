@@ -3,7 +3,7 @@
 def load_materials():
     # This function loads material properties data
     import csv
-    from VariableIO.variables import constant
+    from suspension.io.variables import constant
 
     constant.materials.name = []
     constant.materials.yield_strength = []
@@ -11,7 +11,7 @@ def load_materials():
     constant.materials.density = []
     constant.materials.notes = []
 
-    with open('Lists/materials.txt', mode='r') as csv_file:
+    with open('resources/data/materials.txt', mode='r') as csv_file:
         csv_reader = csv.DictReader(csv_file)
 
         for row in csv_reader:

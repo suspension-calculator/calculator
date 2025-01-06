@@ -4,8 +4,8 @@ def run_link_sizing():
     #------------------------------ Values In -------------------------------------
     from math import pi
 
-    from VariableIO.variables import constant,travel,S,x,y,z
-    from VariableIO.IO_Conversion.link_sizing_IO import input_processing_link_sizing, output_processing_link_sizing
+    from suspension.io.variables import constant,travel,S,x,y,z
+    from suspension.io.IO_Conversion.link_sizing_IO import input_processing_link_sizing, output_processing_link_sizing
 
     input_processing_link_sizing()
 

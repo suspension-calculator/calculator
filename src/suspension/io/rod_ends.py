@@ -3,7 +3,7 @@
 def load_rod_ends():
     # This function loads rod end data
     import csv
-    from VariableIO.variables import constant
+    from suspension.io.variables import constant
 
     constant.rod_ends.name = []
     constant.rod_ends.radial_load = []
@@ -12,7 +12,7 @@ def load_rod_ends():
     constant.rod_ends.shank_diameter = []
     constant.rod_ends.thread = []
 
-    with open('Lists/rod ends.txt', mode='r') as csv_file:
+    with open('resources/data/rod ends.txt', mode='r') as csv_file:
         csv_reader = csv.DictReader(csv_file)
 
         for row in csv_reader:

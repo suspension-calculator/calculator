@@ -1,7 +1,8 @@
 # src/suspension/ui/app.py
 import tkinter as tk
 import matplotlib.pyplot as plt
-from VariableIO.visual_scheme import *  # We'll update this later after we confirm everything works
+from suspension.ui.styles import *  # Using the new styles module instead of visual_scheme
+
 
 class Window(tk.Tk):
     def __init__(self):

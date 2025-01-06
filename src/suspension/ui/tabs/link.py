@@ -1,18 +1,16 @@
-# tab_frames/linkTab.py
+# src/suspension/ui/tabs/link.py
 
 import tkinter as tk
-from VariableIO.variables import constant, S, PS, x,y,z
-from calculations.link_calc import run_link_calc
-from VariableIO.initialize_IO import *
+from suspension.io.variables import (constant, S, PS, x,y,z)
+
+from suspension.core.calculations.link_calc import run_link_calc
+from suspension.io.initialize_IO import *
 from suspension.ui.styles import *
-from VariableIO.save_suspension import save_susp,save_as_susp
-from VariableIO.load_suspension import load_susp
+from suspension.io.save_suspension import save_susp,save_as_susp
+from suspension.io.load_suspension import load_susp
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from math import pi,floor
-
-
-
 
 class linkPage(tk.Frame):
     def __init__(self,master):
@@ -2585,18 +2583,18 @@ class linkPage(tk.Frame):
             self.V_plots.get_tk_widget().bind("<1>", lambda event: update_outputs())
 
         if True: # Update with option menu change
-            F_UL_Count.trace("w", update_outputs)
-            F_P_exist.trace("w", update_outputs)
-            R_UL_Count.trace("w", update_outputs)
-            R_P_exist.trace("w", update_outputs)
-            ps_converge.trace("w", update_outputs)
-            ps_IC_move.trace("w", update_outputs)
-            ps_axle_roll.trace("w", update_outputs)
-            ps_body_roll.trace("w", update_outputs)
-            ps_100_anti.trace("w", update_outputs)
-            ps_ride_anti.trace("w", update_outputs)
-            ps_roll_center.trace("w", update_outputs)
-            ps_ride_IC.trace("w", update_outputs)
+            F_UL_Count.trace_add("write", update_outputs)
+            F_P_exist.trace_add("write", update_outputs)
+            R_UL_Count.trace_add("write", update_outputs)
+            R_P_exist.trace_add("write", update_outputs)
+            ps_converge.trace_add("write", update_outputs)
+            ps_IC_move.trace_add("write", update_outputs)
+            ps_axle_roll.trace_add("write", update_outputs)
+            ps_body_roll.trace_add("write", update_outputs)
+            ps_100_anti.trace_add("write", update_outputs)
+            ps_ride_anti.trace_add("write", update_outputs)
+            ps_roll_center.trace_add("write", update_outputs)
+            ps_ride_IC.trace_add("write", update_outputs)
 
         update_outputs()
 

@@ -1,8 +1,8 @@
 # VariablesIO/IO_Conversion/x_direction_change.py
 
 def flip_front_x():
-    from VariableIO.initialize_IO import inputs
-    from VariableIO.variables import x
+    from suspension.io.initialize_IO import inputs
+    from suspension.io.variables import x
     import numpy as np
     inputs.F.LA[x] = inputs.F.LA[x]*-1
     inputs.F.LF[x] = inputs.F.LF[x]*-1

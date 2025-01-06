@@ -2,8 +2,8 @@
 
 def unit_change():
     import numpy as np
-    from VariableIO.initialize_IO import inputs
-    from VariableIO.variables import S
+    from suspension.io.initialize_IO import inputs
+    from suspension.io.variables import S
     from Functions.unit_conversion import in2mm, mm2in, kg2lb, lb2kg, kmh2mph, mph2kmh, npmm2lbpin, lbpin2npmm
 
     if S.units == 'metric':

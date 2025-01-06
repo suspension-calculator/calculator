@@ -9,5 +9,8 @@ description = "A suspension calculator application"
 requires-python = ">=3.10"
 dependencies = [
     "matplotlib",
-    "tkinter",
 ]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages = {find = {where = ["src"]}}  # Changed this line

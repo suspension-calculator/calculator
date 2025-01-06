@@ -1,4 +1,11 @@
-.PHONY: start build clean dev setup
+.PHONY: start build clean dev setup venv
+
+PYTHON = ./venv/bin/python
+PIP = ./venv/bin/pip
+
+venv:
+	python3.13 -m venv venv
+	$(PIP) install -e .
 
 start:
 	./dist/Calculator/Calculator
@@ -10,7 +17,7 @@ clean:
 	rm -rf build dist *.egg-info __pycache__
 
 dev:
-	python -m src.suspension.main
+	$(PYTHON) -m suspension.main
 
 setup:
-	pip install -e .
+	$(PIP) install -e .

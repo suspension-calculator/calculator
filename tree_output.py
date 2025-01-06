@@ -11,6 +11,7 @@ def get_tree_output(output_file):
              '--charset', 'ascii',  # Use ASCII characters
              '-I', '__pycache__',   # Ignore pycache directories
              '-I', '*.pyc',         # Ignore compiled Python files
+             '-I', 'venv',          # Ignore virtual environment directory
              '--dirsfirst'          # List directories first
             ],
             capture_output=True,

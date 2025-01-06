@@ -1,15 +1,15 @@
 # VariablesIO/load_suspension.py
 
 def load_susp():
-    from VariableIO.variables import S,x,y,z
-    from VariableIO.initialize_IO import inputs
+    from suspension.io.variables import S,x,y,z
+    from suspension.io.initialize_IO import inputs
     from calculations.link_calc import run_link_calc
     from calculations.link_sizing import run_link_sizing
     from calculations.driveshaft import run_driveshaft
     from calculations.shocks import run_shocks
     from calculations.vehicle_pitch import run_vehicle_pitch
-    from VariableIO.material_add import add_material
-    from VariableIO.rod_end_add import add_rod_end
+    from suspension.io.material_add import add_material
+    from suspension.io.rod_end_add import add_rod_end
     import csv
     from tkinter import filedialog
     import tkinter as tk

@@ -1,8 +1,8 @@
-# tab_frames/rodEndTab.py
+# src/suspension/ui/tabs/rod_end.py
 
 import tkinter as tk
 from suspension.ui.styles import *
-from VariableIO.rod_end_add import add_rod_end
+from suspension.io.rod_end_add import add_rod_end
 
 class rodEndsPage(tk.Frame):
     def __init__(self,master):

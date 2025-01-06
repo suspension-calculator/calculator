@@ -1,9 +1,9 @@
-# VariablesIO/IO_Conversion/link_sizing_IO.py
+# src/suspension/io/IO_Conversion/link_sizing_IO.py
 
 def input_processing_link_sizing():
-    from VariableIO.initialize_IO import inputs
-    from VariableIO.variables import constant,S
-    from Functions.unit_conversion import in2mm, mm2in, kg2lb, lb2kg, kmh2mph, mph2kmh, npmm2lbpin, lbpin2npmm
+    from suspension.io.initialize_IO import inputs
+    from suspension.io.variables import constant,S
+    from suspension.core.functions.unit_conversion import in2mm, mm2in, kg2lb, lb2kg, kmh2mph, mph2kmh, npmm2lbpin, lbpin2npmm
     from math import radians
 
     #degree to rad conversion
@@ -79,9 +79,9 @@ def input_processing_link_sizing():
         a=1
 
 def output_processing_link_sizing():
-    from VariableIO.initialize_IO import outputs
-    from VariableIO.variables import constant,S
-    from Functions.unit_conversion import in2mm, mm2in, kg2lb, lb2kg, kmh2mph, mph2kmh, npmm2lbpin, lbpin2npmm, lb2N
+    from suspension.io.initialize_IO import outputs
+    from suspension.io.variables import constant,S
+    from suspension.core.functions.unit_conversion import in2mm, mm2in, kg2lb, lb2kg, kmh2mph, mph2kmh, npmm2lbpin, lbpin2npmm, lb2N
     from math import degrees
 
     outputs.F.U_Thread = constant.sizing.RE_thread[0]

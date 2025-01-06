@@ -1,12 +1,12 @@
-# tab_frames/sizingTab.py
+# src/suspension/ui/tabs/sizing.py
 
 import tkinter as tk
-from VariableIO.variables import constant, S, PS, x,y,z
-from calculations.link_sizing import run_link_sizing
-from VariableIO.initialize_IO import *
+from suspension.io.variables import constant, S, PS, x,y,z
+from suspension.core.calculations.link_sizing import run_link_sizing
+from suspension.io.initialize_IO import *
 from suspension.ui.styles import *
-from VariableIO.save_suspension import save_susp,save_as_susp
-from VariableIO.load_suspension import load_susp
+from suspension.io.save_suspension import save_susp,save_as_susp
+from suspension.io.load_suspension import load_susp
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from math import pi
@@ -2099,24 +2099,24 @@ class sizingPage(tk.Frame):
             rear_panhard.bind("<1>", lambda event: update_outputs())
 
         if True: # Update with option menu change
-            F_U_solid.trace("w", update_outputs)
-            F_L_solid.trace("w", update_outputs)
-            F_P_solid.trace("w", update_outputs)
-            F_U_material.trace("w", update_outputs)
-            F_L_material.trace("w", update_outputs)
-            F_P_material.trace("w", update_outputs)
-            F_U_RE.trace("w", update_outputs)
-            F_L_RE.trace("w", update_outputs)
-            F_P_RE.trace("w", update_outputs)
-            R_U_solid.trace("w", update_outputs)
-            R_L_solid.trace("w", update_outputs)
-            R_P_solid.trace("w", update_outputs)
-            R_U_material.trace("w", update_outputs)
-            R_L_material.trace("w", update_outputs)
-            R_P_material.trace("w", update_outputs)
-            R_U_RE.trace("w", update_outputs)
-            R_L_RE.trace("w", update_outputs)
-            R_P_RE.trace("w", update_outputs)
+            F_U_solid.trace_add("write", update_outputs)
+            F_L_solid.trace_add("write", update_outputs)
+            F_P_solid.trace_add("write", update_outputs)
+            F_U_material.trace_add("write", update_outputs)
+            F_L_material.trace_add("write", update_outputs)
+            F_P_material.trace_add("write", update_outputs)
+            F_U_RE.trace_add("write", update_outputs)
+            F_L_RE.trace_add("write", update_outputs)
+            F_P_RE.trace_add("write", update_outputs)
+            R_U_solid.trace_add("write", update_outputs)
+            R_L_solid.trace_add("write", update_outputs)
+            R_P_solid.trace_add("write", update_outputs)
+            R_U_material.trace_add("write", update_outputs)
+            R_L_material.trace_add("write", update_outputs)
+            R_P_material.trace_add("write", update_outputs)
+            R_U_RE.trace_add("write", update_outputs)
+            R_L_RE.trace_add("write", update_outputs)
+            R_P_RE.trace_add("write", update_outputs)
 
         update_outputs()
 

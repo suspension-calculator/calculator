@@ -1,9 +1,9 @@
-# VariablesIO/IO_Conversion/link_sizing_IO.py
+# src/suspension/io/IO_Conversion/link_sizing_IO.py
 
 def input_processing_shocks():
-    from VariableIO.initialize_IO import inputs
-    from VariableIO.variables import constant,S, x,y,z
-    from Functions.unit_conversion import in2mm, mm2in, kg2lb, lb2kg, kmh2mph, mph2kmh, npmm2lbpin, lbpin2npmm
+    from suspension.io.initialize_IO import inputs
+    from suspension.io.variables import constant,S, x,y,z
+    from suspension.core.functions.unit_conversion import in2mm, mm2in, kg2lb, lb2kg, kmh2mph, mph2kmh, npmm2lbpin, lbpin2npmm
     from math import radians
 
     #degree to rad conversion
@@ -98,9 +98,9 @@ def input_processing_shocks():
 
 
 def output_processing_shocks():
-    from VariableIO.initialize_IO import outputs
-    from VariableIO.variables import constant,travel,S
-    from Functions.unit_conversion import in2mm, mm2in, kg2lb, lb2kg, kmh2mph, mph2kmh, npmm2lbpin, lbpin2npmm, lb2N
+    from suspension.io.initialize_IO import outputs
+    from suspension.io.variables import constant,travel,S
+    from suspension.core.functions.unit_conversion import in2mm, mm2in, kg2lb, lb2kg, kmh2mph, mph2kmh, npmm2lbpin, lbpin2npmm, lb2N
 
     outputs.F.Percent_Up_Travel = constant.F.percent_up_remaining*1
     outputs.F.Shock1.Percent_Bump_Remaining = constant.F.shock1.percent_bump_reminaing*1

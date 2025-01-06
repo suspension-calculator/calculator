@@ -1,27 +1,32 @@
 # src/suspension/main.py
+
+# UI Imports
 from suspension.ui.app import Window
-from VariableIO.visual_scheme import *  # Keep old import for now
+from suspension.ui.styles import *
 
-from tab_frames.linkTab import linkPage
-from tab_frames.sizingTab import sizingPage
-from tab_frames.driveshaftTab import driveshaftPage
-from tab_frames.shockTab import shockPage
-from tab_frames.pitchTab import pitchPage
-from tab_frames.settingsTab import settingsPage
-from tab_frames.aboutTab import aboutPage
-from tab_frames.rodEndTab import rodEndsPage
-from tab_frames.materialsTab import materialsPage
+# Tab Imports
+from suspension.ui.tabs.link import linkPage
+from suspension.ui.tabs.sizing import sizingPage
+from suspension.ui.tabs.driveshaft import driveshaftPage
+from suspension.ui.tabs.shock import shockPage
+from suspension.ui.tabs.pitch import pitchPage
+from suspension.ui.tabs.settings import settingsPage
+from suspension.ui.tabs.about import aboutPage
+from suspension.ui.tabs.rod_end import rodEndsPage
+from suspension.ui.tabs.materials import materialsPage
 
-from calculations.link_calc import run_link_calc
-from calculations.link_sizing import run_link_sizing
-from calculations.driveshaft import run_driveshaft
-from calculations.shocks import run_shocks
-from calculations.vehicle_pitch import run_vehicle_pitch
+# Calculation Imports
+from suspension.core.calculations.link_calc import run_link_calc
+from suspension.core.calculations.link_sizing import run_link_sizing
+from suspension.core.calculations.driveshaft import run_driveshaft
+from suspension.core.calculations.shocks import run_shocks
+from suspension.core.calculations.vehicle_pitch import run_vehicle_pitch
 
-from VariableIO.materials import load_materials
-from VariableIO.rod_ends import load_rod_ends
-from VariableIO.springs import load_spring_rates
-from VariableIO.save_suspension import save_susp
+# IO Imports
+from suspension.io.materials import load_materials
+from suspension.io.rod_ends import load_rod_ends
+from suspension.io.springs import load_spring_rates
+from suspension.io.save_suspension import save_susp
 
 # Initialize data
 load_materials()

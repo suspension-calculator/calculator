@@ -2,9 +2,9 @@
 
 def load_spring_rates():
     import csv
-    from VariableIO.variables import constant
+    from suspension.io.variables import constant
 
-    with open('Lists/springs.txt', mode='r') as csv_file:
+    with open('resources/data/springs.txt', mode='r') as csv_file:
         csv_reader = csv.reader(csv_file)
         next(csv_reader)
         for row in csv_reader:

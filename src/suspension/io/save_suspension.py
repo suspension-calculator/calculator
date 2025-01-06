@@ -1,7 +1,7 @@
 # VariablesIO/save_suspension.py
 
 def save_susp():
-    from VariableIO.variables import S
+    from suspension.io.variables import S
     if S.file_mame == '':
         from tkinter import filedialog
         from pathlib import Path
@@ -15,7 +15,7 @@ def save_susp():
             f.write(save_susp_string())
 
 def save_as_susp():
-    from VariableIO.variables import S
+    from suspension.io.variables import S
     from tkinter import filedialog
     from pathlib import Path
     S.file_mame = str(filedialog.asksaveasfile(initialdir = Path.cwd(),defaultextension=".txt",filetypes=(("text files","*.txt"),("all files","*.*"))))
@@ -25,8 +25,8 @@ def save_as_susp():
 
 def save_susp_string():
     import numpy as np
-    from VariableIO.variables import constant,S,x,y,z
-    from VariableIO.initialize_IO import inputs
+    from suspension.io.variables import constant,S,x,y,z
+    from suspension.io.initialize_IO import inputs
     line = 'units,{}'.format(S.units)
     output = line
     line = '\nreversed front x,{}'.format(S.reversed_front_x)

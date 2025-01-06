@@ -1,25 +1,25 @@
-# calculations/vehicle_pitch.py
+# src/suspension/core/calculations/vehicle_pitch.py
 
 def run_vehicle_pitch():
     from math import sqrt, cos, atan2, sin
     import numpy as np
 
-    from VariableIO.variables import constant, travel, S, x,y,z
-    from VariableIO.IO_Conversion.vehicle_pitch_IO import input_processing_vehicle_pitch, output_processing_vehicle_pitch
+    from suspension.io.variables import constant, travel, S, x,y,z
+    from suspension.io.IO_Conversion.vehicle_pitch_IO import input_processing_vehicle_pitch, output_processing_vehicle_pitch
 
-    from Functions.distance_2d import dis2D
-    from Functions.distance_3d import dis3D
-    #from Functions.unit_conversion import in2mm, mm2in, kg2lb, lb2kg, kmh2mph, mph2kmh, npmm2lbpin, lbpin2npmm
-    #from Functions.floor_2_zero import floor2zero
-    from Functions.rotation import rotate
-    #from Functions.segment_seperation import SegSep
-    from Functions.line_intersection import LineIntersect
-    from Functions.link_travel import travel_solve
-    from Functions.rotation import rotate
-    from Functions.travel_wheel_2_lca import wheel_2_lca
-    from Functions.axle_point_movement import on_axle_movement
-    from Functions.Y_equals_0 import ZeroY
-    from Functions.pinion_rotation import pinion_angle_change
+    from ..functions.distance_2d import dis2D
+    from  ..functions.distance_3d import dis3D
+    #from  ..functions.unit_conversion import in2mm, mm2in, kg2lb, lb2kg, kmh2mph, mph2kmh, npmm2lbpin, lbpin2npmm
+    #from  ..functions.floor_2_zero import floor2zero
+    from  ..functions.rotation import rotate
+    #from  ..functions.segment_seperation import SegSep
+    from  ..functions.line_intersection import LineIntersect
+    from  ..functions.link_travel import travel_solve
+    from  ..functions.rotation import rotate
+    from  ..functions.travel_wheel_2_lca import wheel_2_lca
+    from  ..functions.axle_point_movement import on_axle_movement
+    from  ..functions.Y_equals_0 import ZeroY
+    from  ..functions.pinion_rotation import pinion_angle_change
 
     input_processing_vehicle_pitch()
 

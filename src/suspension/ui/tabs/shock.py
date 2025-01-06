@@ -1,12 +1,12 @@
-# tab_frames/shockTab.py
+# src/suspension/ui/tabs/shock.py
 
 import tkinter as tk
-from VariableIO.variables import constant, S, PS, x,y,z
-from calculations.shocks import run_shocks
-from VariableIO.initialize_IO import *
+from suspension.io.variables import constant, S, PS, x,y,z
+from suspension.core.calculations.shocks import run_shocks
+from suspension.io.initialize_IO import *
 from suspension.ui.styles import *
-from VariableIO.save_suspension import save_susp,save_as_susp
-from VariableIO.load_suspension import load_susp
+from suspension.io.save_suspension import save_susp,save_as_susp
+from suspension.io.load_suspension import load_susp
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
@@ -123,7 +123,7 @@ class shockPage(tk.Frame):
             self.bind("<1>", lambda event: update_outputs())
         
         if True: # Update with option menu change
-            #F_U_solid.trace("w", update_outputs)
+            #F_U_solid.trace_add("write", update_outputs)
             a=1          
         
         update_outputs()

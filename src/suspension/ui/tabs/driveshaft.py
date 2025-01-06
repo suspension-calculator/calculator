@@ -1,12 +1,12 @@
-# tab_frames/driveshaftTab.py
+# src/suspension/ui/tabs/driveshaft.py
 
 import tkinter as tk
-from VariableIO.variables import constant, S, PS, x,y,z
-from calculations.driveshaft import run_driveshaft
-from VariableIO.initialize_IO import *
+from suspension.io.variables import constant, S, PS, x,y,z
+from suspension.core.calculations.driveshaft import run_driveshaft
+from suspension.io.initialize_IO import *
 from suspension.ui.styles import *
-from VariableIO.save_suspension import save_susp,save_as_susp
-from VariableIO.load_suspension import load_susp
+from suspension.io.save_suspension import save_susp,save_as_susp
+from suspension.io.load_suspension import load_susp
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
@@ -873,8 +873,8 @@ class driveshaftPage(tk.Frame):
             self.bind("<1>", lambda event: update_outputs())
         
         if True: # Update with option menu change
-            F_method.trace("w", update_outputs)
-            R_method.trace("w", update_outputs)
+            F_method.trace_add("write", update_outputs)
+            R_method.trace_add("write", update_outputs)
         
         update_outputs()
 
