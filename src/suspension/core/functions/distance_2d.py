@@ -1,4 +1,4 @@
-# Functions/distance_2d.py
+# src/suspension/core/functions/distance_2d.py
 
 def dis2D(x1,y1,x2,y2):
     # Distance between 2 points in 2D space

@@ -1,4 +1,4 @@
-# Functions/segment_seperation.py
+# src/suspension/core/functions/segment_seperation.py
 
 def SegSep(x1, y1, z1, x2, y2, z2, x3, y3, z3, x4, y4, z4):
     # Find distance minimum distance between two line segments in 3D space

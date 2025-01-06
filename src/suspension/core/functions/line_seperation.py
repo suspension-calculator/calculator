@@ -1,4 +1,4 @@
-# Functions/line_seperation.py
+# src/suspension/core/functions/line_seperation.py
 
 def LineSeperation(x1, y1, z1, x2, y2, z2, x3, y3, z3, x4, y4, z4):
     # Smallest distance between two infinite length lines in 3D space that are defined by 2 points per line

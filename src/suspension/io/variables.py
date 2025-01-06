@@ -1,4 +1,4 @@
-# VariablesIO/variables.py
+# src/suspension/io/variables.py
 
 x = 0
 y = 1

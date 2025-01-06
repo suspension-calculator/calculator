@@ -1,4 +1,4 @@
-# VariablesIO/material_add.py
+# src/suspension/io/material_add.py
 
 def add_material(name,yield_strength,modulus_elasticity,density,notes):
     from suspension.io.materials import load_materials

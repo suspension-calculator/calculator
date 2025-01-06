@@ -1,4 +1,4 @@
-# calculations/link_sizing.py
+# src/suspension/core/calculations/link_sizing.py
 
 def run_link_sizing():
     #------------------------------ Values In -------------------------------------

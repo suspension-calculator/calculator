@@ -1,4 +1,4 @@
-# VariablesIO/materials.py
+# src/suspension/io/materials.py
 
 def load_materials():
     # This function loads material properties data

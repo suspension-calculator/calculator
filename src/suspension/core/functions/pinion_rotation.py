@@ -1,4 +1,4 @@
-# Functions/pinion_rotation.py
+# src/suspension/core/functions/pinion_rotation.py
 
 def pinion_angle_change(UA_Xi, UA_Zi, UA_Xf, UA_Zf, LA_Xi, LA_Zi, LA_Xf, LA_Zf):
     # Find pinion angle change

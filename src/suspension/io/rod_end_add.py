@@ -1,4 +1,4 @@
-# VariablesIO/rod_end_add.py
+# src/suspension/io/rod_end_add.py
 
 def add_rod_end(name,radial_load,weight,hole_diameter,shank_diameter,thread):
     from suspension.io.rod_ends import load_rod_ends

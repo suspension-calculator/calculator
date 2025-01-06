@@ -1,4 +1,4 @@
-# Functions/line_intersection.py
+# src/suspension/core/functions/line_intersection.py
 
 def LineIntersect(x1,y1,x2,y2,x3,y3,x4,y4):
     # Find intersection of 2 lines in 2D

@@ -1,4 +1,4 @@
-# VariablesIO/load_suspension.py
+# src/suspension/io/load_suspension.py
 
 def load_susp():
     from suspension.io.variables import S,x,y,z

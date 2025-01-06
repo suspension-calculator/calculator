@@ -1,4 +1,4 @@
-# VariablesIO/save_suspension.py
+# src/suspension/io/save_suspension.py
 
 def save_susp():
     from suspension.io.variables import S

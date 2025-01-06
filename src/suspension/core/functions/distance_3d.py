@@ -1,4 +1,4 @@
-# Functions/distance_3d.py
+# src/suspension/core/functions/distance_3d.py
 
 def dis3D(x1,y1,z1,x2,y2,z2):
     # Distance betwwen 2 points in 3D space

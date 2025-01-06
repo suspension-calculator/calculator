@@ -1,4 +1,4 @@
-# Functions/rotation.py
+# src/suspension/core/functions/rotation.py
 
 def rotate(xo,yo,xi,yi,theta):
     # Rotation of point i about o by angle theta (radians) in 2D space

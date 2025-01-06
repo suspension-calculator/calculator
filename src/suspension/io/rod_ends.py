@@ -1,4 +1,4 @@
-# VariablesIO/rod_ends.py
+# src/suspension/io/rod_ends.py
 
 def load_rod_ends():
     # This function loads rod end data

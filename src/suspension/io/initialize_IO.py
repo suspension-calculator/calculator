@@ -1,4 +1,4 @@
-# VariablesIO/initialize_IO.py
+# src/suspension/io/initialize_IO.py
 
 import numpy as np
 class inputs:
