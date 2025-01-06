@@ -3,11 +3,11 @@
 def load_susp():
     from suspension.io.variables import S,x,y,z
     from suspension.io.initialize_IO import inputs
-    from calculations.link_calc import run_link_calc
-    from calculations.link_sizing import run_link_sizing
-    from calculations.driveshaft import run_driveshaft
-    from calculations.shocks import run_shocks
-    from calculations.vehicle_pitch import run_vehicle_pitch
+    from suspension.core.calculations.link_calc import run_link_calc
+    from suspension.core.calculations.link_sizing import run_link_sizing
+    from suspension.core.calculations.driveshaft import run_driveshaft
+    from suspension.core.calculations.shocks import run_shocks
+    from suspension.core.calculations.vehicle_pitch import run_vehicle_pitch
     from suspension.io.material_add import add_material
     from suspension.io.rod_end_add import add_rod_end
     import csv
