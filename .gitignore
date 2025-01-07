@@ -115,3 +115,6 @@ venv/
 
 # Matplotlib temporary files
 .matplotlib/
+
+# coverage files
+htmlcov/
