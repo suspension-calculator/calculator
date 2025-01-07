@@ -1,5 +1,6 @@
 # src/suspension/io/materials.py
 
+
 def load_materials():
     # This function loads material properties data
     import csv
@@ -11,12 +12,16 @@ def load_materials():
     constant.materials.density = []
     constant.materials.notes = []
 
-    with open('resources/data/materials.txt', mode='r') as csv_file:
+    with open("resources/data/materials.txt", mode="r") as csv_file:
         csv_reader = csv.DictReader(csv_file)
 
         for row in csv_reader:
             constant.materials.name.append(row[csv_reader.fieldnames[0]])
-            constant.materials.modulus_elasticity.append(float(row[csv_reader.fieldnames[1]]))
-            constant.materials.yield_strength.append(float(row[csv_reader.fieldnames[2]]))
+            constant.materials.modulus_elasticity.append(
+                float(row[csv_reader.fieldnames[1]])
+            )
+            constant.materials.yield_strength.append(
+                float(row[csv_reader.fieldnames[2]])
+            )
             constant.materials.density.append(float(row[csv_reader.fieldnames[3]]))
             constant.materials.notes.append(row[csv_reader.fieldnames[4]])

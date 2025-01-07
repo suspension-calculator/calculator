@@ -1,5 +1,6 @@
 # src/suspension/core/functions/pinion_rotation.py
 
+
 def pinion_angle_change(UA_Xi, UA_Zi, UA_Xf, UA_Zf, LA_Xi, LA_Zi, LA_Xf, LA_Zf):
     # Find pinion angle change
     #
@@ -13,6 +14,10 @@ def pinion_angle_change(UA_Xi, UA_Zi, UA_Xf, UA_Zf, LA_Xi, LA_Zi, LA_Xf, LA_Zf):
 
     from math import atan2
 
-    ride_angle = atan2((UA_Zi-LA_Zi),(UA_Xi-LA_Xi)) # Angle of line between upper and lower axle points and horizontal at ride
-    travel_angle = atan2((UA_Zf-LA_Zf),(UA_Xf-LA_Xf)) # Angle of line between upper and lower axle points and horizontal at travel
-    return(travel_angle - ride_angle) # diffenece in angle mount point lines slopes
+    ride_angle = atan2(
+        (UA_Zi - LA_Zi), (UA_Xi - LA_Xi)
+    )  # Angle of line between upper and lower axle points and horizontal at ride
+    travel_angle = atan2(
+        (UA_Zf - LA_Zf), (UA_Xf - LA_Xf)
+    )  # Angle of line between upper and lower axle points and horizontal at travel
+    return travel_angle - ride_angle  # diffenece in angle mount point lines slopes

@@ -46,15 +46,17 @@ tabs = {
     "pitch": pitchPage,
     "settings": settingsPage,
     "about": aboutPage,
-    "rodEnds":rodEndsPage,
-    "materials":materialsPage
+    "rodEnds": rodEndsPage,
+    "materials": materialsPage,
 }
+
 
 def main():
     app = Window()
-    app.tk.call('tk','scaling',app.winfo_screenwidth()/2560)
+    app.tk.call("tk", "scaling", app.winfo_screenwidth() / 2560)
     app.bind("<Control-s>", lambda event: save_susp())
     app.mainloop()
+
 
 if __name__ == "__main__":
     main()

@@ -1,12 +1,21 @@
 # src/suspension/io/IO_Conversion/convert_all_inputs.py
 
+
 def unit_change():
-    import numpy as np
     from suspension.io.initialize_IO import inputs
     from suspension.io.variables import S
-    from Functions.unit_conversion import in2mm, mm2in, kg2lb, lb2kg, kmh2mph, mph2kmh, npmm2lbpin, lbpin2npmm
+    from Functions.unit_conversion import (
+        in2mm,
+        mm2in,
+        kg2lb,
+        lb2kg,
+        kmh2mph,
+        mph2kmh,
+        npmm2lbpin,
+        lbpin2npmm,
+    )
 
-    if S.units == 'metric':
+    if S.units == "metric":
         S.position_units = "mm"
         S.mass_units = "kg"
         S.speed_units = "kph"
@@ -25,7 +34,7 @@ def unit_change():
 
         inputs.F.bump = in2mm(inputs.F.bump)
         inputs.F.droop = in2mm(inputs.F.droop)
-        
+
         inputs.F.tire_radius = in2mm(inputs.F.tire_radius)
         inputs.F.tire_diameter = in2mm(inputs.F.tire_diameter)
         inputs.F.tire_width = in2mm(inputs.F.tire_width)
@@ -63,7 +72,7 @@ def unit_change():
         inputs.F.shock2.susp_mount = in2mm(inputs.F.shock2.susp_mount)
         inputs.F.shock2.length_extended = in2mm(inputs.F.shock2.length_extended)
         inputs.F.shock2.length_compressed = in2mm(inputs.F.shock2.length_compressed)
-        
+
         # Pitch
         inputs.F.pitch_travel = in2mm(inputs.F.pitch_travel)
 
@@ -79,7 +88,7 @@ def unit_change():
 
         inputs.R.bump = in2mm(inputs.R.bump)
         inputs.R.droop = in2mm(inputs.R.droop)
-        
+
         inputs.R.tire_radius = in2mm(inputs.R.tire_radius)
         inputs.R.tire_diameter = in2mm(inputs.R.tire_diameter)
         inputs.R.tire_width = in2mm(inputs.R.tire_width)
@@ -136,7 +145,7 @@ def unit_change():
         S.density_units = "lbs/in^3"
         S.force_units = "lbs"
 
-    ############ Front
+        ############ Front
         # Link Geometry
         inputs.F.LA = mm2in(inputs.F.LA)
         inputs.F.LF = mm2in(inputs.F.LF)
@@ -147,7 +156,7 @@ def unit_change():
 
         inputs.F.bump = mm2in(inputs.F.bump)
         inputs.F.droop = mm2in(inputs.F.droop)
-        
+
         inputs.F.tire_radius = mm2in(inputs.F.tire_radius)
         inputs.F.tire_diameter = mm2in(inputs.F.tire_diameter)
         inputs.F.tire_width = mm2in(inputs.F.tire_width)
@@ -185,7 +194,7 @@ def unit_change():
         inputs.F.shock2.susp_mount = mm2in(inputs.F.shock2.susp_mount)
         inputs.F.shock2.length_extended = mm2in(inputs.F.shock2.length_extended)
         inputs.F.shock2.length_compressed = mm2in(inputs.F.shock2.length_compressed)
-        
+
         # Pitch
         inputs.F.pitch_travel = mm2in(inputs.F.pitch_travel)
 
@@ -201,11 +210,11 @@ def unit_change():
 
         inputs.R.bump = mm2in(inputs.R.bump)
         inputs.R.droop = mm2in(inputs.R.droop)
-        
+
         inputs.R.tire_radius = mm2in(inputs.R.tire_radius)
         inputs.R.tire_diameter = mm2in(inputs.R.tire_diameter)
         inputs.R.tire_width = mm2in(inputs.R.tire_width)
-        inputs.R.portal_height=mm2in(inputs.R.portal_height)
+        inputs.R.portal_height = mm2in(inputs.R.portal_height)
         inputs.R.track_width = mm2in(inputs.R.track_width)
         inputs.R.axle_tube = mm2in(inputs.R.axle_tube)
 

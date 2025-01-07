@@ -1,5 +1,6 @@
 # src/suspension/core/functions/segment_seperation.py
 
+
 def SegSep(x1, y1, z1, x2, y2, z2, x3, y3, z3, x4, y4, z4):
     # Find distance minimum distance between two line segments in 3D space
     # Credit goes to https://math.stackexchange.com/questions/846054/closest-points-on-two-line-segments
@@ -10,16 +11,16 @@ def SegSep(x1, y1, z1, x2, y2, z2, x3, y3, z3, x4, y4, z4):
 
     from .distance_3d import dis3D
 
-    R1 = (x2 - x1) ** 2 + (y2 - y1) ** 2 + (z2 - z1) ** 2 # Find R1^2
-    R2 = (x4 - x3) ** 2 + (y4 - y3) ** 2 + (z4 - z3) ** 2 # Find R2^2
+    R1 = (x2 - x1) ** 2 + (y2 - y1) ** 2 + (z2 - z1) ** 2  # Find R1^2
+    R2 = (x4 - x3) ** 2 + (y4 - y3) ** 2 + (z4 - z3) ** 2  # Find R2^2
     D4321 = (x4 - x3) * (x2 - x1) + (y4 - y3) * (y2 - y1) + (z4 - z3) * (z2 - z1)
     D3121 = (x3 - x1) * (x2 - x1) + (y3 - y1) * (y2 - y1) + (z3 - z1) * (z2 - z1)
     D4331 = (x4 - x3) * (x3 - x1) + (y4 - y3) * (y3 - y1) + (z4 - z3) * (z3 - z1)
 
-    s = (D4321 * D4331 - D3121 * R2) / (D4321 ** 2-R1 * R2);
-    t = (D4331 * R1 - D4321 * D3121) / (D4321 ** 2-R1 * R2);
+    s = (D4321 * D4331 - D3121 * R2) / (D4321**2 - R1 * R2)
+    t = (D4331 * R1 - D4321 * D3121) / (D4321**2 - R1 * R2)
 
-    if 0 <= s <= 1 or 0 <= t <= 1: # Closest distance is on both line segments
+    if 0 <= s <= 1 or 0 <= t <= 1:  # Closest distance is on both line segments
         # Find closest points
         x5 = x1 + s * (x2 - x1)
         y5 = y1 + s * (y2 - y1)
@@ -28,9 +29,9 @@ def SegSep(x1, y1, z1, x2, y2, z2, x3, y3, z3, x4, y4, z4):
         y6 = y3 + t * (y4 - y3)
         z6 = z3 + t * (z4 - z3)
         # Calculate Distance
-        out = dis3D(x5,y5,z5,x6,y6,z6)
+        out = dis3D(x5, y5, z5, x6, y6, z6)
 
-    else: # Closeest distance is not on one of the line segments
+    else:  # Closeest distance is not on one of the line segments
 
         D4121 = (x4 - x1) * (x2 - x1) + (y4 - y1) * (y2 - y1) + (z4 - z1) * (z2 - z1)
         D4332 = (x4 - x3) * (x3 - x1) + (y4 - y3) * (y3 - y1) + (z4 - z3) * (z3 - z1)
@@ -79,12 +80,12 @@ def SegSep(x1, y1, z1, x2, y2, z2, x3, y3, z3, x4, y4, z4):
         z45 = z1 + s4 * (z2 - z1)
 
         # Calculate distances from endpoints to closest point on line
-        D1 = dis3D(x16,y16,z16,x1,y1,z1)
-        D2 = dis3D(x26,y26,z26,x2,y2,z2)
-        D3 = dis3D(x3,y3,z3,x35,y35,z35)
-        D4 = dis3D(x4,y4,z4,x45,y45,z45)
+        D1 = dis3D(x16, y16, z16, x1, y1, z1)
+        D2 = dis3D(x26, y26, z26, x2, y2, z2)
+        D3 = dis3D(x3, y3, z3, x35, y35, z35)
+        D4 = dis3D(x4, y4, z4, x45, y45, z45)
 
         # Find closest of the 4 combinations
         out = min(D1, D2, D3, D4)
 
-    return(out)
+    return out

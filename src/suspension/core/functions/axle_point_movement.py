@@ -12,10 +12,12 @@ def on_axle_movement(hub_Xi, hub_Zi, LA_Xi, LA_Zi, LA_Xf, LA_Zf, angle):
 
     from .rotation import rotate
 
-    LA_Xt = LA_Xf-LA_Xi # Difference in X between LA ride and travel
-    LA_Zt = LA_Zf-LA_Zi # Difference in Z between LA ride and travel
-    [hub_Xr,hub_Zr] = rotate(LA_Xi,LA_Zi,hub_Xi,hub_Zi,angle) # rotate wheel hub about LA at ride
-    hub_Xf = hub_Xr+LA_Xt # move from ride LA to travel LA
-    hub_Zf = hub_Zr+LA_Zt # move from ride LA to travel LA
+    LA_Xt = LA_Xf - LA_Xi  # Difference in X between LA ride and travel
+    LA_Zt = LA_Zf - LA_Zi  # Difference in Z between LA ride and travel
+    [hub_Xr, hub_Zr] = rotate(
+        LA_Xi, LA_Zi, hub_Xi, hub_Zi, angle
+    )  # rotate wheel hub about LA at ride
+    hub_Xf = hub_Xr + LA_Xt  # move from ride LA to travel LA
+    hub_Zf = hub_Zr + LA_Zt  # move from ride LA to travel LA
 
-    return hub_Xf,hub_Zf
+    return hub_Xf, hub_Zf

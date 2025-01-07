@@ -1,12 +1,14 @@
 # src/suspension/io/IO_Conversion/link_sizing_IO.py
 
+
 def input_processing_link_sizing():
     from suspension.io.initialize_IO import inputs
-    from suspension.io.variables import constant,S
-    from suspension.core.functions.unit_conversion import in2mm, mm2in, kg2lb, lb2kg, kmh2mph, mph2kmh, npmm2lbpin, lbpin2npmm
-    from math import radians
+    from suspension.io.variables import constant, S
+    from suspension.core.functions.unit_conversion import (
+        mm2in,
+    )
 
-    #degree to rad conversion
+    # degree to rad conversion
 
     constant.F.U_solid = inputs.F.U_solid
     constant.F.L_solid = inputs.F.L_solid
@@ -32,13 +34,13 @@ def input_processing_link_sizing():
     constant.R.L_rod_end = inputs.R.L_rod_end
     constant.R.P_rod_end = inputs.R.P_rod_end
 
-    constant.V.Desired_FS_Yield = inputs.V.Desired_FS_Yield*1
-    constant.V.Desired_FS_Buckling = inputs.V.Desired_FS_Buckling*1
-    constant.V.Desired_FS_Bending = inputs.V.Desired_FS_Bending*1
-    constant.V.Desired_FS_RE = inputs.V.Desired_FS_RE*1
-    constant.V.Desired_FS_Dent = inputs.V.Desired_FS_Dent*1
+    constant.V.Desired_FS_Yield = inputs.V.Desired_FS_Yield * 1
+    constant.V.Desired_FS_Buckling = inputs.V.Desired_FS_Buckling * 1
+    constant.V.Desired_FS_Bending = inputs.V.Desired_FS_Bending * 1
+    constant.V.Desired_FS_RE = inputs.V.Desired_FS_RE * 1
+    constant.V.Desired_FS_Dent = inputs.V.Desired_FS_Dent * 1
 
-    if S.units == 'metric':
+    if S.units == "metric":
         # if metric convert all inputs to sae and set variables
 
         constant.F.U_OD = mm2in(inputs.F.U_OD)
@@ -60,29 +62,30 @@ def input_processing_link_sizing():
         constant.R.L_wall = mm2in(inputs.R.L_wall)
         constant.R.P_wall = mm2in(inputs.R.P_wall)
 
-
     else:
         # set variables
-        constant.F.U_OD = inputs.F.U_OD*1
-        constant.F.L_OD = inputs.F.L_OD*1
-        constant.F.P_OD = inputs.F.P_OD*1
-        constant.F.U_wall = inputs.F.U_wall*1
-        constant.F.L_wall = inputs.F.L_wall*1
-        constant.F.P_wall = inputs.F.P_wall*1
+        constant.F.U_OD = inputs.F.U_OD * 1
+        constant.F.L_OD = inputs.F.L_OD * 1
+        constant.F.P_OD = inputs.F.P_OD * 1
+        constant.F.U_wall = inputs.F.U_wall * 1
+        constant.F.L_wall = inputs.F.L_wall * 1
+        constant.F.P_wall = inputs.F.P_wall * 1
 
-        constant.R.U_OD = inputs.R.U_OD*1
-        constant.R.L_OD = inputs.R.L_OD*1
-        constant.R.P_OD = inputs.R.P_OD*1
-        constant.R.U_wall = inputs.R.U_wall*1
-        constant.R.L_wall = inputs.R.L_wall*1
-        constant.R.P_wall = inputs.R.P_wall*1
-        a=1
+        constant.R.U_OD = inputs.R.U_OD * 1
+        constant.R.L_OD = inputs.R.L_OD * 1
+        constant.R.P_OD = inputs.R.P_OD * 1
+        constant.R.U_wall = inputs.R.U_wall * 1
+        constant.R.L_wall = inputs.R.L_wall * 1
+        constant.R.P_wall = inputs.R.P_wall * 1
+        a = 1
+
 
 def output_processing_link_sizing():
     from suspension.io.initialize_IO import outputs
-    from suspension.io.variables import constant,S
-    from suspension.core.functions.unit_conversion import in2mm, mm2in, kg2lb, lb2kg, kmh2mph, mph2kmh, npmm2lbpin, lbpin2npmm, lb2N
-    from math import degrees
+    from suspension.io.variables import constant, S
+    from suspension.core.functions.unit_conversion import (
+        lb2kg,
+    )
 
     outputs.F.U_Thread = constant.sizing.RE_thread[0]
     outputs.F.L_Thread = constant.sizing.RE_thread[1]
@@ -128,8 +131,8 @@ def output_processing_link_sizing():
     outputs.R.L_FS_RE = constant.sizing.FS_RE[3]
     outputs.R.P_FS_RE = constant.sizing.FS_RE[5]
 
-    if S.units == 'metric':
-    # if metric convert all outputs to metric
+    if S.units == "metric":
+        # if metric convert all outputs to metric
         outputs.F.U_Link_Weight = lb2kg(constant.sizing.link_weight[0])
         outputs.F.L_Link_Weight = lb2kg(constant.sizing.link_weight[1])
         outputs.F.P_Link_Weight = lb2kg(constant.sizing.link_weight[4])
@@ -139,7 +142,7 @@ def output_processing_link_sizing():
         outputs.F.U_Weight = lb2kg(constant.sizing.total_link_weight[0])
         outputs.F.L_Weight = lb2kg(constant.sizing.total_link_weight[1])
         outputs.F.P_Weight = lb2kg(constant.sizing.total_link_weight[4])
-    
+
         outputs.R.U_Link_Weight = lb2kg(constant.sizing.link_weight[2])
         outputs.R.L_Link_Weight = lb2kg(constant.sizing.link_weight[3])
         outputs.R.P_Link_Weight = lb2kg(constant.sizing.link_weight[5])
@@ -149,28 +152,28 @@ def output_processing_link_sizing():
         outputs.R.U_Weight = lb2kg(constant.sizing.total_link_weight[2])
         outputs.R.L_Weight = lb2kg(constant.sizing.total_link_weight[3])
         outputs.R.P_Weight = lb2kg(constant.sizing.total_link_weight[5])
-    
+
         outputs.V.Combined_Link_Weight = lb2kg(constant.V.combined_link_weight)
 
     else:
-        outputs.F.U_Link_Weight = constant.sizing.link_weight[0]*1
-        outputs.F.L_Link_Weight = constant.sizing.link_weight[1]*1
-        outputs.F.P_Link_Weight = constant.sizing.link_weight[4]*1
-        outputs.F.U_RE_Weight = constant.sizing.RE_weight[0]*1
-        outputs.F.L_RE_Weight = constant.sizing.RE_weight[1]*1
-        outputs.F.P_RE_Weight = constant.sizing.RE_weight[4]*1
-        outputs.F.U_Weight = constant.sizing.total_link_weight[0]*1
-        outputs.F.L_Weight = constant.sizing.total_link_weight[1]*1
-        outputs.F.P_Weight = constant.sizing.total_link_weight[4]*1
+        outputs.F.U_Link_Weight = constant.sizing.link_weight[0] * 1
+        outputs.F.L_Link_Weight = constant.sizing.link_weight[1] * 1
+        outputs.F.P_Link_Weight = constant.sizing.link_weight[4] * 1
+        outputs.F.U_RE_Weight = constant.sizing.RE_weight[0] * 1
+        outputs.F.L_RE_Weight = constant.sizing.RE_weight[1] * 1
+        outputs.F.P_RE_Weight = constant.sizing.RE_weight[4] * 1
+        outputs.F.U_Weight = constant.sizing.total_link_weight[0] * 1
+        outputs.F.L_Weight = constant.sizing.total_link_weight[1] * 1
+        outputs.F.P_Weight = constant.sizing.total_link_weight[4] * 1
 
-        outputs.R.U_Link_Weight = constant.sizing.link_weight[2]*1
-        outputs.R.L_Link_Weight = constant.sizing.link_weight[3]*1
-        outputs.R.P_Link_Weight = constant.sizing.link_weight[5]*1
-        outputs.R.U_RE_Weight = constant.sizing.RE_weight[2]*1
-        outputs.R.L_RE_Weight = constant.sizing.RE_weight[3]*1
-        outputs.R.P_RE_Weight = constant.sizing.RE_weight[5]*1
-        outputs.R.U_Weight = constant.sizing.total_link_weight[2]*1
-        outputs.R.L_Weight = constant.sizing.total_link_weight[3]*1
-        outputs.R.P_Weight = constant.sizing.total_link_weight[5]*1
+        outputs.R.U_Link_Weight = constant.sizing.link_weight[2] * 1
+        outputs.R.L_Link_Weight = constant.sizing.link_weight[3] * 1
+        outputs.R.P_Link_Weight = constant.sizing.link_weight[5] * 1
+        outputs.R.U_RE_Weight = constant.sizing.RE_weight[2] * 1
+        outputs.R.L_RE_Weight = constant.sizing.RE_weight[3] * 1
+        outputs.R.P_RE_Weight = constant.sizing.RE_weight[5] * 1
+        outputs.R.U_Weight = constant.sizing.total_link_weight[2] * 1
+        outputs.R.L_Weight = constant.sizing.total_link_weight[3] * 1
+        outputs.R.P_Weight = constant.sizing.total_link_weight[5] * 1
 
         outputs.V.Combined_Link_Weight = constant.V.combined_link_weight

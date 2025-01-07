@@ -4,19 +4,20 @@ x = 0
 y = 1
 z = 2
 
-#import tkinter as tk
-#ORIGINAL_DPI = 96.01758241758242
-#def get_dpi():
+# import tkinter as tk
+# ORIGINAL_DPI = 96.01758241758242
+# def get_dpi():
 #    screen = tk.Tk()
 #    current_dpi = screen.winfo_fpixels('1i')
 #    screen.destroy()
 #    return current_dpi
-#screen_scale = get_dpi()/ORIGINAL_DPI 
+# screen_scale = get_dpi()/ORIGINAL_DPI
 
 import numpy as np
 
+
 class constant:
-    class F: # Front
+    class F:  # Front
         # Link Geometry
         panhard = True
         U_count = 0
@@ -34,11 +35,11 @@ class constant:
         bump = 0
         droop = 0
         percent_up_remaining = 0
-        
+
         tire_radius = 0
         tire_diameter = 0
         tire_width = 0
-        portal_height= 0
+        portal_height = 0
         track_width = 0
         tire_rate = 0
 
@@ -91,12 +92,12 @@ class constant:
         L_solid = False
         P_solid = False
 
-        U_material = ''
-        L_material = ''
-        P_material = ''
-        U_rod_end = ''
-        L_rod_end = ''
-        P_rod_end = ''
+        U_material = ""
+        L_material = ""
+        P_material = ""
+        U_rod_end = ""
+        L_rod_end = ""
+        P_rod_end = ""
 
         spacing_warning = False
 
@@ -127,8 +128,8 @@ class constant:
         used_main_spring = 0
         used_tender_spring = 0
         slider_stop = 0
-        slider_anti_lift = [0,0] # First value is anti, second is insert location
-        slider_anti_dive = [0,0] # First value is anti, second is insert location
+        slider_anti_lift = [0, 0]  # First value is anti, second is insert location
+        slider_anti_dive = [0, 0]  # First value is anti, second is insert location
 
         target_initial_frequency = 0
         target_final_frequency = 0
@@ -169,6 +170,7 @@ class constant:
             length_extended = 0
             length_compressed = 0
             percent_bump_reminaing = 0
+
         class shock2:
             chassis_mount = np.zeros(3)
             susp_mount = np.zeros(3)
@@ -185,11 +187,11 @@ class constant:
             length_extended = 0
             length_compressed = 0
             percent_bump_reminaing = 0
-        
+
         # Pitch
         pitch_travel = 0
 
-    class R: # Rear
+    class R:  # Rear
         # Link Geometry
         panhard = True
         U_count = 0
@@ -207,11 +209,11 @@ class constant:
         bump = 0
         droop = 0
         percent_up_remaining = 0
-        
+
         tire_radius = 0
         tire_diameter = 0
         tire_width = 0
-        portal_height= 0
+        portal_height = 0
         track_width = 0
         tire_rate = 0
 
@@ -235,7 +237,7 @@ class constant:
 
         min_distance = 0
         sprung_CG_height_above_roll_center = 0
-        
+
         U_converge = 0
         L_converge = 0
         total_converge = 0
@@ -264,12 +266,12 @@ class constant:
         L_solid = False
         P_solid = False
 
-        U_material = ''
-        L_material = ''
-        P_material = ''
-        U_rod_end = ''
-        L_rod_end = ''
-        P_rod_end = ''
+        U_material = ""
+        L_material = ""
+        P_material = ""
+        U_rod_end = ""
+        L_rod_end = ""
+        P_rod_end = ""
 
         spacing_warning = False
 
@@ -300,8 +302,8 @@ class constant:
         used_main_spring = 0
         used_tender_spring = 0
         slider_stop = 0
-        slider_anti_lift = [0,0] # First value is anti, second is insert location
-        slider_anti_squat = [0,0] # First value is anti, second is insert location
+        slider_anti_lift = [0, 0]  # First value is anti, second is insert location
+        slider_anti_squat = [0, 0]  # First value is anti, second is insert location
 
         target_initial_frequency = 0
         target_final_frequency = 0
@@ -342,6 +344,7 @@ class constant:
             length_extended = 0
             length_compressed = 0
             percent_bump_reminaing = 0
+
         class shock2:
             chassis_mount = np.zeros(3)
             susp_mount = np.zeros(3)
@@ -362,12 +365,12 @@ class constant:
         # Pitch
         pitch_travel = 0
 
-    class V: # Vehicle
+    class V:  # Vehicle
         wheelbase = 0
         drive_bias = 0
         brake_bias = 0
         CG_height = 0
-        weight_distribution = .5
+        weight_distribution = 0.5
         mass = 0
         sprung_mass = 0
         sprung_cg = np.zeros(3)
@@ -376,7 +379,7 @@ class constant:
         climb_angle = 0
         descent_angle = 0
         side_roll_angle = 0
-        
+
         roll_slope_dpd = 0
         sprung_CG_height_above_roll_axis = 0
 
@@ -397,7 +400,7 @@ class constant:
         front_travel_est = np.zeros(5)
         rear_travel_est = np.zeros(5)
         load_bias = np.zeros(5)
-        
+
         drive_bias = 0
         brake_bias = 0
         slope = 0
@@ -405,14 +408,15 @@ class constant:
         angle = [0 for _ in range(7)]
         body_roll_slope_dpd = [0 for _ in range(7)]
         sprung_mass_CG = [0 for _ in range(7)]
+
         class F:
-            UA = np.zeros((7,3))
-            UF = np.zeros((7,3))
-            LA = np.zeros((7,3))
-            LF = np.zeros((7,3))
-            PA = np.zeros((7,3))
-            PF = np.zeros((7,3))
-            hub = np.zeros((7,3))
+            UA = np.zeros((7, 3))
+            UF = np.zeros((7, 3))
+            LA = np.zeros((7, 3))
+            LF = np.zeros((7, 3))
+            PA = np.zeros((7, 3))
+            PF = np.zeros((7, 3))
+            hub = np.zeros((7, 3))
             anti_dive = np.zeros(7)
             anti_lift = np.zeros(7)
             roll_slope_dpd = np.zeros(7)
@@ -420,13 +424,13 @@ class constant:
             travel = np.zeros(7)
 
         class R:
-            UA = np.zeros((7,3))
-            UF = np.zeros((7,3))
-            LA = np.zeros((7,3))
-            LF = np.zeros((7,3))
-            PA = np.zeros((7,3))
-            PF = np.zeros((7,3))
-            hub = np.zeros((7,3))
+            UA = np.zeros((7, 3))
+            UF = np.zeros((7, 3))
+            LA = np.zeros((7, 3))
+            LF = np.zeros((7, 3))
+            PA = np.zeros((7, 3))
+            PF = np.zeros((7, 3))
+            hub = np.zeros((7, 3))
             anti_lift = np.zeros(7)
             anti_squat = np.zeros(7)
             roll_slope_dpd = np.zeros(7)
@@ -434,17 +438,17 @@ class constant:
             travel = np.zeros(7)
 
     class sizing:
-        FS_yield = [0,0,0,0,0,0]
-        FS_buckling = [0,0,0,0,0,0]
-        FS_bending = [0,0,0,0,0,0]
-        dent_resistance = [0,0,0,0,0,0]
-        FS_RE = [0,0,0,0,0,0]
-        link_weight = [0,0,0,0,0,0]
-        total_link_weight = [0,0,0,0,0,0]
-        RE_weight = [0,0,0,0,0,0]
-        RE_thread = ['a','a','a','a','a','a']
-        RE_hole_diameter = ['a','a','a','a','a','a']
-        RE_thread_diameter = [0,0,0,0,0,0]
+        FS_yield = [0, 0, 0, 0, 0, 0]
+        FS_buckling = [0, 0, 0, 0, 0, 0]
+        FS_bending = [0, 0, 0, 0, 0, 0]
+        dent_resistance = [0, 0, 0, 0, 0, 0]
+        FS_RE = [0, 0, 0, 0, 0, 0]
+        link_weight = [0, 0, 0, 0, 0, 0]
+        total_link_weight = [0, 0, 0, 0, 0, 0]
+        RE_weight = [0, 0, 0, 0, 0, 0]
+        RE_thread = ["a", "a", "a", "a", "a", "a"]
+        RE_hole_diameter = ["a", "a", "a", "a", "a", "a"]
+        RE_thread_diameter = [0, 0, 0, 0, 0, 0]
 
     class rod_ends:
         name = []
@@ -465,19 +469,20 @@ class constant:
         s20 = {}
         s25 = {}
         s30 = {}
-        sizes = ["2.0","2.5","3.0"]
+        sizes = ["2.0", "2.5", "3.0"]
+
 
 class travel:
-    class F: # Front
+    class F:  # Front
         # link calc
-        LA = np.zeros((2,3))
-        UA = np.zeros((2,3))
-        PA = np.zeros((2,3))
-        hub = np.zeros((2,3))
+        LA = np.zeros((2, 3))
+        UA = np.zeros((2, 3))
+        PA = np.zeros((2, 3))
+        hub = np.zeros((2, 3))
         pinion_rad = np.zeros(2)
         roll_slope_dpd = np.zeros(2)
         roll_center = np.zeros(2)
-        IC = np.zeros((2,3))
+        IC = np.zeros((2, 3))
         anti = np.zeros(2)
         anti_lift = np.zeros(2)
         anti_dive = np.zeros(2)
@@ -501,35 +506,39 @@ class travel:
         wheel_rate_chosen = np.zeros(2)
         spring_force_closest = np.zeros(2)
         spring_force_chosen = np.zeros(2)
+
         class shock1:
-            susp_mount = np.zeros((2,3))
+            susp_mount = np.zeros((2, 3))
             IR = np.zeros(2)
             length = np.zeros(2)
-            class factor:
-                inboard = np.zeros(2)
-                distance = np.zeros(2)
-                shock_angle = np.zeros(2)
-                wheel = np.zeros(2)
-        class shock2:
-            susp_mount = np.zeros((2,3))
-            IR = np.zeros(2)
-            length = np.zeros(2)
+
             class factor:
                 inboard = np.zeros(2)
                 distance = np.zeros(2)
                 shock_angle = np.zeros(2)
                 wheel = np.zeros(2)
 
-    class R: # Rear
+        class shock2:
+            susp_mount = np.zeros((2, 3))
+            IR = np.zeros(2)
+            length = np.zeros(2)
+
+            class factor:
+                inboard = np.zeros(2)
+                distance = np.zeros(2)
+                shock_angle = np.zeros(2)
+                wheel = np.zeros(2)
+
+    class R:  # Rear
         # link calc
-        LA = np.zeros((2,3))
-        UA = np.zeros((2,3))
-        PA = np.zeros((2,3))
-        hub = np.zeros((2,3))
+        LA = np.zeros((2, 3))
+        UA = np.zeros((2, 3))
+        PA = np.zeros((2, 3))
+        hub = np.zeros((2, 3))
         pinion_rad = np.zeros(2)
         roll_slope_dpd = np.zeros(2)
         roll_center = np.zeros(2)
-        IC = np.zeros((2,3))
+        IC = np.zeros((2, 3))
         anti = np.zeros(2)
         anti_lift = np.zeros(2)
         anti_squat = np.zeros(2)
@@ -553,31 +562,36 @@ class travel:
         wheel_rate_chosen = np.zeros(2)
         spring_force_closest = np.zeros(2)
         spring_force_chosen = np.zeros(2)
+
         class shock1:
-            susp_mount = np.zeros((2,3))
+            susp_mount = np.zeros((2, 3))
             IR = np.zeros(2)
             length = np.zeros(2)
-            class factor:
-                inboard = np.zeros(2)
-                distance = np.zeros(2)
-                shock_angle = np.zeros(2)
-                wheel = np.zeros(2)
-        class shock2:
-            susp_mount = np.zeros((2,3))
-            IR = np.zeros(2)
-            length = np.zeros(2)
+
             class factor:
                 inboard = np.zeros(2)
                 distance = np.zeros(2)
                 shock_angle = np.zeros(2)
                 wheel = np.zeros(2)
 
-class S: # settings
+        class shock2:
+            susp_mount = np.zeros((2, 3))
+            IR = np.zeros(2)
+            length = np.zeros(2)
+
+            class factor:
+                inboard = np.zeros(2)
+                distance = np.zeros(2)
+                shock_angle = np.zeros(2)
+                wheel = np.zeros(2)
+
+
+class S:  # settings
     sample_points = 50
     simulate_tire_loading = False
     units = "Imperial"
     reversed_front_x = False
-    file_mame = ''
+    file_mame = ""
 
     position_units = "in"
     mass_units = "lbs"
@@ -586,7 +600,8 @@ class S: # settings
     density_units = "lbs/in^3"
     force_units = "lbs"
 
-class PS: # plot settings
+
+class PS:  # plot settings
     converge = "Show"
     IC_move = "Show"
     high_travel = "Show"

@@ -17,11 +17,17 @@ dev = [
     "pyinstaller",
     "coverage[toml]>=7.0.0",
     "pytest-cov>=4.0.0",
+    "black>=24.1.1",
+    "ruff>=0.2.1",
+    "mypy>=1.8.0",
+    "pyright>=1.1.350",
+    "types-Pillow", # for matplotlib
+    "types-setuptools", # for setup.py
 ]
 
 [tool.setuptools]
-package-dir = {"" = "src"}
-packages = {find = {where = ["src"]}}
+package-dir = { "" = "src" }
+packages = { find = { where = ["src"] } }
 
 [tool.coverage.run]
 source = ["src"]

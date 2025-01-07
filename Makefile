@@ -1,4 +1,4 @@
-.PHONY: start build clean dev setup venv
+.PHONY: start build clean dev setup venv coverage-report format lint fix typecheck check-types
 
 PYTHON = ./venv/bin/python
 PIP = ./venv/bin/pip
@@ -27,3 +27,24 @@ test:
 
 coverage:
 	$(PYTHON) -m pytest --cov=suspension tests/ --cov-report=term-missing --cov-report=html
+
+coverage-report:
+	$(PYTHON) -m webbrowser "file://$(PWD)/htmlcov/index.html"
+
+format:
+	$(PYTHON) -m black src tests
+
+lint:
+	$(PYTHON) -m ruff check src tests
+	$(PYTHON) -m ruff format --check src tests
+
+fix:
+	$(PYTHON) -m black src tests
+	$(PYTHON) -m ruff check --fix src tests
+	$(PYTHON) -m ruff format src tests
+
+typecheck:
+	$(PYTHON) -m mypy src tests
+	$(PYTHON) -m pyright src tests
+
+check-types: typecheck
