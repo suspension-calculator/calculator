@@ -11,6 +11,31 @@ dependencies = [
     "matplotlib",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pyinstaller",
+    "coverage[toml]>=7.0.0",
+    "pytest-cov>=4.0.0",
+]
+
 [tool.setuptools]
 package-dir = {"" = "src"}
-packages = {find = {where = ["src"]}}  # Changed this line
+packages = {find = {where = ["src"]}}
+
+[tool.coverage.run]
+source = ["src"]
+omit = [
+    "tests/*",
+    "**/__init__.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if __name__ == .__main__.:",
+    "raise NotImplementedError",
+    "if False:",
+    "if typing.TYPE_CHECKING:",
+]

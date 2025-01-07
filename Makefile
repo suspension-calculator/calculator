@@ -5,7 +5,7 @@ PIP = ./venv/bin/pip
 
 venv:
 	python3.13 -m venv venv
-	$(PIP) install -e .
+	$(PIP) install -e ".[dev]"
 
 start:
 	./dist/Calculator/Calculator
@@ -20,4 +20,10 @@ dev:
 	$(PYTHON) -m suspension.main
 
 setup:
-	$(PIP) install -e .
+	$(PIP) install -e ".[dev]"
+
+test:
+	$(PYTHON) -m pytest tests/ -v
+
+coverage:
+	$(PYTHON) -m pytest --cov=suspension tests/ --cov-report=term-missing --cov-report=html
