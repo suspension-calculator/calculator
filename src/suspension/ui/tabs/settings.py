@@ -1,14 +1,18 @@
 # src/suspension/ui/tabs/settings.py
 
-import tkinter as tk
-from suspension.io.variables import S
-from suspension.io.initialize_IO import *
-from suspension.io.IO_Conversion.convert_all_inputs import unit_change
-from suspension.io.IO_Conversion.x_direction_change import flip_front_x
-from suspension.ui.styles import *
-from suspension.io.save_suspension import save_susp, save_as_susp
-from suspension.io.load_suspension import load_susp
+# IO Imports
+from tool_io.variables import S
+from tool_io.initialize_IO import *
+from tool_io.IO_Conversion.convert_all_inputs import unit_change
+from tool_io.IO_Conversion.x_direction_change import flip_front_x
+from tool_io.save_suspension import save_susp, save_as_susp
+from tool_io.load_suspension import load_susp
 
+# UI Imports
+from ui.styles import *
+
+# Library Imports
+import tkinter as tk
 
 class settingsPage(tk.Frame):
     def __init__(self, master):

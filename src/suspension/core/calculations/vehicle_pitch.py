@@ -1,28 +1,27 @@
 # src/suspension/core/calculations/vehicle_pitch.py
 
 
+# IO Imports
+from tool_io.variables import constant, travel, S, x, y, z
+from tool_io.IO_Conversion.vehicle_pitch_IO import (
+    input_processing_vehicle_pitch,
+    output_processing_vehicle_pitch,
+)
+
+# Core Imports
+from core.functions.rotation import rotate
+from core.functions.line_intersection import LineIntersect
+from core.functions.link_travel import travel_solve
+from core.functions.travel_wheel_2_lca import wheel_2_lca
+from core.functions.axle_point_movement import on_axle_movement
+from core.functions.Y_equals_0 import ZeroY
+from core.functions.pinion_rotation import pinion_angle_change
+
+# Library Imports
+from math import sqrt, cos, atan2, sin
+import numpy as np
+
 def run_vehicle_pitch():
-    from math import sqrt, cos, atan2, sin
-    import numpy as np
-
-    from suspension.io.variables import constant, travel, S, x, y, z
-    from suspension.io.IO_Conversion.vehicle_pitch_IO import (
-        input_processing_vehicle_pitch,
-        output_processing_vehicle_pitch,
-    )
-
-    # from  ..functions.unit_conversion import in2mm, mm2in, kg2lb, lb2kg, kmh2mph, mph2kmh, npmm2lbpin, lbpin2npmm
-    # from  ..functions.floor_2_zero import floor2zero
-    from ..functions.rotation import rotate
-
-    # from  ..functions.segment_seperation import SegSep
-    from ..functions.line_intersection import LineIntersect
-    from ..functions.link_travel import travel_solve
-    from ..functions.travel_wheel_2_lca import wheel_2_lca
-    from ..functions.axle_point_movement import on_axle_movement
-    from ..functions.Y_equals_0 import ZeroY
-    from ..functions.pinion_rotation import pinion_angle_change
-
     input_processing_vehicle_pitch()
 
     # ------------------------------ Constant variable setup -------------------------------------

@@ -1,13 +1,20 @@
 # src/suspension/ui/tabs/link.py
 
-import tkinter as tk
-from suspension.io.variables import S, PS, x, y, z
+# IO Imports
+from tool_io.IO_Conversion.convert_all_inputs import *
+from tool_io.variables import S, PS, x, y, z
+from tool_io.initialize_IO import *
+from tool_io.save_suspension import save_susp, save_as_susp
+from tool_io.load_suspension import load_susp
 
-from suspension.core.calculations.link_calc import run_link_calc
-from suspension.io.initialize_IO import *
-from suspension.ui.styles import *
-from suspension.io.save_suspension import save_susp, save_as_susp
-from suspension.io.load_suspension import load_susp
+# Core Imports
+from core.calculations.link_calc import run_link_calc
+
+# UI Imports
+from ui.styles import *
+
+# Library Imports
+import tkinter as tk
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from math import pi

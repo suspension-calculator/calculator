@@ -1,14 +1,19 @@
 # src/suspension/ui/tabs/sizing.py
 
+# IO Imports
+from tool_io.initialize_IO import *
+from tool_io.load_suspension import load_susp
+from tool_io.save_suspension import save_susp, save_as_susp
+from tool_io.variables import constant, S
+
+# Core Imports
+from core.calculations.link_sizing import run_link_sizing
+
+# UI Imports
+from ui.styles import *
+
+# Library Imports
 import tkinter as tk
-
-
-from suspension.core.calculations.link_sizing import run_link_sizing
-from suspension.io.initialize_IO import *
-from suspension.io.load_suspension import load_susp
-from suspension.io.save_suspension import save_susp, save_as_susp
-from suspension.io.variables import constant, S
-from suspension.ui.styles import *
 
 
 class sizingPage(tk.Frame):

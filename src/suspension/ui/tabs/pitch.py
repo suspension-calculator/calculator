@@ -1,11 +1,15 @@
 # src/suspension/ui/tabs/pitch.py
 
-import tkinter as tk
-from suspension.io.initialize_IO import *
-from suspension.ui.styles import *
-from suspension.io.save_suspension import save_susp, save_as_susp
-from suspension.io.load_suspension import load_susp
+# IO Imports
+from tool_io.initialize_IO import *
+from tool_io.save_suspension import save_susp, save_as_susp
+from tool_io.load_suspension import load_susp
 
+# UI Imports
+from ui.styles import *
+
+# Library Imports
+import tkinter as tk
 
 class pitchPage(tk.Frame):
     def __init__(self, master):

@@ -1,15 +1,17 @@
 # src/suspension/core/calculations/link_sizing.py
 
+# IO Imports
+from tool_io.variables import constant
+from tool_io.IO_Conversion.link_sizing_IO import (
+    input_processing_link_sizing,
+    output_processing_link_sizing
+)
+
+# Library Imports
+from math import pi
 
 def run_link_sizing():
     # ------------------------------ Values In -------------------------------------
-    from math import pi
-
-    from suspension.io.variables import constant
-    from suspension.io.IO_Conversion.link_sizing_IO import (
-        input_processing_link_sizing,
-        output_processing_link_sizing,
-    )
 
     input_processing_link_sizing()
 

@@ -1,15 +1,21 @@
 # src/suspension/ui/tabs/driveshaft.py
 
-import tkinter as tk
-from suspension.io.variables import S, x, y, z
-from suspension.core.calculations.driveshaft import run_driveshaft
-from suspension.io.initialize_IO import *
-from suspension.ui.styles import *
-from suspension.io.save_suspension import save_susp, save_as_susp
-from suspension.io.load_suspension import load_susp
+# IO Imports
+from tool_io.variables import S, x, y, z
+from tool_io.initialize_IO import *
+from tool_io.save_suspension import save_susp, save_as_susp
+from tool_io.load_suspension import load_susp
+
+# Core Imports
+from core.calculations.driveshaft import run_driveshaft
+
+# UI Imports
+from ui.styles import *
+
+# Library Imports
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-
+import tkinter as tk
 
 class driveshaftPage(tk.Frame):
     def __init__(self, master):

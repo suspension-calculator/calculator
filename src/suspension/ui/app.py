@@ -1,7 +1,7 @@
 # src/suspension/ui/app.py
 import tkinter as tk
 import matplotlib.pyplot as plt
-from suspension.ui.styles import *  # Using the new styles module instead of visual_scheme
+from ui.styles import *  # Using the new styles module instead of visual_scheme
 
 
 class Window(tk.Tk):
@@ -18,7 +18,7 @@ class Window(tk.Tk):
         self.state("zoomed")
 
     def switch_frame(self, page_name):
-        from suspension.main import tabs  # Import here to avoid circular import
+        from main import tabs  # Import here to avoid circular import
 
         cls = tabs[page_name]
         plt.close("all")

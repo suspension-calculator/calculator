@@ -1,9 +1,13 @@
 # src/suspension/ui/tabs/materials.py
 
-import tkinter as tk
-from suspension.ui.styles import *
-from suspension.io.material_add import add_material
+# IO Imports
+from tool_io.material_add import add_material
 
+# UI Imports
+from ui.styles import *
+
+# Library Imports
+import tkinter as tk
 
 class materialsPage(tk.Frame):
     def __init__(self, master):

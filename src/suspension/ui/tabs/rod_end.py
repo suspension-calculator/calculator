@@ -1,9 +1,13 @@
 # src/suspension/ui/tabs/rod_end.py
 
-import tkinter as tk
-from suspension.ui.styles import *
-from suspension.io.rod_end_add import add_rod_end
+# IO Imports
+from tool_io.rod_end_add import add_rod_end
 
+# UI Imports
+from ui.styles import *
+
+# Library Imports
+import tkinter as tk
 
 class rodEndsPage(tk.Frame):
     def __init__(self, master):
