@@ -2,8 +2,9 @@
 
 
 def add_material(name, yield_strength, modulus_elasticity, density, notes):
-    from suspension.tool_io.materials import load_materials
-    from suspension.tool_io.variables import constant
+    # IO Imports
+    from tool_io.materials import load_materials
+    from tool_io.variables import constant
 
     if name not in constant.materials.name:
         new_line = "\n{},{},{},{},{}".format(

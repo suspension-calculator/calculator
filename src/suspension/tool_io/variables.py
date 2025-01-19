@@ -4,15 +4,7 @@ x = 0
 y = 1
 z = 2
 
-# import tkinter as tk
-# ORIGINAL_DPI = 96.01758241758242
-# def get_dpi():
-#    screen = tk.Tk()
-#    current_dpi = screen.winfo_fpixels('1i')
-#    screen.destroy()
-#    return current_dpi
-# screen_scale = get_dpi()/ORIGINAL_DPI
-
+# Library Imports
 import numpy as np
 
 

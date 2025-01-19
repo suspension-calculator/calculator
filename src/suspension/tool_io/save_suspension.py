@@ -2,12 +2,13 @@
 
 
 def save_susp():
-    from suspension.tool_io.variables import S
-
+    # IO Imports
+    from tool_io.variables import S
+    
     if S.file_mame == "":
+        # Library Imports
         from tkinter import filedialog
         from pathlib import Path
-
         S.file_mame = str(
             filedialog.asksaveasfile(
                 initialdir=Path.cwd(),
@@ -25,10 +26,12 @@ def save_susp():
 
 
 def save_as_susp():
-    from suspension.tool_io.variables import S
+    # IO Imports
+    from tool_io.variables import S
+
+    # Library Imports
     from tkinter import filedialog
     from pathlib import Path
-
     S.file_mame = str(
         filedialog.asksaveasfile(
             initialdir=Path.cwd(),
@@ -42,8 +45,9 @@ def save_as_susp():
 
 
 def save_susp_string():
-    from suspension.tool_io.variables import constant, S, x, y, z
-    from suspension.tool_io.initialize_IO import inputs
+    # IO Imports
+    from tool_io.variables import constant, S, x, y, z
+    from tool_io.initialize_IO import inputs
 
     line = "units,{}".format(S.units)
     output = line

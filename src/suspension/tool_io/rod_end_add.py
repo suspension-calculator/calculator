@@ -2,9 +2,9 @@
 
 
 def add_rod_end(name, radial_load, weight, hole_diameter, shank_diameter, thread):
-    from suspension.tool_io.rod_ends import load_rod_ends
-    from suspension.tool_io.variables import constant
-
+    # IO Imports
+    from tool_io.rod_ends import load_rod_ends
+    from tool_io.variables import constant
     if name not in constant.rod_ends.name:
         new_line = "\n{},{},{},{},{},{}".format(
             name, radial_load, weight, hole_diameter, shank_diameter, thread

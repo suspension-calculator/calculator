@@ -1,7 +1,7 @@
 # src/suspension/io/initialize_IO.py
 
+# Library Imports
 import numpy as np
-
 
 class inputs:
     class F:  # Front

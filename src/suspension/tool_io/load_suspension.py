@@ -2,15 +2,20 @@
 
 
 def load_susp():
-    from suspension.tool_io.variables import S, x, y, z
-    from suspension.tool_io.initialize_IO import inputs
-    from suspension.core.calculations.link_calc import run_link_calc
-    from suspension.core.calculations.link_sizing import run_link_sizing
-    from suspension.core.calculations.driveshaft import run_driveshaft
-    from suspension.core.calculations.shocks import run_shocks
-    from suspension.core.calculations.vehicle_pitch import run_vehicle_pitch
-    from suspension.tool_io.material_add import add_material
-    from suspension.tool_io.rod_end_add import add_rod_end
+    # IO Imports
+    from tool_io.variables import S, x, y, z
+    from tool_io.initialize_IO import inputs
+    from tool_io.material_add import add_material
+    from tool_io.rod_end_add import add_rod_end
+
+    # Core Imports
+    from core.calculations.link_calc import run_link_calc
+    from core.calculations.link_sizing import run_link_sizing
+    from core.calculations.driveshaft import run_driveshaft
+    from core.calculations.shocks import run_shocks
+    from core.calculations.vehicle_pitch import run_vehicle_pitch
+
+    # Library Imports
     import csv
     from tkinter import filedialog
     from pathlib import Path
