@@ -23,7 +23,14 @@ class aboutPage(tk.Frame):
         self.rowconfigure(2, weight=1)
 
         self.opening = True
-        self.tk.call("tk", "scaling", self.winfo_screenwidth() / 2560)
+        self.tk.call(
+            "tk",
+            "scaling",
+            min(
+                self.winfo_screenwidth() / 2560,
+                self.winfo_screenheight() / 1440,
+            )
+        )
 
         if True:  # Page Selection
             calc_page_sel = tk.Frame(self, background=bgColor)
@@ -959,6 +966,14 @@ Revision by Treefrog
     Added length and hypoid pinion location method option
     Shock and pitch pages not started (alpha version)
     Consolidated Read Me, Coordinates, and Reversion to About
+7.alpha.1 2025.01.19
+Revision by Treefrog and Yeep
+    Moved project to GitHub
+    Formatting overhall
+    File structure overhall
+    Fix to inputs not working properly
+    Switch brake bias, drive bias, and weight
+    distribuiton to percentages
                                     """,
             )
 

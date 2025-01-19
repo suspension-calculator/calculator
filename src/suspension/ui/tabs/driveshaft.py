@@ -29,7 +29,14 @@ class driveshaftPage(tk.Frame):
 
         self.opening = True
 
-        self.tk.call("tk", "scaling", self.winfo_screenwidth() / 2560)
+        self.tk.call(
+            "tk",
+            "scaling",
+            min(
+                self.winfo_screenwidth() / 2560,
+                self.winfo_screenheight() / 1440,
+            )
+        )
 
         if True:  # Page Selection
             calc_page_sel = tk.Frame(self, background=bgColor)
@@ -166,11 +173,11 @@ class driveshaftPage(tk.Frame):
             button5.grid(row=0, column=10, padx=5)
 
         frontFrame = tk.Frame(self, bg=bgColor)
-        frontFrame.grid(row=2, column=1, sticky="nse")
+        frontFrame.grid(row=2, column=1, sticky="nsew")
         frontFrame.rowconfigure([0, 1], weight=1)
         # frontFrame.columnconfigure([0,1],weight=1)
         rearFrame = tk.Frame(self, bg=bgColor)
-        rearFrame.grid(row=2, column=0, sticky="nsw")
+        rearFrame.grid(row=2, column=0, sticky="nsww")
         rearFrame.rowconfigure([0, 1], weight=1)
         # rearFrame.columnconfigure([0,1],weight=1)
 

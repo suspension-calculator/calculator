@@ -21,7 +21,14 @@ class pitchPage(tk.Frame):
 
         self.opening = True
 
-        self.tk.call("tk", "scaling", self.winfo_screenwidth() / 2560)
+        self.tk.call(
+            "tk",
+            "scaling",
+            min(
+                self.winfo_screenwidth() / 2560,
+                self.winfo_screenheight() / 1440,
+            )
+        )
 
         if True:  # Page Selection
             calc_page_sel = tk.Frame(self, background=bgColor)

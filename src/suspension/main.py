@@ -53,7 +53,20 @@ tabs = {
 
 def main():
     app = Window()
-    app.tk.call("tk", "scaling", app.winfo_screenwidth() / 2560)
+    app.tk.call("tk",
+        "scaling",
+        min(
+            app.winfo_screenwidth() / 2560, 
+            app.winfo_screenheight() / 1440,
+        ),
+    )
+
+    def closing_cbk():
+        # Shutdown procedure
+        app.quit()
+        app.destroy()
+    app.protocol("WM_DELETE_WINDOW", closing_cbk)
+    
     app.bind("<Control-s>", lambda event: save_susp())
     app.mainloop()
 

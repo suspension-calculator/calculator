@@ -26,7 +26,14 @@ class sizingPage(tk.Frame):
 
         self.opening = True
 
-        self.tk.call("tk", "scaling", self.winfo_screenwidth() / 2560)
+        self.tk.call(
+            "tk",
+            "scaling",
+            min(
+                self.winfo_screenwidth() / 2560,
+                self.winfo_screenheight() / 1440,
+            )
+        )
 
         if True:  # Page Selection
             calc_page_sel = tk.Frame(self, background=bgColor)
@@ -177,7 +184,7 @@ class sizingPage(tk.Frame):
                 text="Front",
                 background=bgColor,
                 foreground=entryTextColor,
-                font=(fontType, 25),
+                font=(fontType, 20),
                 justify=tk.CENTER,
             )
             label.grid(row=0, column=0, pady=1)
@@ -190,7 +197,7 @@ class sizingPage(tk.Frame):
                     text="Upper",
                     background=upperColor,
                     foreground=entryTextColor,
-                    font=(fontType, 20),
+                    font=(fontType, 15),
                     justify=tk.CENTER,
                 )
                 label.grid(row=0, column=0, columnspan=3, stick="nesw")
@@ -203,7 +210,7 @@ class sizingPage(tk.Frame):
                     text="Outside Diameter:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -213,7 +220,7 @@ class sizingPage(tk.Frame):
                 text.set(inputs.F.U_OD)
                 F_U_OD = tk.Entry(
                     front_upper,
-                    font=(fontType, 15),
+                    font=(fontType, 13),
                     justify=tk.CENTER,
                     width=13,
                     textvariable=text,
@@ -229,7 +236,7 @@ class sizingPage(tk.Frame):
                     text="{}".format(S.position_units),
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -242,7 +249,7 @@ class sizingPage(tk.Frame):
                     text="Solid Link?",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -260,9 +267,9 @@ class sizingPage(tk.Frame):
                 F_U_solid_menu.config(fg=entryTextColor)
                 F_U_solid_menu.config(highlightthickness=0)
                 F_U_solid_menu.config(width=3)
-                F_U_solid_menu.config(font=(fontType, 15))
+                F_U_solid_menu.config(font=(fontType, 12))
                 F_U_solid_menu.nametowidget(F_U_solid_menu.menuname).config(
-                    font=(fontType, 15)
+                    font=(fontType, 14)
                 )
 
                 i_row = 3
@@ -272,7 +279,7 @@ class sizingPage(tk.Frame):
                     text="Wall Thickness:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -282,7 +289,7 @@ class sizingPage(tk.Frame):
                 text.set(inputs.F.U_wall)
                 F_U_thickness = tk.Entry(
                     front_upper,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.CENTER,
                     width=13,
                     textvariable=text,
@@ -298,7 +305,7 @@ class sizingPage(tk.Frame):
                     text="{}".format(S.position_units),
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -311,7 +318,7 @@ class sizingPage(tk.Frame):
                     text="Material Used:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -327,7 +334,7 @@ class sizingPage(tk.Frame):
                 F_U_material_menu.config(fg=entryTextColor)
                 F_U_material_menu.config(highlightthickness=0)
                 F_U_material_menu.config(width=20)
-                F_U_material_menu.config(font=(fontType, 15))
+                F_U_material_menu.config(font=(fontType, 12))
                 F_U_material_menu.nametowidget(F_U_material_menu.menuname).config(
                     font=(fontType, 15)
                 )
@@ -339,7 +346,7 @@ class sizingPage(tk.Frame):
                     text="Rod End:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -355,7 +362,7 @@ class sizingPage(tk.Frame):
                 F_U_RE_menu.config(fg=entryTextColor)
                 F_U_RE_menu.config(highlightthickness=0)
                 F_U_RE_menu.config(width=20)
-                F_U_RE_menu.config(font=(fontType, 15))
+                F_U_RE_menu.config(font=(fontType, 12))
                 F_U_RE_menu.nametowidget(F_U_RE_menu.menuname).config(
                     font=(fontType, 15)
                 )
@@ -367,7 +374,7 @@ class sizingPage(tk.Frame):
                     text="Lower",
                     background=lowerColor,
                     foreground=textEntryColor,
-                    font=(fontType, 20),
+                    font=(fontType, 15),
                     justify=tk.CENTER,
                 )
                 label.grid(row=0, column=0, columnspan=3, stick="nesw")
@@ -380,7 +387,7 @@ class sizingPage(tk.Frame):
                     text="Outside Diameter:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -390,7 +397,7 @@ class sizingPage(tk.Frame):
                 text.set(inputs.F.L_OD)
                 F_L_OD = tk.Entry(
                     front_lower,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.CENTER,
                     width=13,
                     textvariable=text,
@@ -406,7 +413,7 @@ class sizingPage(tk.Frame):
                     text="{}".format(S.position_units),
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -419,7 +426,7 @@ class sizingPage(tk.Frame):
                     text="Solid Link?",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -437,7 +444,7 @@ class sizingPage(tk.Frame):
                 F_L_solid_menu.config(fg=entryTextColor)
                 F_L_solid_menu.config(highlightthickness=0)
                 F_L_solid_menu.config(width=3)
-                F_L_solid_menu.config(font=(fontType, 15))
+                F_L_solid_menu.config(font=(fontType, 12))
                 F_L_solid_menu.nametowidget(F_L_solid_menu.menuname).config(
                     font=(fontType, 15)
                 )
@@ -449,7 +456,7 @@ class sizingPage(tk.Frame):
                     text="Wall Thickness:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -459,7 +466,7 @@ class sizingPage(tk.Frame):
                 text.set(inputs.F.L_wall)
                 F_L_thickness = tk.Entry(
                     front_lower,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.CENTER,
                     width=13,
                     textvariable=text,
@@ -475,7 +482,7 @@ class sizingPage(tk.Frame):
                     text="{}".format(S.position_units),
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -488,7 +495,7 @@ class sizingPage(tk.Frame):
                     text="Material Used:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -504,7 +511,7 @@ class sizingPage(tk.Frame):
                 F_L_material_menu.config(fg=entryTextColor)
                 F_L_material_menu.config(highlightthickness=0)
                 F_L_material_menu.config(width=20)
-                F_L_material_menu.config(font=(fontType, 15))
+                F_L_material_menu.config(font=(fontType, 12))
                 F_L_material_menu.nametowidget(F_L_material_menu.menuname).config(
                     font=(fontType, 15)
                 )
@@ -516,7 +523,7 @@ class sizingPage(tk.Frame):
                     text="Rod End:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -532,7 +539,7 @@ class sizingPage(tk.Frame):
                 F_L_RE_menu.config(fg=entryTextColor)
                 F_L_RE_menu.config(highlightthickness=0)
                 F_L_RE_menu.config(width=20)
-                F_L_RE_menu.config(font=(fontType, 15))
+                F_L_RE_menu.config(font=(fontType, 13))
                 F_L_RE_menu.nametowidget(F_L_RE_menu.menuname).config(
                     font=(fontType, 15)
                 )
@@ -544,7 +551,7 @@ class sizingPage(tk.Frame):
                     text="Panhard",
                     background=panhardColor,
                     foreground=textEntryColor,
-                    font=(fontType, 20),
+                    font=(fontType, 15),
                     justify=tk.CENTER,
                 )
                 label.grid(row=0, column=0, columnspan=3, stick="nesw")
@@ -557,7 +564,7 @@ class sizingPage(tk.Frame):
                     text="Outside Diameter:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -567,7 +574,7 @@ class sizingPage(tk.Frame):
                 text.set(inputs.F.P_OD)
                 F_P_OD = tk.Entry(
                     front_panhard,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.CENTER,
                     width=13,
                     textvariable=text,
@@ -583,7 +590,7 @@ class sizingPage(tk.Frame):
                     text="{}".format(S.position_units),
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -596,7 +603,7 @@ class sizingPage(tk.Frame):
                     text="Solid Link?",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -614,9 +621,9 @@ class sizingPage(tk.Frame):
                 F_P_solid_menu.config(fg=entryTextColor)
                 F_P_solid_menu.config(highlightthickness=0)
                 F_P_solid_menu.config(width=3)
-                F_P_solid_menu.config(font=(fontType, 15))
+                F_P_solid_menu.config(font=(fontType, 13))
                 F_P_solid_menu.nametowidget(F_P_solid_menu.menuname).config(
-                    font=(fontType, 15)
+                    font=(fontType, 14)
                 )
 
                 i_row = 3
@@ -626,7 +633,7 @@ class sizingPage(tk.Frame):
                     text="Wall Thickness:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -636,7 +643,7 @@ class sizingPage(tk.Frame):
                 text.set(inputs.F.P_wall)
                 F_P_thickness = tk.Entry(
                     front_panhard,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.CENTER,
                     width=13,
                     textvariable=text,
@@ -652,7 +659,7 @@ class sizingPage(tk.Frame):
                     text="{}".format(S.position_units),
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -665,7 +672,7 @@ class sizingPage(tk.Frame):
                     text="Material Used:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -681,9 +688,9 @@ class sizingPage(tk.Frame):
                 F_P_material_menu.config(fg=entryTextColor)
                 F_P_material_menu.config(highlightthickness=0)
                 F_P_material_menu.config(width=20)
-                F_P_material_menu.config(font=(fontType, 15))
+                F_P_material_menu.config(font=(fontType, 12))
                 F_P_material_menu.nametowidget(F_P_material_menu.menuname).config(
-                    font=(fontType, 15)
+                    font=(fontType, 14)
                 )
 
                 i_row = 5
@@ -693,7 +700,7 @@ class sizingPage(tk.Frame):
                     text="Rod End:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -709,9 +716,9 @@ class sizingPage(tk.Frame):
                 F_P_RE_menu.config(fg=entryTextColor)
                 F_P_RE_menu.config(highlightthickness=0)
                 F_P_RE_menu.config(width=20)
-                F_P_RE_menu.config(font=(fontType, 15))
+                F_P_RE_menu.config(font=(fontType, 12))
                 F_P_RE_menu.nametowidget(F_P_RE_menu.menuname).config(
-                    font=(fontType, 15)
+                    font=(fontType, 14)
                 )
 
                 if not constant.F.panhard:
@@ -730,7 +737,7 @@ class sizingPage(tk.Frame):
                     text="Rod End Thread:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -741,7 +748,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_F_U_RE_thread.grid(row=i_row, column=1, sticky="w")
@@ -754,7 +761,7 @@ class sizingPage(tk.Frame):
                     ),
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -767,7 +774,7 @@ class sizingPage(tk.Frame):
                     text="Rod End Hole:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -778,7 +785,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_F_U_RE_hole.grid(row=i_row, column=1, sticky="w")
@@ -792,7 +799,7 @@ class sizingPage(tk.Frame):
                     ),
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                     width=45,
                 )
@@ -806,7 +813,7 @@ class sizingPage(tk.Frame):
                     text="Rod End Weight:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -817,7 +824,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_F_U_RE_weight.grid(row=i_row, column=1, sticky="w")
@@ -831,7 +838,7 @@ class sizingPage(tk.Frame):
                     ),
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -844,7 +851,7 @@ class sizingPage(tk.Frame):
                     text="Link Weight:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -855,7 +862,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_F_U_link_weight.grid(row=i_row, column=1, sticky="w")
@@ -868,7 +875,7 @@ class sizingPage(tk.Frame):
                     text="Single Link Weight:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -879,7 +886,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_F_U_weight.grid(row=i_row, column=1, sticky="w")
@@ -892,7 +899,7 @@ class sizingPage(tk.Frame):
                     text="Factor of Safety Yield:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -903,7 +910,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=FSPassColor,
                     foreground=textEntryColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_F_U_FS_yield.grid(row=i_row, column=1, sticky="nesw")
@@ -914,7 +921,7 @@ class sizingPage(tk.Frame):
                     text="(link stretching)",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -927,7 +934,7 @@ class sizingPage(tk.Frame):
                     text="Factor of Safety Buckling:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -938,7 +945,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=FSPassColor,
                     foreground=textEntryColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_F_U_FS_buckling.grid(row=i_row, column=1, stick="nesw")
@@ -949,7 +956,7 @@ class sizingPage(tk.Frame):
                     text="(link buckling under braking)",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -962,7 +969,7 @@ class sizingPage(tk.Frame):
                     text="Factor of Safety Bending:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -973,7 +980,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=FSPassColor,
                     foreground=textEntryColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_F_U_FS_bending.grid(row=i_row, column=1, stick="nesw")
@@ -984,7 +991,7 @@ class sizingPage(tk.Frame):
                     text="(somewhat irrelevant for an UPPER link)",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -997,7 +1004,7 @@ class sizingPage(tk.Frame):
                     text="Factor of Safety Rod End:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -1008,7 +1015,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=FSPassColor,
                     foreground=textEntryColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_F_U_FS_RE.grid(row=i_row, column=1, stick="nesw")
@@ -1019,7 +1026,7 @@ class sizingPage(tk.Frame):
                     text="(rod end breaking)",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -1032,7 +1039,7 @@ class sizingPage(tk.Frame):
                     text="Dent Resistance:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -1043,7 +1050,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=textEntryColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_F_U_dent_resist.grid(row=i_row, column=1, sticky="nesw")
@@ -1054,7 +1061,7 @@ class sizingPage(tk.Frame):
                     text='(compared to 0.25" thick 1018 steel)',
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -1068,7 +1075,7 @@ class sizingPage(tk.Frame):
                     text="Rod End Thread:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -1079,7 +1086,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_F_L_RE_thread.grid(row=i_row, column=1, sticky="w")
@@ -1092,7 +1099,7 @@ class sizingPage(tk.Frame):
                     ),
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -1105,7 +1112,7 @@ class sizingPage(tk.Frame):
                     text="Rod End Hole:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -1116,7 +1123,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_F_L_RE_hole.grid(row=i_row, column=1, sticky="w")
@@ -1130,7 +1137,7 @@ class sizingPage(tk.Frame):
                     ),
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                     width=45,
                 )
@@ -1144,7 +1151,7 @@ class sizingPage(tk.Frame):
                     text="Rod End Weight:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -1155,7 +1162,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_F_L_RE_weight.grid(row=i_row, column=1, sticky="w")
@@ -1169,7 +1176,7 @@ class sizingPage(tk.Frame):
                     ),
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -1182,7 +1189,7 @@ class sizingPage(tk.Frame):
                     text="Link Weight:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -1193,7 +1200,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_F_L_link_weight.grid(row=i_row, column=1, sticky="w")
@@ -1206,7 +1213,7 @@ class sizingPage(tk.Frame):
                     text="Single Link Weight:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -1217,7 +1224,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_F_L_weight.grid(row=i_row, column=1, sticky="w")
@@ -1230,7 +1237,7 @@ class sizingPage(tk.Frame):
                     text="Factor of Safety Yield:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -1241,7 +1248,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=FSPassColor,
                     foreground=textEntryColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_F_L_FS_yield.grid(row=i_row, column=1, stick="nesw")
@@ -1252,7 +1259,7 @@ class sizingPage(tk.Frame):
                     text="(link stretching)",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -1265,7 +1272,7 @@ class sizingPage(tk.Frame):
                     text="Factor of Safety Buckling:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -1276,7 +1283,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=FSPassColor,
                     foreground=textEntryColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_F_L_FS_buckling.grid(row=i_row, column=1, stick="nesw")
@@ -1287,7 +1294,7 @@ class sizingPage(tk.Frame):
                     text="(link buckling under acceleration)",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -1300,7 +1307,7 @@ class sizingPage(tk.Frame):
                     text="Factor of Safety Bending:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -1311,7 +1318,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=FSPassColor,
                     foreground=textEntryColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_F_L_FS_bending.grid(row=i_row, column=1, stick="nesw")
@@ -1322,7 +1329,7 @@ class sizingPage(tk.Frame):
                     text="(link bending with 1/2 the vehicle's weight on it)",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -1335,7 +1342,7 @@ class sizingPage(tk.Frame):
                     text="Factor of Safety Rod End:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -1346,7 +1353,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=FSPassColor,
                     foreground=textEntryColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_F_L_FS_RE.grid(row=i_row, column=1, stick="nesw")
@@ -1357,7 +1364,7 @@ class sizingPage(tk.Frame):
                     text="(rod end breaking)",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -1370,7 +1377,7 @@ class sizingPage(tk.Frame):
                     text="Dent Resistance:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -1381,7 +1388,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=textEntryColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_F_L_dent_resist.grid(row=i_row, column=1, sticky="nesw")
@@ -1392,7 +1399,7 @@ class sizingPage(tk.Frame):
                     text='(compared to 0.25" thick 1018 steel)',
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -1406,7 +1413,7 @@ class sizingPage(tk.Frame):
                     text="Rod End Thread:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -1417,7 +1424,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_F_P_RE_thread.grid(row=i_row, column=1, sticky="w")
@@ -1431,7 +1438,7 @@ class sizingPage(tk.Frame):
                     ),
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                     width=45,
                 )
@@ -1445,7 +1452,7 @@ class sizingPage(tk.Frame):
                     text="Rod End Hole:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -1456,7 +1463,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_F_P_RE_hole.grid(row=i_row, column=1, sticky="w")
@@ -1470,7 +1477,7 @@ class sizingPage(tk.Frame):
                     ),
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                     width=45,
                 )
@@ -1484,7 +1491,7 @@ class sizingPage(tk.Frame):
                     text="Rod End Weight:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -1495,7 +1502,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_F_P_RE_weight.grid(row=i_row, column=1, sticky="w")
@@ -1509,7 +1516,7 @@ class sizingPage(tk.Frame):
                     ),
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                     width=45,
                 )
@@ -1523,7 +1530,7 @@ class sizingPage(tk.Frame):
                     text="Link Weight:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -1534,7 +1541,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_F_P_link_weight.grid(row=i_row, column=1, sticky="w")
@@ -1548,7 +1555,7 @@ class sizingPage(tk.Frame):
                     ),
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                     width=45,
                 )
@@ -1562,7 +1569,7 @@ class sizingPage(tk.Frame):
                     text="Single Link Weight:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -1573,7 +1580,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_F_P_weight.grid(row=i_row, column=1, sticky="w")
@@ -1586,7 +1593,7 @@ class sizingPage(tk.Frame):
                     text="Factor of Safety Yield:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -1597,7 +1604,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=textEntryColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_F_P_FS_yield.grid(row=i_row, column=1, stick="nesw")
@@ -1608,7 +1615,7 @@ class sizingPage(tk.Frame):
                     text="(link stretching)",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -1621,7 +1628,7 @@ class sizingPage(tk.Frame):
                     text="Factor of Safety Buckling:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -1632,7 +1639,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=textEntryColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_F_P_FS_buckling.grid(row=i_row, column=1, stick="nesw")
@@ -1643,7 +1650,7 @@ class sizingPage(tk.Frame):
                     text="(link buckling under side force)",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -1656,7 +1663,7 @@ class sizingPage(tk.Frame):
                     text="Factor of Safety Bending:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -1667,7 +1674,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=textEntryColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_F_P_FS_bending.grid(row=i_row, column=1, stick="nesw")
@@ -1678,7 +1685,7 @@ class sizingPage(tk.Frame):
                     text="(link bending with the vehicle's weight on it)",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -1691,7 +1698,7 @@ class sizingPage(tk.Frame):
                     text="Factor of Safety Rod End:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -1702,7 +1709,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=textEntryColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_F_P_FS_RE.grid(row=i_row, column=1, stick="nesw")
@@ -1713,7 +1720,7 @@ class sizingPage(tk.Frame):
                     text="(rod end breaking)",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -1726,7 +1733,7 @@ class sizingPage(tk.Frame):
                     text="Dent Resistance:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -1737,7 +1744,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=textEntryColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_F_P_dent_resist.grid(row=i_row, column=1, sticky="nesw")
@@ -1748,7 +1755,7 @@ class sizingPage(tk.Frame):
                     text='(compared to 0.25" thick 1018 steel)',
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -1769,7 +1776,7 @@ class sizingPage(tk.Frame):
                 text="Rear",
                 background=bgColor,
                 foreground=entryTextColor,
-                font=(fontType, 25),
+                font=(fontType, 20),
                 justify=tk.CENTER,
             )
             label.grid(row=0, column=0, pady=1)
@@ -1782,7 +1789,7 @@ class sizingPage(tk.Frame):
                     text="Upper",
                     background=upperColor,
                     foreground=entryTextColor,
-                    font=(fontType, 20),
+                    font=(fontType, 15),
                     justify=tk.CENTER,
                 )
                 label.grid(row=0, column=0, columnspan=3, stick="nesw")
@@ -1795,7 +1802,7 @@ class sizingPage(tk.Frame):
                     text="Outside Diameter:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -1805,7 +1812,7 @@ class sizingPage(tk.Frame):
                 text.set(inputs.R.U_OD)
                 R_U_OD = tk.Entry(
                     rear_upper,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.CENTER,
                     width=13,
                     textvariable=text,
@@ -1821,7 +1828,7 @@ class sizingPage(tk.Frame):
                     text="{}".format(S.position_units),
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -1834,7 +1841,7 @@ class sizingPage(tk.Frame):
                     text="Solid Link?",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -1852,9 +1859,9 @@ class sizingPage(tk.Frame):
                 R_U_solid_menu.config(fg=entryTextColor)
                 R_U_solid_menu.config(highlightthickness=0)
                 R_U_solid_menu.config(width=3)
-                R_U_solid_menu.config(font=(fontType, 15))
+                R_U_solid_menu.config(font=(fontType, 12))
                 R_U_solid_menu.nametowidget(R_U_solid_menu.menuname).config(
-                    font=(fontType, 15)
+                    font=(fontType, 14)
                 )
 
                 i_row = 3
@@ -1864,7 +1871,7 @@ class sizingPage(tk.Frame):
                     text="Wall Thickness:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -1874,7 +1881,7 @@ class sizingPage(tk.Frame):
                 text.set(inputs.R.U_wall)
                 R_U_thickness = tk.Entry(
                     rear_upper,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.CENTER,
                     width=13,
                     textvariable=text,
@@ -1890,7 +1897,7 @@ class sizingPage(tk.Frame):
                     text="{}".format(S.position_units),
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -1903,7 +1910,7 @@ class sizingPage(tk.Frame):
                     text="Material Used:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -1919,9 +1926,9 @@ class sizingPage(tk.Frame):
                 R_U_material_menu.config(fg=entryTextColor)
                 R_U_material_menu.config(highlightthickness=0)
                 R_U_material_menu.config(width=20)
-                R_U_material_menu.config(font=(fontType, 15))
+                R_U_material_menu.config(font=(fontType, 12))
                 R_U_material_menu.nametowidget(R_U_material_menu.menuname).config(
-                    font=(fontType, 15)
+                    font=(fontType, 14)
                 )
 
                 i_row = 5
@@ -1931,7 +1938,7 @@ class sizingPage(tk.Frame):
                     text="Rod End:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -1945,9 +1952,9 @@ class sizingPage(tk.Frame):
                 R_U_RE_menu.config(fg=entryTextColor)
                 R_U_RE_menu.config(highlightthickness=0)
                 R_U_RE_menu.config(width=20)
-                R_U_RE_menu.config(font=(fontType, 15))
+                R_U_RE_menu.config(font=(fontType, 12))
                 R_U_RE_menu.nametowidget(R_U_RE_menu.menuname).config(
-                    font=(fontType, 15)
+                    font=(fontType, 14)
                 )
 
             if True:  # Lower
@@ -1957,7 +1964,7 @@ class sizingPage(tk.Frame):
                     text="Lower",
                     background=lowerColor,
                     foreground=textEntryColor,
-                    font=(fontType, 20),
+                    font=(fontType, 15),
                     justify=tk.CENTER,
                 )
                 label.grid(row=0, column=0, columnspan=3, stick="nesw")
@@ -1970,7 +1977,7 @@ class sizingPage(tk.Frame):
                     text="Outside Diameter:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -1980,7 +1987,7 @@ class sizingPage(tk.Frame):
                 text.set(inputs.R.L_OD)
                 R_L_OD = tk.Entry(
                     rear_lower,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.CENTER,
                     width=13,
                     textvariable=text,
@@ -1996,7 +2003,7 @@ class sizingPage(tk.Frame):
                     text="{}".format(S.position_units),
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -2009,7 +2016,7 @@ class sizingPage(tk.Frame):
                     text="Solid Link?",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -2027,9 +2034,9 @@ class sizingPage(tk.Frame):
                 R_L_solid_menu.config(fg=entryTextColor)
                 R_L_solid_menu.config(highlightthickness=0)
                 R_L_solid_menu.config(width=3)
-                R_L_solid_menu.config(font=(fontType, 15))
+                R_L_solid_menu.config(font=(fontType, 12))
                 R_L_solid_menu.nametowidget(R_L_solid_menu.menuname).config(
-                    font=(fontType, 15)
+                    font=(fontType, 14)
                 )
 
                 i_row = 3
@@ -2039,7 +2046,7 @@ class sizingPage(tk.Frame):
                     text="Wall Thickness:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -2049,7 +2056,7 @@ class sizingPage(tk.Frame):
                 text.set(inputs.R.L_wall)
                 R_L_thickness = tk.Entry(
                     rear_lower,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.CENTER,
                     width=13,
                     textvariable=text,
@@ -2065,7 +2072,7 @@ class sizingPage(tk.Frame):
                     text="{}".format(S.position_units),
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -2078,7 +2085,7 @@ class sizingPage(tk.Frame):
                     text="Material Used:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -2094,9 +2101,9 @@ class sizingPage(tk.Frame):
                 R_L_material_menu.config(fg=entryTextColor)
                 R_L_material_menu.config(highlightthickness=0)
                 R_L_material_menu.config(width=20)
-                R_L_material_menu.config(font=(fontType, 15))
+                R_L_material_menu.config(font=(fontType, 12))
                 R_L_material_menu.nametowidget(R_L_material_menu.menuname).config(
-                    font=(fontType, 15)
+                    font=(fontType, 14)
                 )
 
                 i_row = 5
@@ -2106,7 +2113,7 @@ class sizingPage(tk.Frame):
                     text="Rod End:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -2120,9 +2127,9 @@ class sizingPage(tk.Frame):
                 R_L_RE_menu.config(fg=entryTextColor)
                 R_L_RE_menu.config(highlightthickness=0)
                 R_L_RE_menu.config(width=20)
-                R_L_RE_menu.config(font=(fontType, 15))
+                R_L_RE_menu.config(font=(fontType, 12))
                 R_L_RE_menu.nametowidget(R_L_RE_menu.menuname).config(
-                    font=(fontType, 15)
+                    font=(fontType, 14)
                 )
 
             if True:  # Panhard
@@ -2132,7 +2139,7 @@ class sizingPage(tk.Frame):
                     text="Panhard",
                     background=panhardColor,
                     foreground=textEntryColor,
-                    font=(fontType, 20),
+                    font=(fontType, 15),
                     justify=tk.CENTER,
                 )
                 label.grid(row=0, column=0, columnspan=3, stick="nesw")
@@ -2145,7 +2152,7 @@ class sizingPage(tk.Frame):
                     text="Outside Diameter:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -2155,7 +2162,7 @@ class sizingPage(tk.Frame):
                 text.set(inputs.R.P_OD)
                 R_P_OD = tk.Entry(
                     rear_panhard,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.CENTER,
                     width=13,
                     textvariable=text,
@@ -2171,7 +2178,7 @@ class sizingPage(tk.Frame):
                     text="{}".format(S.position_units),
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -2184,7 +2191,7 @@ class sizingPage(tk.Frame):
                     text="Solid Link?",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -2202,9 +2209,9 @@ class sizingPage(tk.Frame):
                 R_P_solid_menu.config(fg=entryTextColor)
                 R_P_solid_menu.config(highlightthickness=0)
                 R_P_solid_menu.config(width=3)
-                R_P_solid_menu.config(font=(fontType, 15))
+                R_P_solid_menu.config(font=(fontType, 12))
                 R_P_solid_menu.nametowidget(R_P_solid_menu.menuname).config(
-                    font=(fontType, 15)
+                    font=(fontType, 14)
                 )
 
                 i_row = 3
@@ -2214,7 +2221,7 @@ class sizingPage(tk.Frame):
                     text="Wall Thickness:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -2224,7 +2231,7 @@ class sizingPage(tk.Frame):
                 text.set(inputs.R.P_wall)
                 R_P_thickness = tk.Entry(
                     rear_panhard,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.CENTER,
                     width=13,
                     textvariable=text,
@@ -2240,7 +2247,7 @@ class sizingPage(tk.Frame):
                     text="{}".format(S.position_units),
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -2253,7 +2260,7 @@ class sizingPage(tk.Frame):
                     text="Material Used:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -2269,9 +2276,9 @@ class sizingPage(tk.Frame):
                 R_P_material_menu.config(fg=entryTextColor)
                 R_P_material_menu.config(highlightthickness=0)
                 R_P_material_menu.config(width=20)
-                R_P_material_menu.config(font=(fontType, 15))
+                R_P_material_menu.config(font=(fontType, 14))
                 R_P_material_menu.nametowidget(R_P_material_menu.menuname).config(
-                    font=(fontType, 15)
+                    font=(fontType, 14)
                 )
 
                 i_row = 5
@@ -2281,7 +2288,7 @@ class sizingPage(tk.Frame):
                     text="Rod End:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -2297,9 +2304,9 @@ class sizingPage(tk.Frame):
                 R_P_RE_menu.config(fg=entryTextColor)
                 R_P_RE_menu.config(highlightthickness=0)
                 R_P_RE_menu.config(width=20)
-                R_P_RE_menu.config(font=(fontType, 15))
+                R_P_RE_menu.config(font=(fontType, 12))
                 R_P_RE_menu.nametowidget(R_P_RE_menu.menuname).config(
-                    font=(fontType, 15)
+                    font=(fontType, 14)
                 )
 
                 if not constant.R.panhard:
@@ -2318,7 +2325,7 @@ class sizingPage(tk.Frame):
                     text="Rod End Thread:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -2329,7 +2336,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_R_U_RE_thread.grid(row=i_row, column=1, sticky="w")
@@ -2342,7 +2349,7 @@ class sizingPage(tk.Frame):
                     ),
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -2355,7 +2362,7 @@ class sizingPage(tk.Frame):
                     text="Rod End Hole:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -2366,7 +2373,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_R_U_RE_hole.grid(row=i_row, column=1, sticky="w")
@@ -2380,7 +2387,7 @@ class sizingPage(tk.Frame):
                     ),
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                     width=45,
                 )
@@ -2394,7 +2401,7 @@ class sizingPage(tk.Frame):
                     text="Rod End Weight:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -2405,7 +2412,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_R_U_RE_weight.grid(row=i_row, column=1, sticky="w")
@@ -2419,7 +2426,7 @@ class sizingPage(tk.Frame):
                     ),
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -2432,7 +2439,7 @@ class sizingPage(tk.Frame):
                     text="Link Weight:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -2443,7 +2450,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_R_U_link_weight.grid(row=i_row, column=1, sticky="w")
@@ -2456,7 +2463,7 @@ class sizingPage(tk.Frame):
                     text="Single Link Weight:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -2467,7 +2474,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_R_U_weight.grid(row=i_row, column=1, sticky="w")
@@ -2480,7 +2487,7 @@ class sizingPage(tk.Frame):
                     text="Factor of Safety Yield:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -2491,7 +2498,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=FSPassColor,
                     foreground=textEntryColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_R_U_FS_yield.grid(row=i_row, column=1, stick="nesw")
@@ -2502,7 +2509,7 @@ class sizingPage(tk.Frame):
                     text="(link stretching)",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -2515,7 +2522,7 @@ class sizingPage(tk.Frame):
                     text="Factor of Safety Buckling:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -2526,7 +2533,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=FSPassColor,
                     foreground=textEntryColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_R_U_FS_buckling.grid(row=i_row, column=1, stick="nesw")
@@ -2537,7 +2544,7 @@ class sizingPage(tk.Frame):
                     text="(link buckling under acceleration)",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -2550,7 +2557,7 @@ class sizingPage(tk.Frame):
                     text="Factor of Safety Bending:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -2561,7 +2568,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=FSPassColor,
                     foreground=textEntryColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_R_U_FS_bending.grid(row=i_row, column=1, stick="nesw")
@@ -2572,7 +2579,7 @@ class sizingPage(tk.Frame):
                     text="(somewhat irrelevant for an UPPER link)",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -2585,7 +2592,7 @@ class sizingPage(tk.Frame):
                     text="Factor of Safety Rod End:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -2596,7 +2603,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=FSPassColor,
                     foreground=textEntryColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_R_U_FS_RE.grid(row=i_row, column=1, stick="nesw")
@@ -2607,7 +2614,7 @@ class sizingPage(tk.Frame):
                     text="(rod end breaking)",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -2620,7 +2627,7 @@ class sizingPage(tk.Frame):
                     text="Dent Resistance:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -2631,7 +2638,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=textEntryColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_R_U_dent_resist.grid(row=i_row, column=1, sticky="nesw")
@@ -2642,7 +2649,7 @@ class sizingPage(tk.Frame):
                     text='(compared to 0.25" thick 1018 steel)',
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -2656,7 +2663,7 @@ class sizingPage(tk.Frame):
                     text="Rod End Thread:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -2667,7 +2674,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_R_L_RE_thread.grid(row=i_row, column=1, sticky="w")
@@ -2680,7 +2687,7 @@ class sizingPage(tk.Frame):
                     ),
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -2693,7 +2700,7 @@ class sizingPage(tk.Frame):
                     text="Rod End Hole:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -2704,7 +2711,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_R_L_RE_hole.grid(row=i_row, column=1, sticky="w")
@@ -2718,7 +2725,7 @@ class sizingPage(tk.Frame):
                     ),
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                     width=45,
                 )
@@ -2732,7 +2739,7 @@ class sizingPage(tk.Frame):
                     text="Rod End Weight:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -2743,7 +2750,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_R_L_RE_weight.grid(row=i_row, column=1, sticky="w")
@@ -2757,7 +2764,7 @@ class sizingPage(tk.Frame):
                     ),
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -2770,7 +2777,7 @@ class sizingPage(tk.Frame):
                     text="Link Weight:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -2781,7 +2788,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_R_L_link_weight.grid(row=i_row, column=1, sticky="w")
@@ -2794,7 +2801,7 @@ class sizingPage(tk.Frame):
                     text="Single Link Weight:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -2805,7 +2812,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_R_L_weight.grid(row=i_row, column=1, sticky="w")
@@ -2818,7 +2825,7 @@ class sizingPage(tk.Frame):
                     text="Factor of Safety Yield:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -2829,7 +2836,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=FSPassColor,
                     foreground=textEntryColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_R_L_FS_yield.grid(row=i_row, column=1, stick="nesw")
@@ -2840,7 +2847,7 @@ class sizingPage(tk.Frame):
                     text="(link stretching)",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -2853,7 +2860,7 @@ class sizingPage(tk.Frame):
                     text="Factor of Safety Buckling:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -2864,7 +2871,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=FSPassColor,
                     foreground=textEntryColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_R_L_FS_buckling.grid(row=i_row, column=1, stick="nesw")
@@ -2875,7 +2882,7 @@ class sizingPage(tk.Frame):
                     text="(link buckling under braking)",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -2888,7 +2895,7 @@ class sizingPage(tk.Frame):
                     text="Factor of Safety Bending:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -2899,7 +2906,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=FSPassColor,
                     foreground=textEntryColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_R_L_FS_bending.grid(row=i_row, column=1, stick="nesw")
@@ -2910,7 +2917,7 @@ class sizingPage(tk.Frame):
                     text="(link bending with 1/2 the vehicle's weight on it)",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -2923,7 +2930,7 @@ class sizingPage(tk.Frame):
                     text="Factor of Safety Rod End:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -2934,7 +2941,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=FSPassColor,
                     foreground=textEntryColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_R_L_FS_RE.grid(row=i_row, column=1, stick="nesw")
@@ -2945,7 +2952,7 @@ class sizingPage(tk.Frame):
                     text="(rod end breaking)",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -2958,7 +2965,7 @@ class sizingPage(tk.Frame):
                     text="Dent Resistance:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -2969,7 +2976,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=textEntryColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_R_L_dent_resist.grid(row=i_row, column=1, sticky="nesw")
@@ -2980,7 +2987,7 @@ class sizingPage(tk.Frame):
                     text='(compared to 0.25" thick 1018 steel)',
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -2994,7 +3001,7 @@ class sizingPage(tk.Frame):
                     text="Rod End Thread:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -3005,7 +3012,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_R_P_RE_thread.grid(row=i_row, column=1, sticky="w")
@@ -3019,7 +3026,7 @@ class sizingPage(tk.Frame):
                     ),
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                     width=45,
                 )
@@ -3033,7 +3040,7 @@ class sizingPage(tk.Frame):
                     text="Rod End Hole:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -3044,7 +3051,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_R_P_RE_hole.grid(row=i_row, column=1, sticky="w")
@@ -3058,7 +3065,7 @@ class sizingPage(tk.Frame):
                     ),
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                     width=45,
                 )
@@ -3072,7 +3079,7 @@ class sizingPage(tk.Frame):
                     text="Rod End Weight:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -3083,7 +3090,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_R_P_RE_weight.grid(row=i_row, column=1, sticky="w")
@@ -3097,7 +3104,7 @@ class sizingPage(tk.Frame):
                     ),
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                     width=45,
                 )
@@ -3111,7 +3118,7 @@ class sizingPage(tk.Frame):
                     text="Link Weight:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -3122,7 +3129,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_R_P_link_weight.grid(row=i_row, column=1, sticky="w")
@@ -3136,7 +3143,7 @@ class sizingPage(tk.Frame):
                     ),
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                     width=45,
                 )
@@ -3150,7 +3157,7 @@ class sizingPage(tk.Frame):
                     text="Single Link Weight:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -3161,7 +3168,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_R_P_weight.grid(row=i_row, column=1, sticky="w")
@@ -3174,7 +3181,7 @@ class sizingPage(tk.Frame):
                     text="Factor of Safety Yield:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -3185,7 +3192,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=textEntryColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_R_P_FS_yield.grid(row=i_row, column=1, stick="nesw")
@@ -3196,7 +3203,7 @@ class sizingPage(tk.Frame):
                     text="(link stretching)",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -3209,7 +3216,7 @@ class sizingPage(tk.Frame):
                     text="Factor of Safety Buckling:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -3220,7 +3227,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=textEntryColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_R_P_FS_buckling.grid(row=i_row, column=1, stick="nesw")
@@ -3231,7 +3238,7 @@ class sizingPage(tk.Frame):
                     text="(link buckling under side force)",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -3244,7 +3251,7 @@ class sizingPage(tk.Frame):
                     text="Factor of Safety Bending:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -3255,7 +3262,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=textEntryColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_R_P_FS_bending.grid(row=i_row, column=1, stick="nesw")
@@ -3266,7 +3273,7 @@ class sizingPage(tk.Frame):
                     text="(link bending with the vehicle's weight on it)",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -3279,7 +3286,7 @@ class sizingPage(tk.Frame):
                     text="Factor of Safety Rod End:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -3290,7 +3297,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=textEntryColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_R_P_FS_RE.grid(row=i_row, column=1, stick="nesw")
@@ -3301,7 +3308,7 @@ class sizingPage(tk.Frame):
                     text="(rod end breaking)",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -3314,7 +3321,7 @@ class sizingPage(tk.Frame):
                     text="Dent Resistance:",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=0, sticky="e")
@@ -3325,7 +3332,7 @@ class sizingPage(tk.Frame):
                     text="",
                     background=bgColor,
                     foreground=textEntryColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="w",
                 )
                 label_R_P_dent_resist.grid(row=i_row, column=1, sticky="nesw")
@@ -3336,7 +3343,7 @@ class sizingPage(tk.Frame):
                     text='(compared to 0.25" thick 1018 steel)',
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     justify=tk.RIGHT,
                 )
                 label.grid(row=i_row, column=2, sticky="w")
@@ -3357,7 +3364,7 @@ class sizingPage(tk.Frame):
                 text="Vehicle Sizing Results",
                 background=bgColor,
                 foreground=entryTextColor,
-                font=(fontType, 25),
+                font=(fontType, 20),
                 justify=tk.CENTER,
             )
             label.grid(row=0, column=0, pady=1)
@@ -3370,7 +3377,7 @@ class sizingPage(tk.Frame):
                 text="Desired Factor of Safety for Yield:",
                 background=bgColor,
                 foreground=entryTextColor,
-                font=(fontType, 15),
+                font=(fontType, 14),
                 justify=tk.RIGHT,
             )
             label.grid(row=i_row, column=0, sticky="e")
@@ -3380,7 +3387,7 @@ class sizingPage(tk.Frame):
             text.set(constant.V.Desired_FS_Yield)
             V_FS_yield = tk.Entry(
                 calc_IO,
-                font=(fontType, 15),
+                font=(fontType, 14),
                 justify=tk.CENTER,
                 width=13,
                 textvariable=text,
@@ -3396,7 +3403,7 @@ class sizingPage(tk.Frame):
                 text="Yield is affected most by wall thickness",
                 background=bgColor,
                 foreground=entryTextColor,
-                font=(fontType, 15),
+                font=(fontType, 14),
                 justify=tk.RIGHT,
             )
             label.grid(row=i_row, column=2, sticky="w")
@@ -3409,7 +3416,7 @@ class sizingPage(tk.Frame):
                 text="Desired Factor of Safety for Buckling:",
                 background=bgColor,
                 foreground=entryTextColor,
-                font=(fontType, 15),
+                font=(fontType, 14),
                 justify=tk.RIGHT,
             )
             label.grid(row=i_row, column=0, sticky="e")
@@ -3419,7 +3426,7 @@ class sizingPage(tk.Frame):
             text.set(constant.V.Desired_FS_Buckling)
             V_FS_buckling = tk.Entry(
                 calc_IO,
-                font=(fontType, 15),
+                font=(fontType, 14),
                 justify=tk.CENTER,
                 width=13,
                 textvariable=text,
@@ -3435,7 +3442,7 @@ class sizingPage(tk.Frame):
                 text="Buckling is affected most by outside diameter",
                 background=bgColor,
                 foreground=entryTextColor,
-                font=(fontType, 15),
+                font=(fontType, 14),
                 justify=tk.RIGHT,
             )
             label.grid(row=i_row, column=2, sticky="w")
@@ -3448,7 +3455,7 @@ class sizingPage(tk.Frame):
                 text="Desired Factor of Safety for Bending:",
                 background=bgColor,
                 foreground=entryTextColor,
-                font=(fontType, 15),
+                font=(fontType, 14),
                 justify=tk.RIGHT,
             )
             label.grid(row=i_row, column=0, sticky="e")
@@ -3458,7 +3465,7 @@ class sizingPage(tk.Frame):
             text.set(constant.V.Desired_FS_Bending)
             V_FS_bending = tk.Entry(
                 calc_IO,
-                font=(fontType, 15),
+                font=(fontType, 14),
                 justify=tk.CENTER,
                 width=13,
                 textvariable=text,
@@ -3474,7 +3481,7 @@ class sizingPage(tk.Frame):
                 text="Bending is most affected by oustide diameter",
                 background=bgColor,
                 foreground=entryTextColor,
-                font=(fontType, 15),
+                font=(fontType, 14),
                 justify=tk.RIGHT,
             )
             label.grid(row=i_row, column=2, sticky="w")
@@ -3487,7 +3494,7 @@ class sizingPage(tk.Frame):
                 text="Desired Factor of Safety for Rod End:",
                 background=bgColor,
                 foreground=entryTextColor,
-                font=(fontType, 15),
+                font=(fontType, 14),
                 justify=tk.RIGHT,
             )
             label.grid(row=i_row, column=0, sticky="e")
@@ -3497,7 +3504,7 @@ class sizingPage(tk.Frame):
             text.set(constant.V.Desired_FS_RE)
             V_FS_RE = tk.Entry(
                 calc_IO,
-                font=(fontType, 15),
+                font=(fontType, 14),
                 justify=tk.CENTER,
                 width=13,
                 textvariable=text,
@@ -3515,7 +3522,7 @@ class sizingPage(tk.Frame):
                 text="Desired Ratio for Denting:",
                 background=bgColor,
                 foreground=entryTextColor,
-                font=(fontType, 15),
+                font=(fontType, 14),
                 justify=tk.RIGHT,
             )
             label.grid(row=i_row, column=0, sticky="e")
@@ -3525,7 +3532,7 @@ class sizingPage(tk.Frame):
             text.set(constant.V.Desired_FS_Dent)
             V_FS_Dent = tk.Entry(
                 calc_IO,
-                font=(fontType, 15),
+                font=(fontType, 14),
                 justify=tk.CENTER,
                 width=13,
                 textvariable=text,
@@ -3541,7 +3548,7 @@ class sizingPage(tk.Frame):
                 text="Denting is most affected by wall thickness",
                 background=bgColor,
                 foreground=entryTextColor,
-                font=(fontType, 15),
+                font=(fontType, 14),
                 justify=tk.RIGHT,
             )
             label.grid(row=i_row, column=2, sticky="w")
@@ -3578,7 +3585,7 @@ class sizingPage(tk.Frame):
                 text="Total Link Weight:",
                 background=bgColor,
                 foreground=entryTextColor,
-                font=(fontType, 15),
+                font=(fontType, 14),
                 justify=tk.RIGHT,
             )
             label.grid(row=i_row, column=0, sticky="e")
@@ -3589,7 +3596,7 @@ class sizingPage(tk.Frame):
                 text="",
                 background=bgColor,
                 foreground=entryTextColor,
-                font=(fontType, 15),
+                font=(fontType, 14),
                 anchor="w",
             )
             label_V_total_weight.grid(row=i_row, column=1, sticky="w")
@@ -3601,7 +3608,7 @@ class sizingPage(tk.Frame):
                     text="Rod End",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="center",
                     borderwidth=1,
                     relief="groove",
@@ -3615,7 +3622,7 @@ class sizingPage(tk.Frame):
                     text="Radial Load",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="center",
                     borderwidth=1,
                     relief="groove",
@@ -3629,7 +3636,7 @@ class sizingPage(tk.Frame):
                     text="Weight",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="center",
                     borderwidth=1,
                     relief="groove",
@@ -3643,7 +3650,7 @@ class sizingPage(tk.Frame):
                     text="Through Hole\nDiameter",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="center",
                     borderwidth=1,
                     relief="groove",
@@ -3657,7 +3664,7 @@ class sizingPage(tk.Frame):
                     text="Shank\nDiameter",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="center",
                     borderwidth=1,
                     relief="groove",
@@ -3671,7 +3678,7 @@ class sizingPage(tk.Frame):
                     text="Shank\nThread",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="center",
                     borderwidth=1,
                     relief="groove",
@@ -3686,7 +3693,7 @@ class sizingPage(tk.Frame):
                         text=constant.rod_ends.name[row - 1],
                         background=bgColor,
                         foreground=entryTextColor,
-                        font=(fontType, 15),
+                        font=(fontType, 14),
                         anchor="w",
                         borderwidth=1,
                         relief="groove",
@@ -3701,7 +3708,7 @@ class sizingPage(tk.Frame):
                         ),
                         background=bgColor,
                         foreground=entryTextColor,
-                        font=(fontType, 15),
+                        font=(fontType, 14),
                         anchor="e",
                         borderwidth=1,
                         relief="groove",
@@ -3714,7 +3721,7 @@ class sizingPage(tk.Frame):
                         text="{:.2f} lb ".format(constant.rod_ends.weight[row - 1]),
                         background=bgColor,
                         foreground=entryTextColor,
-                        font=(fontType, 15),
+                        font=(fontType, 14),
                         anchor="e",
                         borderwidth=1,
                         relief="groove",
@@ -3729,7 +3736,7 @@ class sizingPage(tk.Frame):
                         ),
                         background=bgColor,
                         foreground=entryTextColor,
-                        font=(fontType, 15),
+                        font=(fontType, 14),
                         anchor="e",
                         borderwidth=1,
                         relief="groove",
@@ -3744,7 +3751,7 @@ class sizingPage(tk.Frame):
                         ),
                         background=bgColor,
                         foreground=entryTextColor,
-                        font=(fontType, 15),
+                        font=(fontType, 14),
                         anchor="e",
                         borderwidth=1,
                         relief="groove",
@@ -3757,7 +3764,7 @@ class sizingPage(tk.Frame):
                         text=constant.rod_ends.thread[row - 1],
                         background=bgColor,
                         foreground=entryTextColor,
-                        font=(fontType, 15),
+                        font=(fontType, 14),
                         anchor="e",
                         borderwidth=1,
                         relief="groove",
@@ -3771,7 +3778,7 @@ class sizingPage(tk.Frame):
                     text="Material",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="center",
                     borderwidth=1,
                     relief="groove",
@@ -3785,7 +3792,7 @@ class sizingPage(tk.Frame):
                     text="Elastic Modulus",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="center",
                     borderwidth=1,
                     relief="groove",
@@ -3799,7 +3806,7 @@ class sizingPage(tk.Frame):
                     text="Yield Strength",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="center",
                     borderwidth=1,
                     relief="groove",
@@ -3813,7 +3820,7 @@ class sizingPage(tk.Frame):
                     text="Density",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="center",
                     borderwidth=1,
                     relief="groove",
@@ -3827,7 +3834,7 @@ class sizingPage(tk.Frame):
                     text="Notes",
                     background=bgColor,
                     foreground=entryTextColor,
-                    font=(fontType, 15),
+                    font=(fontType, 14),
                     anchor="center",
                     borderwidth=1,
                     relief="groove",
@@ -3842,7 +3849,7 @@ class sizingPage(tk.Frame):
                         text=constant.materials.name[row - 1],
                         background=bgColor,
                         foreground=entryTextColor,
-                        font=(fontType, 15),
+                        font=(fontType, 14),
                         anchor="w",
                         borderwidth=1,
                         relief="groove",
@@ -3857,7 +3864,7 @@ class sizingPage(tk.Frame):
                         ),
                         background=bgColor,
                         foreground=entryTextColor,
-                        font=(fontType, 15),
+                        font=(fontType, 14),
                         anchor="e",
                         borderwidth=1,
                         relief="groove",
@@ -3872,7 +3879,7 @@ class sizingPage(tk.Frame):
                         ),
                         background=bgColor,
                         foreground=entryTextColor,
-                        font=(fontType, 15),
+                        font=(fontType, 14),
                         anchor="e",
                         borderwidth=1,
                         relief="groove",
@@ -3887,7 +3894,7 @@ class sizingPage(tk.Frame):
                         ),
                         background=bgColor,
                         foreground=entryTextColor,
-                        font=(fontType, 15),
+                        font=(fontType, 14),
                         anchor="e",
                         borderwidth=1,
                         relief="groove",
@@ -3900,7 +3907,7 @@ class sizingPage(tk.Frame):
                         text=constant.materials.notes[row - 1],
                         background=bgColor,
                         foreground=entryTextColor,
-                        font=(fontType, 15),
+                        font=(fontType, 14),
                         anchor="w",
                         borderwidth=1,
                         relief="groove",

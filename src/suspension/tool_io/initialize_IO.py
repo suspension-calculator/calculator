@@ -174,10 +174,10 @@ class inputs:
 
     class V:  # Vehicle
         wheelbase = 110.0
-        drive_bias = 0.5
-        brake_bias = 0.6
+        drive_bias = 50.0
+        brake_bias = 60.0
         CG_height = 30.0
-        weight_distribution = 0.55
+        weight_distribution = 55.0
         mass = 3000.0
         acceleration = 1.0
         transverse_acceleration = 1.0

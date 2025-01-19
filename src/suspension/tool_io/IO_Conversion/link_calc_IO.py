@@ -23,9 +23,9 @@ def input_processing_link_calc():
     constant.R.panhard = inputs.R.panhard == True
     constant.R.U_count = inputs.R.U_count * 1
 
-    constant.V.drive_bias = inputs.V.drive_bias * 1
-    constant.V.brake_bias = inputs.V.brake_bias * 1
-    constant.V.weight_distribution = inputs.V.weight_distribution * 1
+    constant.V.drive_bias = inputs.V.drive_bias / 100
+    constant.V.brake_bias = inputs.V.brake_bias / 100
+    constant.V.weight_distribution = inputs.V.weight_distribution / 100
     constant.V.acceleration = inputs.V.acceleration * 1
     constant.V.transverse_acceleration = inputs.V.transverse_acceleration * 1
 
