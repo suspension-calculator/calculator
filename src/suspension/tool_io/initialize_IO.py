@@ -9,24 +9,24 @@ class inputs:
         panhard = False
         U_count = 2
 
-        LA = np.array([-4, 19, 20])
-        LF = np.array([-45, 9, 22])
-        UA = np.array([0, 10, 30])
-        UF = np.array([-28, 20, 29])
-        PA = np.array([4, -24, 26])
-        PF = np.array([4, 24, 26])
+        LA = np.array([-4.0, 19.0, 20.0])
+        LF = np.array([-45.0, 9.0, 22.0])
+        UA = np.array([0.0, 10.0, 30.0])
+        UF = np.array([-28.0, 20.0, 29.0])
+        PA = np.array([4.0, -24.0, 26.0])
+        PF = np.array([4.0, 24.0, 26.0])
 
-        bump = 8
-        droop = -8
+        bump = 8.0
+        droop = -8.0
 
-        tire_radius = 19
-        tire_diameter = 42
+        tire_radius = 19.0
+        tire_diameter = 42.0
         tire_width = 14.5
-        portal_height = 0
-        track_width = 74
+        portal_height = 0.0
+        track_width = 74.0
         axle_tube = 3.5
 
-        unsprung_mass = 600
+        unsprung_mass = 600.0
 
         # Link Sizing
         U_OD = 1.75
@@ -47,70 +47,70 @@ class inputs:
         P_rod_end = "JMX16-1"
 
         # Driveshaft
-        pinion = np.array([-8.125, 10, 22])
+        pinion = np.array([-8.125, 10.0, 22.0])
         T_case = np.array([-50.487, 9.435, 26.45])
-        pinion_location_method = 1
-        T_case_side_angle = 5
-        T_case_top_angle = 0
-        pinion_angle = 5
+        pinion_location_method = 1.0
+        T_case_side_angle = 5.0
+        T_case_top_angle = 0.0
+        pinion_angle = 5.0
         pinion_hypoid = -1.25
-        pinion_length = -8
-        caster = 0
+        pinion_length = -8.0
+        caster = 0.0
 
         # Shocks
         spring_method = 0
         freq_goal = 0.5
-        preload_goal = 2
-        step_up_ratio = 3
-        used_main_spring = 150
-        used_tender_spring = 125
+        preload_goal = 2.0
+        step_up_ratio = 3.0
+        used_main_spring = 150.0
+        used_tender_spring = 125.0
 
         class shock1:
             size = "2.5"
-            travel = 16
-            main_spring_extra_length = 2
-            chassis_mount = np.array([-15.5, 16, 52])
-            susp_mount = np.array([-3.25, 22, 20.125])
+            travel = 16.0
+            main_spring_extra_length = 2.0
+            chassis_mount = np.array([-15.5, 16.0, 52.0])
+            susp_mount = np.array([-3.25, 22.0, 20.125])
             location = 0
             length_extended = 42.25
             length_compressed = 38.430
 
         class shock2:
             size = "2.5"
-            travel = 16
-            chassis_mount = np.array([-20, 15, 48])
-            susp_mount = np.array([-6, 18.75, 20])
+            travel = 16.0
+            chassis_mount = np.array([-20.0, 15.0, 48.0])
+            susp_mount = np.array([-6.0, 18.75, 20.0])
             location = 0
             exists = True
             length_extended = 38.430
             length_compressed = 24.430
 
         # Pitch
-        pitch_travel = 5
+        pitch_travel = 5.0
 
     class R:  # Rear
         # Link Geometry
         panhard = False
         U_count = 2
 
-        LA = np.array([4, 19, 20])
-        LF = np.array([40, 9, 22])
-        UA = np.array([0, 10, 30])
-        UF = np.array([27, 20, 29.5])
-        PA = np.array([-8, -24, 23])
-        PF = np.array([-8, 24, 23])
+        LA = np.array([4.0, 19.0, 20.0])
+        LF = np.array([40.0, 9.0, 22.0])
+        UA = np.array([0.0, 10.0, 30.0])
+        UF = np.array([27.0, 20.0, 29.5])
+        PA = np.array([-8.0, -24.0, 23.0])
+        PF = np.array([-8.0, 24.0, 23.0])
 
-        bump = 8
-        droop = -8
+        bump = 8.0
+        droop = -8.0
 
-        tire_radius = 19
-        tire_diameter = 42
+        tire_radius = 19.0
+        tire_diameter = 42.0
         tire_width = 14.5
-        portal_height = 0
-        track_width = 74
-        axle_tube = 4
+        portal_height = 0.0
+        track_width = 74.0
+        axle_tube = 4.0
 
-        unsprung_mass = 500
+        unsprung_mass = 500.0
 
         # Link Sizing
         U_OD = 1.75
@@ -131,29 +131,29 @@ class inputs:
         P_rod_end = "JMX16-1"
 
         # Driveshaft
-        pinion = np.array([8, 0, 22])
-        T_case = np.array([43.25, 0, 26.697])
-        pinion_location_method = 1
-        T_case_side_angle = -5
-        T_case_top_angle = 0
-        pinion_angle = 5
+        pinion = np.array([8.0, 0.0, 22.0])
+        T_case = np.array([43.25, 0.0, 26.697])
+        pinion_location_method = 1.0
+        T_case_side_angle = -5.0
+        T_case_top_angle = 0.0
+        pinion_angle = 5.0
         pinion_hypoid = -0.125
-        pinion_length = 8
-        caster = 0
+        pinion_length = 8.0
+        caster = 0.0
 
         # Shocks
         spring_method = 0
         freq_goal = 0.5
-        preload_goal = 3
-        step_up_ratio = 0
-        used_main_spring = 150
-        used_tender_spring = 100
+        preload_goal = 3.0
+        step_up_ratio = 0.0
+        used_main_spring = 150.0
+        used_tender_spring = 100.0
 
         class shock1:
             size = "2.5"
-            travel = 16
-            main_spring_extra_length = 2
-            chassis_mount = np.array([9.75, 13, 55.375])
+            travel = 16.0
+            main_spring_extra_length = 2.0
+            chassis_mount = np.array([9.75, 13.0, 55.375])
             susp_mount = np.array([0.625, 20.750, 22.75])
             location = 0
             length_extended = 42.250
@@ -162,38 +162,38 @@ class inputs:
         class shock2:
             size = "3.0"
             travel = 16
-            chassis_mount = np.array([9, 16, 53.875])
-            susp_mount = np.array([-1, 19.5, 21])
+            chassis_mount = np.array([9.0, 16.0, 53.875])
+            susp_mount = np.array([-1.0, 19.5, 21.0])
             location = 0
             exists = True
             length_extended = 42.430
             length_compressed = 26.430
 
         # Pitch
-        pitch_travel = -5
+        pitch_travel = -5.0
 
     class V:  # Vehicle
-        wheelbase = 110
+        wheelbase = 110.0
         drive_bias = 0.5
         brake_bias = 0.6
-        CG_height = 30
+        CG_height = 30.0
         weight_distribution = 0.55
-        mass = 3000
-        acceleration = 1
-        transverse_acceleration = 1
+        mass = 3000.0
+        acceleration = 1.0
+        transverse_acceleration = 1.0
 
-        Desired_FS_Yield = 15
-        Desired_FS_Buckling = 6
-        Desired_FS_Bending = 2
-        Desired_FS_RE = 6
-        Desired_FS_Dent = 15
+        Desired_FS_Yield = 15.0
+        Desired_FS_Buckling = 6.0
+        Desired_FS_Bending = 2.0
+        Desired_FS_RE = 6.0
+        Desired_FS_Dent = 15.0
 
-        desired_speed = 40
+        desired_speed = 40.0
         freq_approach = 0
         spring_method = 0
 
-        pitch_slope = 45  # needs to be degrees
-        pitch_acceleration = 1
+        pitch_slope = 45.0  # needs to be degrees
+        pitch_acceleration = 1.0
         pitch_drive_bias = 0.5
         pitch_brake_bias = 0.6
 
@@ -207,38 +207,38 @@ class outputs:
         LF = np.zeros((1, 3))
         PA = np.zeros((2, 3))
         PF = np.zeros((1, 3))
-        U_Length_3D = 0
-        L_Length_3D = 0
-        P_Length_3D = 0
-        U_Length_2D = 0
-        L_Length_2D = 0
-        P_Length_2D = 0
-        U_Max_Force = 0
-        L_Max_Force = 0
-        P_Max_Force = 0
+        U_Length_3D = 0.0
+        L_Length_3D = 0.0
+        P_Length_3D = 0.0
+        U_Length_2D = 0.0
+        L_Length_2D = 0.0
+        P_Length_2D = 0.0
+        U_Max_Force = 0.0
+        L_Max_Force = 0.0
+        P_Max_Force = 0.0
         Travel = np.zeros(2)
         Anti_Dive = np.zeros(2)
         Anti_Lift = np.zeros(2)
-        Anti_CG = 0
+        Anti_CG = 0.0
         Roll_Slope = np.zeros(2)
         Roll_Center = np.zeros(2)
         Pinion_Change = np.zeros(2)
         Panhard_Transverse_Movement = np.zeros(2)
         IC = np.zeros((2, 3))
         Hub = np.zeros((2, 3))
-        Upper_Convergence = 0
-        Lower_Convergence = 0
-        Total_Convergence = 0
+        Upper_Convergence = 0.0
+        Lower_Convergence = 0.0
+        Total_Convergence = 0.0
         U_converge_point = np.zeros(3)
         L_converge_point = np.zeros(3)
-        Sprung_CG_height_Above_Roll_Center = 0
-        Min_Sep = 0
+        Sprung_CG_height_Above_Roll_Center = 0.0
+        Min_Sep = 0.0
         LA_side_view_angle_range = np.zeros(2)
         LF_side_view_angle_range = np.zeros(2)
-        L_top_view_angle = 0
+        L_top_view_angle = 0.0
         UA_side_view_angle_range = np.zeros(2)
         UF_side_view_angle_range = np.zeros(2)
-        U_top_view_angle = 0
+        U_top_view_angle = 0.0
         PA_front_view_angle_range = np.zeros(2)
         PA_top_view_angle_range = np.zeros(2)
         PF_front_view_angle_range = np.zeros(2)
@@ -251,48 +251,48 @@ class outputs:
         U_Hole = "a"
         L_Hole = "a"
         P_Hole = "a"
-        U_Link_Weight = 0
-        L_Link_Weight = 0
-        P_Link_Weight = 0
-        U_RE_Weight = 0
-        L_RE_Weight = 0
-        P_RE_Weight = 0
-        U_Weight = 0
-        L_Weight = 0
-        P_Weight = 0
-        U_FS_Yield = 0
-        L_FS_Yield = 0
-        P_FS_Yield = 0
-        U_FS_buckling = 0
-        L_FS_buckling = 0
-        P_FS_buckling = 0
-        U_FS_bending = 0
-        L_FS_bending = 0
-        P_FS_bending = 0
-        U_Dent_Resistance = 0
-        L_Dent_Resistance = 0
-        P_Dent_Resistance = 0
-        U_FS_RE = 0
-        L_FS_RE = 0
-        P_FS_RE = 0
+        U_Link_Weight = 0.0
+        L_Link_Weight = 0.0
+        P_Link_Weight = 0.0
+        U_RE_Weight = 0.0
+        L_RE_Weight = 0.0
+        P_RE_Weight = 0.0
+        U_Weight = 0.0
+        L_Weight = 0.0
+        P_Weight = 0.0
+        U_FS_Yield = 0.0
+        L_FS_Yield = 0.0
+        P_FS_Yield = 0.0
+        U_FS_buckling = 0.0
+        L_FS_buckling = 0.0
+        P_FS_buckling = 0.0
+        U_FS_bending = 0.0
+        L_FS_bending = 0.0
+        P_FS_bending = 0.0
+        U_Dent_Resistance = 0.0
+        L_Dent_Resistance = 0.0
+        P_Dent_Resistance = 0.0
+        U_FS_RE = 0.0
+        L_FS_RE = 0.0
+        P_FS_RE = 0.0
 
         # Driveshafts
-        Max_Length = 0
-        Ride_Length = 0
-        Min_Length = 0
-        Driveshaft_Travel = 0
+        Max_Length = 0.0
+        Ride_Length = 0.0
+        Min_Length = 0.0
+        Driveshaft_Travel = 0.0
         T_Case_U_Joint = np.zeros(2)
         Pinion_U_Joint = np.zeros(2)
 
         # Shocks
-        Dist_Between = 0
-        Percent_Up_Travel = 0
+        Dist_Between = 0.0
+        Percent_Up_Travel = 0.0
 
         class Shock1:
-            Full_Bump_Length = 0
-            Full_Droop_Length = 0
-            Percent_Bump_Remaining = 0
-            Lever_Arm_2_Body_Roll = 0
+            Full_Bump_Length = 0.0
+            Full_Droop_Length = 0.0
+            Percent_Bump_Remaining = 0.0
+            Lever_Arm_2_Body_Roll = 0.0
             Force_Closest = np.zeros(2)
             Force_Chosen = np.zeros(2)
             IR = np.zeros(2)
@@ -301,27 +301,27 @@ class outputs:
             Shock_Angle = np.zeros(2)
             Wheel_IC = np.zeros(2)
             Shock_Inboard = np.zeros(2)
-            Corner_Sprung_Weight = 0
-            Ideal_Main_Spring = 0
-            Ideal_Tender_Spring = 0
-            Ideal_Ride_Freq = 0
-            Ideal_Full_Bump_Freq = 0
-            Closest_Main_Spring = 0
-            Closest_Tender_Spring = 0
-            Closest_Step_Up = 0
-            Closest_Ride_Freq = 0
-            Closest_Full_Bump_Freq = 0
-            Closest_Preload = 0
-            Chosen_Step_Up = 0
-            Chosen_Ride_Freq = 0
-            Chosen_Full_Bump_Freq = 0
-            Chosen_Preload = 0
+            Corner_Sprung_Weight = 0.0
+            Ideal_Main_Spring = 0.0
+            Ideal_Tender_Spring = 0.0
+            Ideal_Ride_Freq = 0.0
+            Ideal_Full_Bump_Freq = 0.0
+            Closest_Main_Spring = 0.0
+            Closest_Tender_Spring = 0.0
+            Closest_Step_Up = 0.0
+            Closest_Ride_Freq = 0.0
+            Closest_Full_Bump_Freq = 0.0
+            Closest_Preload = 0.0
+            Chosen_Step_Up = 0.0
+            Chosen_Ride_Freq = 0.0
+            Chosen_Full_Bump_Freq = 0.0
+            Chosen_Preload = 0.0
 
         class Shock2:
-            Full_Bump_Length = 0
-            Full_Droop_Length = 0
-            Percent_Bump_Remaining = 0
-            Lever_Arm_2_Body_Roll = 0
+            Full_Bump_Length = 0.0
+            Full_Droop_Length = 0.0
+            Percent_Bump_Remaining = 0.0
+            Lever_Arm_2_Body_Roll = 0.0
             IR = np.zeros(2)
             Link_Ratio = np.zeros(2)
             Distance_Ratio = np.zeros(2)
@@ -337,38 +337,38 @@ class outputs:
         LF = np.zeros((1, 3))
         PA = np.zeros((2, 3))
         PF = np.zeros((1, 3))
-        U_Length_3D = 0
-        L_Length_3D = 0
-        P_Length_3D = 0
-        U_Length_2D = 0
-        L_Length_2D = 0
-        P_Length_2D = 0
-        U_Max_Force = 0
-        L_Max_Force = 0
-        P_Max_Force = 0
+        U_Length_3D = 0.0
+        L_Length_3D = 0.0
+        P_Length_3D = 0.0
+        U_Length_2D = 0.0
+        L_Length_2D = 0.0
+        P_Length_2D = 0.0
+        U_Max_Force = 0.0
+        L_Max_Force = 0.0
+        P_Max_Force = 0.0
         Travel = np.zeros(2)
         Anti_Squat = np.zeros(2)
         Anti_Lift = np.zeros(2)
-        Anti_CG = 0
+        Anti_CG = 0.0
         Roll_Slope = np.zeros(2)
         Roll_Center = np.zeros(2)
         Pinion_Change = np.zeros(2)
         Panhard_Transverse_Movement = np.zeros(2)
         IC = np.zeros((2, 3))
         Hub = np.zeros((2, 3))
-        Upper_Convergence = 0
-        Lower_Convergence = 0
-        Total_Convergence = 0
+        Upper_Convergence = 0.0
+        Lower_Convergence = 0.0
+        Total_Convergence = 0.0
         U_converge_point = np.zeros(3)
         L_converge_point = np.zeros(3)
-        Sprung_CG_height_Above_Roll_Center = 0
-        Min_Sep = 0
+        Sprung_CG_height_Above_Roll_Center = 0.0
+        Min_Sep = 0.0
         LA_side_view_angle_range = np.zeros(2)
         LF_side_view_angle_range = np.zeros(2)
-        L_top_view_angle = 0
+        L_top_view_angle = 0.0
         UA_side_view_angle_range = np.zeros(2)
         UF_side_view_angle_range = np.zeros(2)
-        U_top_view_angle = 0
+        U_top_view_angle = 0.0
         PA_rear_view_angle_range = np.zeros(2)
         PA_top_view_angle_range = np.zeros(2)
         PF_rear_view_angle_range = np.zeros(2)
@@ -381,48 +381,48 @@ class outputs:
         U_Hole = "a"
         L_Hole = "a"
         P_Hole = "a"
-        U_Link_Weight = 0
-        L_Link_Weight = 0
-        P_Link_Weight = 0
-        U_RE_Weight = 0
-        L_RE_Weight = 0
-        P_RE_Weight = 0
-        U_Weight = 0
-        L_Weight = 0
-        P_Weight = 0
-        U_FS_Yield = 0
-        L_FS_Yield = 0
-        P_FS_Yield = 0
-        U_FS_buckling = 0
-        L_FS_buckling = 0
-        P_FS_buckling = 0
-        U_FS_bending = 0
-        L_FS_bending = 0
-        P_FS_bending = 0
-        U_Dent_Resistance = 0
-        L_Dent_Resistance = 0
-        P_Dent_Resistance = 0
-        U_FS_RE = 0
-        L_FS_RE = 0
-        P_FS_RE = 0
+        U_Link_Weight = 0.0
+        L_Link_Weight = 0.0
+        P_Link_Weight = 0.0
+        U_RE_Weight = 0.0
+        L_RE_Weight = 0.0
+        P_RE_Weight = 0.0
+        U_Weight = 0.0
+        L_Weight = 0.0
+        P_Weight = 0.0
+        U_FS_Yield = 0.0
+        L_FS_Yield = 0.0
+        P_FS_Yield = 0.0
+        U_FS_buckling = 0.0
+        L_FS_buckling = 0.0
+        P_FS_buckling = 0.0
+        U_FS_bending = 0.0
+        L_FS_bending = 0.0
+        P_FS_bending = 0.0
+        U_Dent_Resistance = 0.0
+        L_Dent_Resistance = 0.0
+        P_Dent_Resistance = 0.0
+        U_FS_RE = 0.0
+        L_FS_RE = 0.0
+        P_FS_RE = 0.0
 
         # Driveshafts
-        Max_Length = 0
-        Ride_Length = 0
-        Min_Length = 0
-        Driveshaft_Travel = 0
+        Max_Length = 0.0
+        Ride_Length = 0.0
+        Min_Length = 0.0
+        Driveshaft_Travel = 0.0
         T_Case_U_Joint = np.zeros(2)
         Pinion_U_Joint = np.zeros(2)
 
         # Shocks
-        Dist_Between = 0
-        Percent_Up_Travel = 0
+        Dist_Between = 0.0
+        Percent_Up_Travel = 0.0
 
         class Shock1:
-            Full_Bump_Length = 0
-            Full_Droop_Length = 0
-            Percent_Bump_Remaining = 0
-            Lever_Arm_2_Body_Roll = 0
+            Full_Bump_Length = 0.0
+            Full_Droop_Length = 0.0
+            Percent_Bump_Remaining = 0.0
+            Lever_Arm_2_Body_Roll = 0.0
             Force_Closest = np.zeros(2)
             Force_Chosen = np.zeros(2)
             IR = np.zeros(2)
@@ -431,27 +431,27 @@ class outputs:
             Shock_Angle = np.zeros(2)
             Wheel_IC = np.zeros(2)
             Shock_Inboard = np.zeros(2)
-            Corner_Sprung_Weight = 0
-            Ideal_Main_Spring = 0
-            Ideal_Tender_Spring = 0
-            Ideal_Ride_Freq = 0
-            Ideal_Full_Bump_Freq = 0
-            Closest_Main_Spring = 0
-            Closest_Tender_Spring = 0
-            Closest_Step_Up = 0
-            Closest_Ride_Freq = 0
-            Closest_Full_Bump_Freq = 0
-            Closest_Preload = 0
-            Chosen_Step_Up = 0
-            Chosen_Ride_Freq = 0
-            Chosen_Full_Bump_Freq = 0
-            Chosen_Preload = 0
+            Corner_Sprung_Weight = 0.0
+            Ideal_Main_Spring = 0.0
+            Ideal_Tender_Spring = 0.0
+            Ideal_Ride_Freq = 0.0
+            Ideal_Full_Bump_Freq = 0.0
+            Closest_Main_Spring = 0.0
+            Closest_Tender_Spring = 0.0
+            Closest_Step_Up = 0.0
+            Closest_Ride_Freq = 0.0
+            Closest_Full_Bump_Freq = 0.0
+            Closest_Preload = 0.0
+            Chosen_Step_Up = 0.0
+            Chosen_Ride_Freq = 0.0
+            Chosen_Full_Bump_Freq = 0.0
+            Chosen_Preload = 0.0
 
         class Shock2:
-            Full_Bump_Length = 0
-            Full_Droop_Length = 0
-            Percent_Bump_Remaining = 0
-            Lever_Arm_2_Body_Roll = 0
+            Full_Bump_Length = 0.0
+            Full_Droop_Length = 0.0
+            Percent_Bump_Remaining = 0.0
+            Lever_Arm_2_Body_Roll = 0.0
             IR = np.zeros(2)
             Link_Ratio = np.zeros(2)
             Distance_Ratio = np.zeros(2)
@@ -461,21 +461,21 @@ class outputs:
 
     class V:
         # Link Calc
-        Acceleration = 0
-        Transverse_Acceleration = 0
-        Sprung_CG_height = 0
-        Sprung_CG_height_Above_Roll_Axis = 0
-        Roll_Axis = 0
-        Climb_Angle = 0
-        Descent_Angle = 0
-        Side_Roll_Angle = 0
+        Acceleration = 0.0
+        Transverse_Acceleration = 0.0
+        Sprung_CG_height = 0.0
+        Sprung_CG_height_Above_Roll_Axis = 0.0
+        Roll_Axis = 0.0
+        Climb_Angle = 0.0
+        Descent_Angle = 0.0
+        Side_Roll_Angle = 0.0
 
         # Link Sizing
-        Combined_Link_Weight = 0
+        Combined_Link_Weight = 0.0
 
         # Shocks
-        Closest_Anti_Pitching_Speed = 0
-        Chosen_Anti_Pitching_Speed = 0
+        Closest_Anti_Pitching_Speed = 0.0
+        Chosen_Anti_Pitching_Speed = 0.0
 
     class Pitch:
         front_travel_est = np.zeros(5)
@@ -483,17 +483,17 @@ class outputs:
         load_bias = np.zeros(5)
 
         class User_Input:
-            Angle = 0
-            Front_Travel = 0
-            Rear_Travel = 0
-            Body_Roll_Axis = 0
-            Sprung_Mass_CG = 0
+            Angle = 0.0
+            Front_Travel = 0.0
+            Rear_Travel = 0.0
+            Body_Roll_Axis = 0.0
+            Sprung_Mass_CG = 0.0
 
             class F:
-                Anti_Dive = 0
-                Anti_Lift = 0
-                Roll_Slope = 0
-                Roll_Center = 0
+                Anti_Dive = 0.0
+                Anti_Lift = 0.0
+                Roll_Slope = 0.0
+                Roll_Center = 0.0
                 UA = np.zeros(3)
                 UF = np.zeros(3)
                 LA = np.zeros(3)
@@ -503,10 +503,10 @@ class outputs:
                 Hub = np.zeros(3)
 
             class R:
-                Anti_Squat = 0
-                Anti_Lift = 0
-                Roll_Slope = 0
-                Roll_Center = 0
+                Anti_Squat = 0.0
+                Anti_Lift = 0.0
+                Roll_Slope = 0.0
+                Roll_Center = 0.0
                 UA = np.zeros(3)
                 UF = np.zeros(3)
                 LA = np.zeros(3)
@@ -516,17 +516,17 @@ class outputs:
                 Hub = np.zeros(3)
 
         class Half_Rear:
-            Angle = 0
-            Front_Travel = 0
-            Rear_Travel = 0
-            Body_Roll_Axis = 0
-            Sprung_Mass_CG = 0
+            Angle = 0.0
+            Front_Travel = 0.0
+            Rear_Travel = 0.0
+            Body_Roll_Axis = 0.0
+            Sprung_Mass_CG = 0.0
 
             class F:
-                Anti_Dive = 0
-                Anti_Lift = 0
-                Roll_Slope = 0
-                Roll_Center = 0
+                Anti_Dive = 0.0
+                Anti_Lift = 0.0
+                Roll_Slope = 0.0
+                Roll_Center = 0.0
                 UA = np.zeros(3)
                 UF = np.zeros(3)
                 LA = np.zeros(3)
@@ -536,10 +536,10 @@ class outputs:
                 Hub = np.zeros(3)
 
             class R:
-                Anti_Squat = 0
-                Anti_Lift = 0
-                Roll_Slope = 0
-                Roll_Center = 0
+                Anti_Squat = 0.0
+                Anti_Lift = 0.0
+                Roll_Slope = 0.0
+                Roll_Center = 0.0
                 UA = np.zeros(3)
                 UF = np.zeros(3)
                 LA = np.zeros(3)
@@ -549,17 +549,17 @@ class outputs:
                 Hub = np.zeros(3)
 
         class Half_Front:
-            Angle = 0
-            Front_Travel = 0
-            Rear_Travel = 0
-            Body_Roll_Axis = 0
-            Sprung_Mass_CG = 0
+            Angle = 0.0
+            Front_Travel = 0.0
+            Rear_Travel = 0.0
+            Body_Roll_Axis = 0.0
+            Sprung_Mass_CG = 0.0
 
             class F:
-                Anti_Dive = 0
-                Anti_Lift = 0
-                Roll_Slope = 0
-                Roll_Center = 0
+                Anti_Dive = 0.0
+                Anti_Lift = 0.0
+                Roll_Slope = 0.0
+                Roll_Center = 0.0
                 UA = np.zeros(3)
                 UF = np.zeros(3)
                 LA = np.zeros(3)
@@ -569,10 +569,10 @@ class outputs:
                 Hub = np.zeros(3)
 
             class R:
-                Anti_Squat = 0
-                Anti_Lift = 0
-                Roll_Slope = 0
-                Roll_Center = 0
+                Anti_Squat = 0.0
+                Anti_Lift = 0.0
+                Roll_Slope = 0.0
+                Roll_Center = 0.0
                 UA = np.zeros(3)
                 UF = np.zeros(3)
                 LA = np.zeros(3)
@@ -582,17 +582,17 @@ class outputs:
                 Hub = np.zeros(3)
 
         class Full_Rear:
-            Angle = 0
-            Front_Travel = 0
-            Rear_Travel = 0
-            Body_Roll_Axis = 0
-            Sprung_Mass_CG = 0
+            Angle = 0.0
+            Front_Travel = 0.0
+            Rear_Travel = 0.0
+            Body_Roll_Axis = 0.0
+            Sprung_Mass_CG = 0.0
 
             class F:
-                Anti_Dive = 0
-                Anti_Lift = 0
-                Roll_Slope = 0
-                Roll_Center = 0
+                Anti_Dive = 0.0
+                Anti_Lift = 0.0
+                Roll_Slope = 0.0
+                Roll_Center = 0.0
                 UA = np.zeros(3)
                 UF = np.zeros(3)
                 LA = np.zeros(3)
@@ -602,10 +602,10 @@ class outputs:
                 Hub = np.zeros(3)
 
             class R:
-                Anti_Squat = 0
-                Anti_Lift = 0
-                Roll_Slope = 0
-                Roll_Center = 0
+                Anti_Squat = 0.0
+                Anti_Lift = 0.0
+                Roll_Slope = 0.0
+                Roll_Center = 0.0
                 UA = np.zeros(3)
                 UF = np.zeros(3)
                 LA = np.zeros(3)
@@ -615,17 +615,17 @@ class outputs:
                 Hub = np.zeros(3)
 
         class Full_Front:
-            Angle = 0
-            Front_Travel = 0
-            Rear_Travel = 0
-            Body_Roll_Axis = 0
-            Sprung_Mass_CG = 0
+            Angle = 0.0
+            Front_Travel = 0.0
+            Rear_Travel = 0.0
+            Body_Roll_Axis = 0.0
+            Sprung_Mass_CG = 0.0
 
             class F:
-                Anti_Dive = 0
-                Anti_Lift = 0
-                Roll_Slope = 0
-                Roll_Center = 0
+                Anti_Dive = 0.0
+                Anti_Lift = 0.0
+                Roll_Slope = 0.0
+                Roll_Center = 0.0
                 UA = np.zeros(3)
                 UF = np.zeros(3)
                 LA = np.zeros(3)
@@ -635,10 +635,10 @@ class outputs:
                 Hub = np.zeros(3)
 
             class R:
-                Anti_Squat = 0
-                Anti_Lift = 0
-                Roll_Slope = 0
-                Roll_Center = 0
+                Anti_Squat = 0.0
+                Anti_Lift = 0.0
+                Roll_Slope = 0.0
+                Roll_Center = 0.0
                 UA = np.zeros(3)
                 UF = np.zeros(3)
                 LA = np.zeros(3)
@@ -648,17 +648,17 @@ class outputs:
                 Hub = np.zeros(3)
 
         class Full_Up:
-            Angle = 0
-            Front_Travel = 0
-            Rear_Travel = 0
-            Body_Roll_Axis = 0
-            Sprung_Mass_CG = 0
+            Angle = 0.0
+            Front_Travel = 0.0
+            Rear_Travel = 0.0
+            Body_Roll_Axis = 0.0
+            Sprung_Mass_CG = 0.0
 
             class F:
-                Anti_Dive = 0
-                Anti_Lift = 0
-                Roll_Slope = 0
-                Roll_Center = 0
+                Anti_Dive = 0.0
+                Anti_Lift = 0.0
+                Roll_Slope = 0.0
+                Roll_Center = 0.0
                 UA = np.zeros(3)
                 UF = np.zeros(3)
                 LA = np.zeros(3)
@@ -668,10 +668,10 @@ class outputs:
                 Hub = np.zeros(3)
 
             class R:
-                Anti_Squat = 0
-                Anti_Lift = 0
-                Roll_Slope = 0
-                Roll_Center = 0
+                Anti_Squat = 0.0
+                Anti_Lift = 0.0
+                Roll_Slope = 0.0
+                Roll_Center = 0.0
                 UA = np.zeros(3)
                 UF = np.zeros(3)
                 LA = np.zeros(3)
@@ -681,17 +681,17 @@ class outputs:
                 Hub = np.zeros(3)
 
         class Full_Down:
-            Angle = 0
-            Front_Travel = 0
-            Rear_Travel = 0
-            Body_Roll_Axis = 0
-            Sprung_Mass_CG = 0
+            Angle = 0.0
+            Front_Travel = 0.0
+            Rear_Travel = 0.0
+            Body_Roll_Axis = 0.0
+            Sprung_Mass_CG = 0.0
 
             class F:
-                Anti_Dive = 0
-                Anti_Lift = 0
-                Roll_Slope = 0
-                Roll_Center = 0
+                Anti_Dive = 0.0
+                Anti_Lift = 0.0
+                Roll_Slope = 0.0
+                Roll_Center = 0.0
                 UA = np.zeros(3)
                 UF = np.zeros(3)
                 LA = np.zeros(3)
@@ -701,10 +701,10 @@ class outputs:
                 Hub = np.zeros(3)
 
             class R:
-                Anti_Squat = 0
-                Anti_Lift = 0
-                Roll_Slope = 0
-                Roll_Center = 0
+                Anti_Squat = 0.0
+                Anti_Lift = 0.0
+                Roll_Slope = 0.0
+                Roll_Center = 0.0
                 UA = np.zeros(3)
                 UF = np.zeros(3)
                 LA = np.zeros(3)
