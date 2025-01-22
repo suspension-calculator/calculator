@@ -4,71 +4,221 @@ This project is a Python-based suspension calculator for vehicle suspension desi
 
 ## Prerequisites
 
-- Python 3.13+
+- Python 3.13+ (Python 3.10+ may work but is not officially supported)
 - pip (Python package installer)
-- make (for using Makefile commands)
+- make (build automation tool - see OS-specific installation instructions below)
+
+## Operating System Setup
+
+### Windows Setup
+
+#### Installing Make (choose one method):
+
+1. **Using Chocolatey (Recommended):**
+   ```bash
+   # Install Chocolatey (PowerShell Admin)
+   Set-ExecutionPolicy Bypass -Scope Process -Force
+   [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
+   iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+
+   # Install make
+   choco install make
+   ```
+
+2. **Using Scoop:**
+   ```bash
+   # Install Scoop (PowerShell)
+   Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+   irm get.scoop.sh | iex
+
+   # Install make
+   scoop install make
+   ```
+
+3. **Using Git Bash:**
+    - Download and install Git for Windows from https://gitforwindows.org/
+    - During installation, select "Use Git and optional Unix tools from the Command Prompt"
+
+#### Without Make (Alternative Windows Commands)
+
+If you prefer not to install Make, use these equivalent commands:
+
+```bash
+# Instead of 'make venv'
+python -m venv venv
+.\venv\Scripts\activate
+pip install -e ".[dev]"
+
+# Instead of 'make dev'
+python -m suspension.main
+
+# Instead of 'make build'
+pyinstaller Calculator.spec
+
+# Instead of 'make clean'
+rmdir /s /q build dist *.egg-info __pycache__
+```
+
+### MacOS Setup
+
+```bash
+# Install make if not present
+brew install make
+```
+
+### Linux Setup
+
+```bash
+# Ubuntu/Debian
+sudo apt-get install make
+
+# Fedora
+sudo dnf install make
+
+# Arch Linux
+sudo pacman -S make
+```
 
 ## Project Setup
 
 1. Clone the repository:
-```bash
-git clone [repository-url]
-cd calculator
-```
+   ```bash
+   git clone [repository-url]
+   cd calculator
+   ```
 
 2. Create and activate virtual environment:
-```bash
-make venv
-```
-This will:
-- Create a Python 3.13 virtual environment in `venv/` directory
-- Install the package and development dependencies
+   ```bash
+   # Create venv and install dependencies
+   make venv
+
+   # Activate virtual environment
+   # Windows (CMD):        .\venv\Scripts\activate.bat
+   # Windows (PowerShell): .\venv\Scripts\Activate.ps1
+   # Unix/MacOS:          source venv/bin/activate
+   ```
 
 ## Available Make Commands
 
-- `make venv`: Create virtual environment and install dependencies
-- `make setup`: Install package in editable mode with development dependencies
-- `make start`: Run the compiled calculator application 
-- `make build`: Build the application using PyInstaller
-- `make clean`: Remove build artifacts and cache files
-- `make dev`: Run the calculator in development mode
-- `make test`: Run pytest test suite
-- `make coverage`: Run tests with coverage report
+| Command         | Description                                            | Alternative (Windows without Make)                                                     |
+|-----------------|--------------------------------------------------------|----------------------------------------------------------------------------------------|
+| `make venv`     | Create virtual environment and install dependencies    | `python -m venv venv && .\venv\Scripts\activate && pip install -e ".[dev]"`            |
+| `make setup`    | Install package in editable mode with dev dependencies | `pip install -e ".[dev]"`                                                              |
+| `make start`    | Run the compiled calculator application                | `.\dist\Calculator\Calculator.exe`                                                     |
+| `make build`    | Build application using PyInstaller                    | `pyinstaller Calculator.spec`                                                          |
+| `make clean`    | Remove build artifacts and cache                       | `rmdir /s /q build dist *.egg-info __pycache__`                                        |
+| `make dev`      | Run calculator in development mode                     | `python -m suspension.main`                                                            |
+| `make test`     | Run pytest test suite                                  | `python -m pytest tests/ -v`                                                           |
+| `make coverage` | Run tests with coverage report                         | `python -m pytest --cov=suspension tests/ --cov-report=term-missing --cov-report=html` |
 
 ## Development
 
 1. Install in development mode:
-```bash
-make setup
-```
+   ```bash
+   make setup
+   ```
 
 2. Run tests:
-```bash
-make test
-```
+   ```bash
+   make test
+   ```
 
 3. Check test coverage:
-```bash
-make coverage
-```
+   ```bash
+   make coverage
+   ```
+
 This generates:
+
 - Terminal output with line-by-line coverage
 - HTML coverage report in `htmlcov/` directory
 
 4. Run in development mode:
-```bash
-make dev
-```
+   ```bash
+   make dev
+   ```
 
-## Building
+## Project Setup
 
-To create a distributable version:
+1. Clone the repository:
+   ```bash
+   git clone [repository-url]
+   cd calculator
+   ```
 
-```bash
-make build
-```
+2. Create and activate virtual environment:
+   ```bash
+   # Create venv and install dependencies
+   make venv
 
-This creates the executable in `dist/Calculator/`
+   # Activate virtual environment
+   # Windows (CMD):        .\venv\Scripts\activate.bat
+   # Windows (PowerShell): .\venv\Scripts\Activate.ps1
+   # Unix/MacOS:          source venv/bin/activate
+   ```
+
+## Available Make Commands
+
+| Command         | Description                                            | Alternative (Windows without Make)                                                     |
+|-----------------|--------------------------------------------------------|----------------------------------------------------------------------------------------|
+| `make venv`     | Create virtual environment and install dependencies    | `python -m venv venv && .\venv\Scripts\activate && pip install -e ".[dev]"`            |
+| `make setup`    | Install package in editable mode with dev dependencies | `pip install -e ".[dev]"`                                                              |
+| `make start`    | Run the compiled calculator application                | `.\dist\Calculator\Calculator.exe`                                                     |
+| `make build`    | Build application using PyInstaller                    | `pyinstaller Calculator.spec`                                                          |
+| `make clean`    | Remove build artifacts and cache                       | `rmdir /s /q build dist *.egg-info __pycache__`                                        |
+| `make dev`      | Run calculator in development mode                     | `python -m suspension.main`                                                            |
+| `make test`     | Run pytest test suite                                  | `python -m pytest tests/ -v`                                                           |
+| `make coverage` | Run tests with coverage report                         | `python -m pytest --cov=suspension tests/ --cov-report=term-missing --cov-report=html` |
+
+## Development
+
+1. Install in development mode:
+   ```bash
+   make setup
+   ```
+
+2. Run tests:
+   ```bash
+   make test
+   ```
+
+3. Check test coverage:
+   ```bash
+   make coverage
+   ```
+
+This generates:
+
+- Terminal output with line-by-line coverage
+- HTML coverage report in `htmlcov/` directory
+
+4. Run in development mode:
+   ```bash
+   make dev
+   ```
+
+### Platform-Specific Notes
+
+#### Windows
+
+- The executable will have `.exe` extension
+- Users may need to allow the application through Windows Defender
+- Right-click and "Run as Administrator" if required
+
+#### MacOS
+
+- Users may need to allow the application in Security & Privacy settings
+- Application is not code signed by default
+- Use `chmod +x` if execute permission is needed:
+  ```bash
+  chmod +x dist/Calculator/Calculator
+  ```
+
+#### Linux
+
+- Ensure execute permissions are set
+- Dependencies like GTK might be required
+- Consider using AppImage for broader compatibility
 
 ## Project Structure
 
@@ -86,103 +236,34 @@ calculator/
 └── Makefile         # Build and development commands
 ```
 
-## Running Tests
+## Troubleshooting
 
-Tests are written using pytest. To run:
+### Common Issues
 
-- Basic test run: `make test`
-- With coverage: `make coverage`
+1. **Python Version Issues:**
+    - Use `python --version` to verify Python 3.13+ is installed
+    - Consider using pyenv to manage Python versions
 
-The coverage report will be available in:
-- Terminal output
-- HTML format in `htmlcov/index.html`
+2. **Make Command Not Found:**
+    - Windows: Restart terminal after installing make
+    - Check installation: `make --version`
 
-## Dependencies
+3. **Virtual Environment Issues:**
+    - Ensure you're in the project root directory
+    - Check if venv is activated (should see `(venv)` in prompt)
+    - Try removing and recreating: `rm -rf venv && make venv`
 
-Core dependencies:
-- matplotlib
-- PyInstaller
+4. **Build Errors:**
+    - Ensure all dependencies are installed: `make setup`
+    - Check PyInstaller installation: `pip install pyinstaller`
+    - Verify spec file exists in project root
 
-Development dependencies:
-- pytest
-- coverage[toml]
-- pytest-cov
+### Still Having Issues?
+
+- Check the project's issue tracker for similar problems
+- Ensure all prerequisites are correctly installed
+- Try running commands without make (see Windows alternative commands)
 
 ## Configuration Files
 
-### pyproject.toml
-```toml
-[build-system]
-requires = ["setuptools>=42", "wheel"]
-build-backend = "setuptools.build_meta"
-
-[project]
-name = "suspension-calculator"
-version = "0.1.0"
-description = "A suspension calculator application"
-requires-python = ">=3.10"
-dependencies = [
-    "matplotlib",
-]
-
-[project.optional-dependencies]
-dev = [
-    "pytest>=7.0.0",
-    "coverage[toml]>=7.0.0",
-    "pytest-cov>=4.0.0",
-]
-
-[tool.setuptools]
-package-dir = {"" = "src"}
-packages = {find = {where = ["src"]}}
-
-[tool.coverage.run]
-source = ["src"]
-omit = [
-    "tests/*",
-    "**/__init__.py",
-]
-
-[tool.coverage.report]
-exclude_lines = [
-    "pragma: no cover",
-    "def __repr__",
-    "if __name__ == .__main__.:",
-    "raise NotImplementedError",
-    "if False:",
-    "if typing.TYPE_CHECKING:",
-]
-```
-
-### Makefile
-```makefile
-.PHONY: start build clean dev setup venv test coverage
-
-PYTHON = ./venv/bin/python
-PIP = ./venv/bin/pip
-
-venv:
-	python3.13 -m venv venv
-	$(PIP) install -e ".[dev]"
-
-start:
-	./dist/Calculator/Calculator
-
-build:
-	pyinstaller Calculator.spec
-
-clean:
-	rm -rf build dist *.egg-info __pycache__
-
-dev:
-	$(PYTHON) -m suspension.main
-
-setup:
-	$(PIP) install -e ".[dev]"
-
-test:
-	$(PYTHON) -m pytest tests/ -v
-
-coverage:
-	$(PYTHON) -m pytest --cov=suspension tests/ --cov-report=term-missing --cov-report=html
-```
+See `pyproject.toml` for project configuration and dependencies.
