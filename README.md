@@ -138,65 +138,6 @@ This generates:
    make dev
    ```
 
-## Project Setup
-
-1. Clone the repository:
-   ```bash
-   git clone [repository-url]
-   cd calculator
-   ```
-
-2. Create and activate virtual environment:
-   ```bash
-   # Create venv and install dependencies
-   make venv
-
-   # Activate virtual environment
-   # Windows (CMD):        .\venv\Scripts\activate.bat
-   # Windows (PowerShell): .\venv\Scripts\Activate.ps1
-   # Unix/MacOS:          source venv/bin/activate
-   ```
-
-## Available Make Commands
-
-| Command         | Description                                            | Alternative (Windows without Make)                                                     |
-|-----------------|--------------------------------------------------------|----------------------------------------------------------------------------------------|
-| `make venv`     | Create virtual environment and install dependencies    | `python -m venv venv && .\venv\Scripts\activate && pip install -e ".[dev]"`            |
-| `make setup`    | Install package in editable mode with dev dependencies | `pip install -e ".[dev]"`                                                              |
-| `make start`    | Run the compiled calculator application                | `.\dist\Calculator\Calculator.exe`                                                     |
-| `make build`    | Build application using PyInstaller                    | `pyinstaller Calculator.spec`                                                          |
-| `make clean`    | Remove build artifacts and cache                       | `rmdir /s /q build dist *.egg-info __pycache__`                                        |
-| `make dev`      | Run calculator in development mode                     | `python -m suspension.main`                                                            |
-| `make test`     | Run pytest test suite                                  | `python -m pytest tests/ -v`                                                           |
-| `make coverage` | Run tests with coverage report                         | `python -m pytest --cov=suspension tests/ --cov-report=term-missing --cov-report=html` |
-
-## Development
-
-1. Install in development mode:
-   ```bash
-   make setup
-   ```
-
-2. Run tests:
-   ```bash
-   make test
-   ```
-
-3. Check test coverage:
-   ```bash
-   make coverage
-   ```
-
-This generates:
-
-- Terminal output with line-by-line coverage
-- HTML coverage report in `htmlcov/` directory
-
-4. Run in development mode:
-   ```bash
-   make dev
-   ```
-
 ### Platform-Specific Notes
 
 #### Windows
