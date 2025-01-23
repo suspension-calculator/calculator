@@ -9,6 +9,7 @@ description = "A suspension calculator application"
 requires-python = ">=3.10"
 dependencies = [
     "matplotlib",
+    "pydantic>=2.0.0",
 ]
 
 [project.optional-dependencies]

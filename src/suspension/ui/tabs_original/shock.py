@@ -1,4 +1,4 @@
-# src/suspension/ui/tabs/shock.py
+# src/suspension/ui/tabs_original/shock.py
 
 import tkinter as tk
 from suspension.io.initialize_IO import *

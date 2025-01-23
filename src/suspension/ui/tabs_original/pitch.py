@@ -1,4 +1,4 @@
-# src/suspension/ui/tabs/pitch.py
+# src/suspension/ui/tabs_original/pitch.py
 
 import tkinter as tk
 from suspension.io.initialize_IO import *

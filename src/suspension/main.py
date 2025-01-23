@@ -5,15 +5,15 @@ from suspension.ui.app import Window
 from suspension.ui.styles import *
 
 # Tab Imports
-from suspension.ui.tabs.link import linkPage
-from suspension.ui.tabs.sizing import sizingPage
-from suspension.ui.tabs.driveshaft import driveshaftPage
-from suspension.ui.tabs.shock import shockPage
-from suspension.ui.tabs.pitch import pitchPage
-from suspension.ui.tabs.settings import settingsPage
-from suspension.ui.tabs.about import aboutPage
-from suspension.ui.tabs.rod_end import rodEndsPage
-from suspension.ui.tabs.materials import materialsPage
+from suspension.ui.tabs_original.link import linkPage
+from suspension.ui.tabs_original.sizing import sizingPage
+from suspension.ui.tabs_original.driveshaft import driveshaftPage
+from suspension.ui.tabs_original.shock import shockPage
+from suspension.ui.tabs_original.pitch import pitchPage
+from suspension.ui.tabs_original.settings import settingsPage
+from suspension.ui.tabs_original.about import aboutPage
+from suspension.ui.tabs_original.rod_end import rodEndsPage
+from suspension.ui.tabs_original.materials import materialsPage
 
 # Calculation Imports
 from suspension.core.calculations.link_calc import run_link_calc

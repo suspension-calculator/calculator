@@ -1,4 +1,4 @@
-# src/suspension/ui/tabs/materials.py
+# src/suspension/ui/tabs_original/materials.py
 
 import tkinter as tk
 from suspension.ui.styles import *

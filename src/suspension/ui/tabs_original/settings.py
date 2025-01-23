@@ -1,4 +1,4 @@
-# src/suspension/ui/tabs/settings.py
+# src/suspension/ui/tabs_original/settings.py
 
 import tkinter as tk
 from suspension.io.variables import S

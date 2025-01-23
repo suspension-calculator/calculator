@@ -1,4 +1,4 @@
-# src/suspension/ui/tabs/sizing.py
+# src/suspension/ui/tabs_original/sizing.py
 
 import tkinter as tk
 

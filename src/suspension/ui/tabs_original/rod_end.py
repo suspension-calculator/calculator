@@ -1,4 +1,4 @@
-# src/suspension/ui/tabs/rod_end.py
+# src/suspension/ui/tabs_original/rod_end.py
 
 import tkinter as tk
 from suspension.ui.styles import *

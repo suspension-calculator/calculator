@@ -1,4 +1,4 @@
-# src/suspension/ui/tabs/about.py
+# src/suspension/ui/tabs_original/about.py
 
 import tkinter as tk
 import tkinter.scrolledtext as st

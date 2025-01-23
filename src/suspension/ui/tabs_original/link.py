@@ -1,4 +1,4 @@
-# src/suspension/ui/tabs/link.py
+# src/suspension/ui/tabs_original/link.py
 
 import tkinter as tk
 from suspension.io.variables import S, PS, x, y, z
