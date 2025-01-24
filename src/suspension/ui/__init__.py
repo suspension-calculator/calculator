@@ -1,11 +1,12 @@
 # src/suspension/ui/__init__.py
-"""
-UI Package for Suspension Calculator
-Contains all user interface components and tabs
-"""
+"""UI package initialization."""
+from .main_window import MainWindow
+from .styles import *  # Import any style definitions
 
-from .base import BaseTab, PlotContainer
-from .components import InputFrame, OutputFrame
-from .plots import PlotManager
+# Version information
+__version__ = "0.1.0"
 
-__all__ = ["BaseTab", "PlotContainer", "PlotManager", "InputFrame", "OutputFrame"]
+# Public API
+__all__ = [
+    "MainWindow",
+]

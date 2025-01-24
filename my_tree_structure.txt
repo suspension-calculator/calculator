@@ -7,13 +7,12 @@
 |-- src
 |   |-- suspension
 |   |   |-- core
-|   |   |   |-- calculations
+|   |   |   |-- domain
 |   |   |   |   |-- __init__.py
-|   |   |   |   |-- driveshaft.py
-|   |   |   |   |-- link_calc.py
-|   |   |   |   |-- link_sizing.py
-|   |   |   |   |-- shocks.py
-|   |   |   |   `-- vehicle_pitch.py
+|   |   |   |   |-- analysis.py
+|   |   |   |   |-- configuration.py
+|   |   |   |   |-- geometry.py
+|   |   |   |   `-- link_models.py
 |   |   |   |-- functions
 |   |   |   |   |-- Y_equals_0.py
 |   |   |   |   |-- __init__.py
@@ -30,41 +29,144 @@
 |   |   |   |   |-- segment_seperation.py
 |   |   |   |   |-- travel_wheel_2_lca.py
 |   |   |   |   `-- unit_conversion.py
-|   |   |   `-- __init__.py
-|   |   |-- io
-|   |   |   |-- IO_Conversion
-|   |   |   |   |-- convert_all_inputs.py
-|   |   |   |   |-- driveshaft_IO.py
-|   |   |   |   |-- link_calc_IO.py
-|   |   |   |   |-- link_sizing_IO.py
-|   |   |   |   |-- shocks_IO.py
-|   |   |   |   |-- vehicle_pitch_IO.py
-|   |   |   |   `-- x_direction_change.py
-|   |   |   |-- __init__.py
-|   |   |   |-- initialize_IO.py
-|   |   |   |-- load_suspension.py
-|   |   |   |-- material_add.py
-|   |   |   |-- materials.py
-|   |   |   |-- rod_end_add.py
-|   |   |   |-- rod_ends.py
-|   |   |   |-- save_suspension.py
-|   |   |   |-- springs.py
-|   |   |   `-- variables.py
-|   |   |-- ui
-|   |   |   |-- tabs
+|   |   |   |-- services
+|   |   |   |   |-- calculations
+|   |   |   |   |   |-- __init__.py
+|   |   |   |   |   |-- driveshaft.py
+|   |   |   |   |   |-- link_calc.py
+|   |   |   |   |   |-- link_sizing.py
+|   |   |   |   |   |-- shocks.py
+|   |   |   |   |   `-- vehicle_pitch.py
 |   |   |   |   |-- __init__.py
-|   |   |   |   |-- about.py
-|   |   |   |   |-- driveshaft.py
-|   |   |   |   |-- link.py
-|   |   |   |   |-- materials.py
-|   |   |   |   |-- pitch.py
-|   |   |   |   |-- rod_end.py
-|   |   |   |   |-- settings.py
-|   |   |   |   |-- shock.py
-|   |   |   |   `-- sizing.py
+|   |   |   |   |-- analysis_service.py
+|   |   |   |   `-- geometry_service.py
+|   |   |   `-- __init__.py
+|   |   |-- infrastructure
+|   |   |   |-- fomats
+|   |   |   |   |-- __init__.py
+|   |   |   |   |-- csv_format.py
+|   |   |   |   |-- format_base.py
+|   |   |   |   `-- json_format.py
+|   |   |   |-- persistence
+|   |   |   |   |-- legacy
+|   |   |   |   |   |-- IO_Conversion
+|   |   |   |   |   |   |-- __init__.py
+|   |   |   |   |   |   |-- convert_all_inputs.py
+|   |   |   |   |   |   |-- driveshaft_IO.py
+|   |   |   |   |   |   |-- link_calc_IO.py
+|   |   |   |   |   |   |-- link_sizing_IO.py
+|   |   |   |   |   |   |-- shocks_IO.py
+|   |   |   |   |   |   |-- vehicle_pitch_IO.py
+|   |   |   |   |   |   `-- x_direction_change.py
+|   |   |   |   |   |-- __init__.py
+|   |   |   |   |   |-- initialize_IO.py
+|   |   |   |   |   |-- load_suspension.py
+|   |   |   |   |   |-- material_add.py
+|   |   |   |   |   |-- materials.py
+|   |   |   |   |   |-- rod_end_add.py
+|   |   |   |   |   |-- rod_ends.py
+|   |   |   |   |   |-- save_suspension.py
+|   |   |   |   |   |-- springs.py
+|   |   |   |   |   `-- variables.py
+|   |   |   |   |-- models
+|   |   |   |   |   |-- conversion.py
+|   |   |   |   |   `-- persistence_models.py
+|   |   |   |   `-- __init__.py
+|   |   |   |-- state
+|   |   |   |   |-- actions
+|   |   |   |   |   |-- README.md
+|   |   |   |   |   |-- __init__.py
+|   |   |   |   |   |-- analysis.py
+|   |   |   |   |   `-- navigation.py
+|   |   |   |   |-- middleware
+|   |   |   |   |   |-- __init__.py
+|   |   |   |   |   |-- logging_middleware.py
+|   |   |   |   |   |-- persistence_middleware.py
+|   |   |   |   |   `-- validation_middleware.py
+|   |   |   |   |-- persistence
+|   |   |   |   |   |-- __init__.py
+|   |   |   |   |   |-- exceptions.py
+|   |   |   |   |   |-- formats.py
+|   |   |   |   |   `-- persistence.py
+|   |   |   |   |-- reducers
+|   |   |   |   |   |-- __init__.py
+|   |   |   |   |   |-- analysis.py
+|   |   |   |   |   |-- navigation.py
+|   |   |   |   |   |-- plot.py
+|   |   |   |   |   |-- root.py
+|   |   |   |   |   |-- ui.py
+|   |   |   |   |   `-- vehicle.py
+|   |   |   |   |-- selectors
+|   |   |   |   |   |-- README.md
+|   |   |   |   |   |-- __init__.py
+|   |   |   |   |   |-- analysis.py
+|   |   |   |   |   |-- navigation.py
+|   |   |   |   |   |-- plot.py
+|   |   |   |   |   |-- ui.py
+|   |   |   |   |   |-- utils.py
+|   |   |   |   |   `-- vehicle.py
+|   |   |   |   |-- types
+|   |   |   |   |   |-- __init__.py
+|   |   |   |   |   |-- analysis.py
+|   |   |   |   |   |-- application.py
+|   |   |   |   |   |-- common.py
+|   |   |   |   |   |-- navigation.py
+|   |   |   |   |   |-- page.py
+|   |   |   |   |   |-- plot.py
+|   |   |   |   |   |-- ui.py
+|   |   |   |   |   `-- vehicle.py
+|   |   |   |   |-- __init__.py
+|   |   |   |   |-- global_store.py
+|   |   |   |   `-- store.py
+|   |   |   `-- __init__.py
+|   |   |-- ui
+|   |   |   |-- components
+|   |   |   |   |-- base
+|   |   |   |   |   |-- __init__.py
+|   |   |   |   |   |-- models.py
+|   |   |   |   |   |-- plot_container.py
+|   |   |   |   |   `-- tab.py
+|   |   |   |   |-- __init__.py
+|   |   |   |   |-- input_grid.py
+|   |   |   |   |-- link_input_panel.py
+|   |   |   |   |-- navigation.py
+|   |   |   |   |-- navigation_header.py
+|   |   |   |   |-- navigation_item.py
+|   |   |   |   |-- navigation_strip.py
+|   |   |   |   `-- plot_frame.py
+|   |   |   |-- pages
+|   |   |   |   |-- legacy
+|   |   |   |   |   |-- tabs
+|   |   |   |   |   |   |-- __init__.py
+|   |   |   |   |   |   |-- about.py
+|   |   |   |   |   |   |-- driveshaft.py
+|   |   |   |   |   |   |-- link.py
+|   |   |   |   |   |   |-- materials.py
+|   |   |   |   |   |   |-- pitch.py
+|   |   |   |   |   |   |-- rod_end.py
+|   |   |   |   |   |   |-- settings.py
+|   |   |   |   |   |   |-- shock.py
+|   |   |   |   |   |   `-- sizing.py
+|   |   |   |   |   `-- __init__.py
+|   |   |   |   |-- __init__.py
+|   |   |   |   `-- base_page.py
+|   |   |   |-- plots
+|   |   |   |   |-- __init__.py
+|   |   |   |   `-- suspension_plots.py
+|   |   |   |-- styles
+|   |   |   |   |-- __init__.py
+|   |   |   |   |-- colors.py
+|   |   |   |   |-- constants.py
+|   |   |   |   `-- theme.py
+|   |   |   |-- utils
+|   |   |   |   `-- __init__.py
 |   |   |   |-- __init__.py
 |   |   |   |-- app.py
+|   |   |   |-- main_window.py
 |   |   |   `-- styles.py
+|   |   |-- utils
+|   |   |   |-- __init__.py
+|   |   |   `-- events.py
 |   |   |-- __init__.py
 |   |   `-- main.py
 |   `-- suspension_calculator.egg-info
@@ -73,12 +175,20 @@
 |       |-- dependency_links.txt
 |       |-- requires.txt
 |       `-- top_level.txt
+|-- tests
+|   |-- core
+|   |   |-- calculations
+|   |   |   `-- test_link_sizing.py
+|   |   `-- models
+|   |       |-- test_geometry.py
+|   |       `-- test_link_models.py
+|   `-- conftest.py
 |-- Calculator.spec
 |-- Makefile
-|-- Version_7_alpha.code-workspace
+|-- README.md
 |-- my_tree_structure.txt
 |-- pyproject.toml
 |-- setup.py
 `-- tree_output.py
 
-13 directories, 69 files
+39 directories, 203 files

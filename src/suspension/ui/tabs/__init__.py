@@ -1,9 +1,0 @@
-# src/suspension/ui/plots/__init__.py
-"""
-Specialized plot types for suspension visualization
-"""
-
-__all__ = [
-    "SuspensionPlot",
-    "AnalysisPlot",
-]

@@ -1,8 +1,9 @@
 # tests/core/calculations/test_link_sizing.py
-from unittest.mock import patch
 from math import pi
-from suspension.core.calculations.link_sizing import run_link_sizing
-from suspension.io.variables import constant
+from unittest.mock import patch
+
+from suspension.core.services.calculations import run_link_sizing
+from suspension.io import constant
 
 
 def setup_test_data():

@@ -2,7 +2,7 @@
 import tkinter as tk
 from typing import Dict
 
-from ..base.models import InputField
+from suspension.ui.components.base.models import InputField
 
 
 class InputGrid(tk.Frame):

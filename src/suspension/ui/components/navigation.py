@@ -2,7 +2,7 @@
 import tkinter as tk
 from typing import List, Dict
 
-from ..base.models import NavButtonConfig
+from suspension.ui.components.base.models import NavButtonConfig
 
 
 class NavigationBar(tk.Frame):

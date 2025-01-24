@@ -3,17 +3,18 @@
 block_cipher = None
 
 a = Analysis(
-    ['src/suspension/main.py'],  # Updated path to main entry point
+    ['src/suspension/main.py'],
     pathex=[],
     binaries=[],
     datas=[
-        ('resources/data', 'resources/data'),  # Updated data directory path
+        ('resources/data', 'resources/data'),
     ],
     hiddenimports=[
-        'suspension.core.calculations',
-        'suspension.core.functions',
-        'suspension.ui.tabs',
-        'suspension.io'
+        'PyQt6.QtWidgets',
+        'PyQt6.QtCore',
+        'PyQt6.QtGui',
+        'qtawesome',
+        'qtawesome.iconic_font',
     ],
     hookspath=[],
     hooksconfig={},
@@ -36,7 +37,7 @@ exe = EXE(
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
-    console=True,
+    console=False,  # Changed to False for a windowed application
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,

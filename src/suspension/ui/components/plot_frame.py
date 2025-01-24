@@ -1,9 +1,8 @@
 # src/suspension/ui/components/plot_frame.py
 
-from typing import Optional, Dict, Any
 import tkinter as tk
-from ..base.plot_container import PlotContainer
-from ..base.models import PlotConfig
+from suspension.ui.components.base.plot_container import PlotContainer
+from suspension.ui.components.base.models import PlotConfig
 
 
 class PlotFrame(tk.Frame):

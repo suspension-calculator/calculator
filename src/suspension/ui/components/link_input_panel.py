@@ -1,9 +1,9 @@
 # src/suspension/ui/components/link_input_panel.py
-from typing import Protocol, Optional
+from typing import Optional
 import tkinter as tk
-from ..base.models import InputField
+from suspension.ui.components.base.models import InputField
 from .input_grid import InputGrid
-from ...core.models.link_models import LinkPosition, SuspensionConfig
+from ...core.domain.link_models import LinkPosition
 
 
 class LinkInputPanel(tk.Frame):

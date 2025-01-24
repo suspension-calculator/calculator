@@ -1,7 +1,7 @@
 # src/suspension/core/services/analysis_service.py
 from typing import List, Optional
-from ..models.geometry import SuspensionGeometry
-from ..models.analysis import AnalysisResults
+from ..domain.geometry import SuspensionGeometry
+from ..domain.analysis import AnalysisResults
 
 
 class AnalysisService:
