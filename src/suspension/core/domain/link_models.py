@@ -1,7 +1,6 @@
 # src/suspension/core/domain/link_models.py
-from typing import List, Optional, Dict
+from typing import List, Optional
 from pydantic import BaseModel, Field
-from enum import Enum
 
 
 class LinkMeasurements(BaseModel):

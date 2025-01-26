@@ -3,6 +3,9 @@
 PYTHON = ./venv/bin/python
 PIP = ./venv/bin/pip
 
+activate-pip:
+	source venv/bin/activate
+
 venv:
 	python3.13 -m venv venv
 	$(PIP) install -e ".[dev]"
@@ -18,6 +21,19 @@ clean:
 
 dev:
 	$(PYTHON) -m suspension.main
+
+clean-pre-commit:
+	rm -rf ~/.cache/pre-commit
+	rm -rf .git/hooks/pre-commit
+
+setup-pre-commit: clean-pre-commit
+	$(PIP) install pre-commit --upgrade
+	$(PIP) install -e ".[dev]"
+	./venv/bin/pre-commit install
+
+pre-commit: clean-pre-commit
+	./venv/bin/pre-commit run --all-files
+
 
 setup:
 	$(PIP) install -e ".[dev]"

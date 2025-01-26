@@ -1,5 +1,4 @@
 # src/suspension/core/services/analysis_service.py
-from typing import List, Optional
 from ..domain.geometry import SuspensionGeometry
 from ..domain.analysis import AnalysisResults
 

@@ -1,38 +1,51 @@
-# src/suspension/infrastructure/state/selectors/utils.py
-
 from datetime import timedelta
-from typing import TypeVar, Callable, Optional
+from typing import TypeVar, Callable, Optional, TypedDict, cast, ParamSpec
 
-from memoize.wrapper import memoize
-from memoize.configuration import (
-    MutableCacheConfiguration,
-    DefaultInMemoryCacheConfiguration,
-)
-from memoize.entrybuilder import ProvidedLifeSpanCacheEntryBuilder
-from memoize.eviction import LeastRecentlyUpdatedEvictionStrategy
-from memoize.invalidation import InvalidationSupport
-from memoize.statuses import InMemoryLocks
+# Add type ignores for memoize imports since they lack type stubs
+from memoize import Memoizer, LeastRecentlyUpdatedEvictionStrategy  # type: ignore
+from memoize.configuration import DefaultInMemoryCacheConfiguration  # type: ignore
 
 T = TypeVar("T")
+P = ParamSpec("P")  # For capturing function parameters
 
-# Cache profiles for different types of selectors
-STABLE_CACHE = {
+
+class CacheConfig(TypedDict):
+    """Type definitions for cache configuration"""
+
+    update_after: timedelta
+    expire_after: timedelta
+    max_items: int
+
+
+# Cache profiles with proper typing
+STABLE_CACHE: CacheConfig = {
     "update_after": timedelta(seconds=5),
     "expire_after": timedelta(seconds=30),
     "max_items": 100,
 }
 
-DYNAMIC_CACHE = {
+DYNAMIC_CACHE: CacheConfig = {
     "update_after": timedelta(seconds=1),
     "expire_after": timedelta(seconds=5),
     "max_items": 100,
 }
 
-CALCULATION_CACHE = {
+CALCULATION_CACHE: CacheConfig = {
     "update_after": timedelta(milliseconds=100),
     "expire_after": timedelta(seconds=1),
     "max_items": 50,
 }
+
+# Initialize memoizer with more specific typing
+memoizer = cast(
+    Callable[..., Callable[[Callable[P, T]], Callable[P, T]]],
+    Memoizer(
+        eviction_strategy=LeastRecentlyUpdatedEvictionStrategy,
+        configuration=DefaultInMemoryCacheConfiguration(
+            max_size=1000,
+        ),
+    ).memoize,
+)
 
 
 def create_selector(
@@ -40,53 +53,23 @@ def create_selector(
     expire_after: Optional[timedelta] = None,
     max_items: Optional[int] = None,
     method_timeout: Optional[timedelta] = None,
-) -> Callable[[Callable[..., T]], Callable[..., T]]:
+    force_sync: bool = True,
+) -> Callable[[Callable[P, T]], Callable[P, T]]:
     """
-    Create a memoized selector with configurable caching options.
-
-    Args:
-        update_after: Time after which cache should be updated (in background)
-        expire_after: Time after which cache entry expires (blocking refresh)
-        max_items: Maximum number of items in cache
-        method_timeout: Maximum time for method execution
-
-    Usage:
-        @create_selector(**STABLE_CACHE)
-        def select_navigation_items(state: ApplicationState) -> Dict[str, NavigationItem]:
-            return state.ui.navigation.items
+    Create a memoized selector with specified caching behavior
     """
-    # Create configuration
-    config = MutableCacheConfiguration()
-    config.initialized_with(DefaultInMemoryCacheConfiguration())
 
-    # Configure timeouts if provided
-    if update_after or expire_after:
-        entry_builder = ProvidedLifeSpanCacheEntryBuilder()
-        entry_builder.update_timeouts(
-            update_after=update_after, expire_after=expire_after
+    def decorator(func: Callable[P, T]) -> Callable[P, T]:
+        if update_after is None:
+            return func
+
+        memoized = memoizer(
+            update_after=update_after,
+            expire_after=expire_after,
+            max_items=max_items,
+            method_timeout=method_timeout,
+            force_sync=force_sync,
         )
-        config.set_entry_builder(entry_builder)
-
-    # Configure max items if provided
-    if max_items is not None:
-        config.set_eviction_strategy(LeastRecentlyUpdatedEvictionStrategy(max_items))
-
-    # Configure method timeout if provided
-    if method_timeout is not None:
-        config.set_method_timeout(method_timeout)
-
-    # Create invalidation support
-    invalidation = InvalidationSupport()
-
-    # Create update statuses
-    update_statuses = InMemoryLocks()
-
-    def decorator(func: Callable[..., T]) -> Callable[..., T]:
-        return memoize(
-            method=func,
-            configuration=config,
-            invalidation=invalidation,
-            update_statuses=update_statuses,
-        )
+        return cast(Callable[P, T], memoized(func))
 
     return decorator

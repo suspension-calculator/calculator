@@ -1,7 +1,8 @@
 # src/suspension/infrastructure/state/reducers/navigation.py
+import logging
+
 from ..actions.navigation import (
     NavigationAction,
-    SelectItemAction,
     SetActiveItemAction,
     ToggleExpandedAction,
     SetNavVisibleAction,
@@ -9,29 +10,40 @@ from ..actions.navigation import (
 )
 from ..types.application import ApplicationState
 
+logger = logging.getLogger(__name__)
+
 
 def navigation_reducer(
     state: ApplicationState, action: NavigationAction
 ) -> ApplicationState:
     """Handle navigation state updates"""
     match action:
-        case SelectItemAction():
+        case ToggleExpandedAction():
+            current_expanded = state.ui.navigation.expanded_item_ids.copy()
+            item_id = action.payload["item_id"]
+
+            if item_id in current_expanded:
+                current_expanded.remove(item_id)
+            else:
+                current_expanded.add(item_id)
+
             return ApplicationState(
                 ui=state.ui.model_copy(
                     update={
                         "navigation": state.ui.navigation.model_copy(
-                            update={"selected_item_id": action.item_id}
+                            update={"expanded_item_ids": current_expanded}
                         )
                     }
                 )
             )
 
         case SetActiveItemAction():
+            item_id = action.payload["item_id"]
             return ApplicationState(
                 ui=state.ui.model_copy(
                     update={
                         "navigation": state.ui.navigation.model_copy(
-                            update={"active_item_id": action.item_id}
+                            update={"active_item_id": item_id}
                         )
                     }
                 )
@@ -39,10 +51,16 @@ def navigation_reducer(
 
         case ToggleExpandedAction():
             current_expanded = state.ui.navigation.expanded_item_ids.copy()
-            if action.item_id in current_expanded:
-                current_expanded.remove(action.item_id)
+            item_id = action.payload["item_id"]
+            logger.debug(f"Toggling expansion for item: {item_id}")
+            logger.debug(f"Current expanded items before: {current_expanded}")
+
+            if item_id in current_expanded:
+                current_expanded.remove(item_id)
             else:
-                current_expanded.add(action.item_id)
+                current_expanded.add(item_id)
+
+            logger.debug(f"Current expanded items after: {current_expanded}")
 
             return ApplicationState(
                 ui=state.ui.model_copy(
@@ -55,11 +73,14 @@ def navigation_reducer(
             )
 
         case SetNavVisibleAction():
+            visible = action.payload["visible"]
+            logger.debug(f"Setting nav pane visibility to: {visible}")
+
             return ApplicationState(
                 ui=state.ui.model_copy(
                     update={
                         "navigation": state.ui.navigation.model_copy(
-                            update={"nav_pane_visible": action.visible}
+                            update={"nav_pane_visible": visible}
                         )
                     }
                 )
@@ -67,12 +88,14 @@ def navigation_reducer(
 
         case UpdatePageAction():
             current_page = state.ui.navigation.current_page
+            page = action.payload["page"]
+
             return ApplicationState(
                 ui=state.ui.model_copy(
                     update={
                         "navigation": state.ui.navigation.model_copy(
                             update={
-                                "current_page": action.page,
+                                "current_page": page,
                                 "previous_page": current_page,
                             }
                         )

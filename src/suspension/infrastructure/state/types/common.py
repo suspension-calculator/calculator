@@ -50,7 +50,6 @@ class Action(BaseModel, Generic[PayloadT]):
     payload: Optional[PayloadT] = None
     metadata: Dict[str, Any] = Field(default_factory=dict)
     timestamp: float = Field(default_factory=time.time)
-
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
 

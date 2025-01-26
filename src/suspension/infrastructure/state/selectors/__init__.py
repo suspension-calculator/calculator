@@ -30,6 +30,7 @@ from .ui import (
     select_input_value,
     select_error_message,
     select_loading_state,
+    select_status_message,
 )
 from .vehicle import (
     select_vehicle_config,
@@ -65,6 +66,7 @@ __all__ = [
     "select_input_value",
     "select_error_message",
     "select_loading_state",
+    "select_status_message",
     # Vehicle selectors
     "select_vehicle_config",
     "select_suspension_config",

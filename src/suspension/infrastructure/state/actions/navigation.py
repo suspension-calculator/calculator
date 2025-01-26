@@ -1,6 +1,7 @@
 # src/suspension/infrastructure/state/actions/navigation.py
 from dataclasses import dataclass
 from enum import Enum
+from typing import Optional, Any
 
 
 class NavigationActionType(Enum):
@@ -16,11 +17,15 @@ class NavigationAction:
     """Base class for navigation actions"""
 
     type: NavigationActionType
+    payload: Optional[Any] = None
 
 
 @dataclass
 class SelectItemAction:
     """Action to select a navigation item"""
+
+    def __post_init__(self):
+        self.payload = {"item_id": self.item_id}
 
     item_id: str
     type: NavigationActionType = NavigationActionType.SELECT_ITEM
@@ -30,6 +35,9 @@ class SelectItemAction:
 class SetActiveItemAction:
     """Action to set the active navigation item"""
 
+    def __post_init__(self):
+        self.payload = {"item_id": self.item_id}
+
     item_id: str
     type: NavigationActionType = NavigationActionType.SET_ACTIVE_ITEM
 
@@ -37,6 +45,9 @@ class SetActiveItemAction:
 @dataclass
 class ToggleExpandedAction:
     """Action to toggle item expansion"""
+
+    def __post_init__(self):
+        self.payload = {"item_id": self.item_id}
 
     item_id: str
     type: NavigationActionType = NavigationActionType.TOGGLE_EXPANDED
@@ -46,6 +57,9 @@ class ToggleExpandedAction:
 class SetNavVisibleAction:
     """Action to set navigation visibility"""
 
+    def __post_init__(self):
+        self.payload = {"visible": self.visible}
+
     visible: bool
     type: NavigationActionType = NavigationActionType.SET_NAV_VISIBLE
 
@@ -53,6 +67,9 @@ class SetNavVisibleAction:
 @dataclass
 class UpdatePageAction:
     """Action to update the current page"""
+
+    def __post_init__(self):
+        self.payload = {"page": self.page}
 
     page: str
     type: NavigationActionType = NavigationActionType.UPDATE_PAGE

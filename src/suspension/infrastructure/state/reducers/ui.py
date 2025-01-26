@@ -1,19 +1,30 @@
 # src/suspension/infrastructure/state/reducers/ui.py
-from typing import cast
-from ..types.common import Action, ActionType
-from ..types.ui import UIState
+from ..types.application import ApplicationState
+from ..types.common import Action
+from ..actions.navigation import NavigationActionType
+from ..reducers.navigation import navigation_reducer
 
 
-def ui_reducer(state: UIState, action: Action) -> UIState:
-    match action.type:
-        case ActionType.UPDATE_INPUT_VALUES:
-            return UIState(
-                **state.model_dump(),
-                input_values={**state.input_values, **action.payload.values},
-            )
+def ui_reducer(state, action: Action):
+    """Combine UI-related reducers"""
 
-        case ActionType.UPDATE_NAV_VISIBILITY:
-            return UIState(**state.model_dump(), nav_visible=action.payload.visible)
+    # If it's a navigation action, use navigation reducer
+    if action.type in [
+        NavigationActionType.SELECT_ITEM,
+        NavigationActionType.SET_ACTIVE_ITEM,
+        NavigationActionType.TOGGLE_EXPANDED,
+        NavigationActionType.SET_NAV_VISIBLE,
+        NavigationActionType.UPDATE_PAGE,
+    ]:
+        new_ui_state = state.model_copy(
+            update={
+                "navigation": navigation_reducer(
+                    ApplicationState(ui=state), action
+                ).ui.navigation
+            }
+        )
+    else:
+        new_ui_state = state
 
-        case _:
-            return state
+    print(f"New UI State: {new_ui_state}\n")
+    return new_ui_state

@@ -1,5 +1,4 @@
 # src/suspension/infrastructure/state/reducers/analysis.py
-from typing import cast
 from ..types.common import Action, ActionType
 from ..types.analysis import AnalysisState
 
@@ -25,9 +24,16 @@ def analysis_reducer(state: AnalysisState, action: Action) -> AnalysisState:
             )
 
         case ActionType.ANALYSIS_ERROR:
+            # Safely extract error, handling different payload types
+            error = None
+            if isinstance(action.payload, dict):
+                error = action.payload.get("error")
+            elif hasattr(action.payload, "error"):
+                error = action.payload.error
+
             return AnalysisState(
                 is_running=False,
-                error=action.payload.error,
+                error=error,
                 progress=0.0,
                 results=state.results,
                 last_update=state.last_update,

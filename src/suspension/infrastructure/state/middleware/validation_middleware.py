@@ -81,8 +81,8 @@ def validation_middleware(
                 raise StateError("Invalid track width in suspension configuration")
 
         # Validate UI state
-        if new_state.ui.current_page not in new_state.ui.tab_states:
-            raise StateError("Current tab not found in tab states")
+        if not new_state.ui.current_page:
+            logger.warning("No current page set in UI state")
 
         # Validate analysis state
         if new_state.analysis.is_running:

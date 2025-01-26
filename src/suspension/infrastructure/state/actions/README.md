@@ -18,7 +18,7 @@ Each action should follow these key principles:
 
 First, define your action types:
 
-```python  
+```python
 from dataclasses import dataclass
 from enum import Enum
 
@@ -66,10 +66,10 @@ Always provide action creator functions that:
 ```python
 def update_value(value: int) -> UpdateValueAction:
     """Create an action to update the value.
-    
+
     Args:
         value: The new value to set
-        
+
     Returns:
         An UpdateValueAction instance
     """
