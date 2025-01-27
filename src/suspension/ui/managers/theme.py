@@ -3,10 +3,10 @@
 """
 Theme management for the Suspension Calculator.
 """
+import sys
+from typing import Optional, Dict, cast
 
-from typing import Optional, Dict
-
-from PyQt6.QtCore import QObject, pyqtSignal, QSettings
+from PyQt6.QtCore import QObject, pyqtSignal, QSettings, QTimer
 from PyQt6.QtGui import QPalette, QColor
 from PyQt6.QtWidgets import QApplication
 
@@ -29,17 +29,20 @@ class ThemeManager(QObject):
     - Theme switching
     - Preset theme management
     - Component-specific styling
+    - System theme change monitoring
 
     Signals:
         theme_changed: Emitted when the theme changes
         theme_mode_changed: Emitted when theme mode changes
         error_occurred: Emitted when a theme-related error occurs
+        system_theme_changed: Emitted when the OS theme changes
     """
 
     # Signals
     theme_changed = pyqtSignal(Theme)
     theme_mode_changed = pyqtSignal(ThemeMode)
     error_occurred = pyqtSignal(str)
+    system_theme_changed = pyqtSignal()
 
     def __init__(self) -> None:
         """Initialize the theme manager."""
@@ -51,6 +54,8 @@ class ThemeManager(QObject):
         self._theme_mode: ThemeMode = ThemeMode.SYSTEM
         self._available_themes: Dict[str, Theme] = {}
         self._stylesheet_generator: Optional[StylesheetGenerator] = None
+        self._system_theme_timer: Optional[QTimer] = None
+        self._last_known_system_mode: Optional[ThemeMode] = None
 
         # Setup logging
         self.logger = app_logger
@@ -61,6 +66,8 @@ class ThemeManager(QObject):
             self._register_built_in_themes()
             # Initialize theme system
             self._initialize_theme()
+            # Start system theme monitoring
+            self._setup_system_theme_monitoring()
 
             self.logger.info(
                 "Theme manager initialized",
@@ -100,6 +107,102 @@ class ThemeManager(QObject):
             # Fallback to system theme
             self._apply_theme(create_system_theme())
 
+    def _setup_system_theme_monitoring(self) -> None:
+        """Set up monitoring for system theme changes."""
+        self._last_known_system_mode = detect_system_theme_mode()
+
+        # Create timer for checking system theme changes
+        self._system_theme_timer = QTimer(self)
+        self._system_theme_timer.timeout.connect(self._check_system_theme)
+
+        # Check every 2 seconds by default
+        check_interval = 2000
+
+        # Platform-specific optimizations
+        if sys.platform == "win32":
+            # Windows: Can detect theme changes via registry
+            check_interval = (
+                1000  # More frequent checks as it's less resource intensive
+            )
+        elif sys.platform == "darwin":
+            # macOS: Can detect theme changes via system events
+            check_interval = 1000
+        else:
+            # Linux: Depends on desktop environment
+            check_interval = 3000  # Less frequent due to potential resource usage
+
+        self._system_theme_timer.start(check_interval)
+
+    def apply_theme_by_name(self, theme_name: str) -> None:
+        """
+        Apply a theme by its name.
+
+        Args:
+            theme_name: Name of the theme to apply
+
+        Raises:
+            ThemeError: If theme name is not found
+        """
+        try:
+            if theme := self._available_themes.get(theme_name):
+                self._apply_theme(theme)
+                # If it's a built-in theme, update the mode
+                if theme_name.lower() in ["light", "dark", "irate"]:
+                    self._theme_mode = ThemeMode(theme_name.lower())
+                    self._settings.setValue("theme/mode", self._theme_mode.value)
+                self.logger.info(
+                    f"Applied theme: {theme_name}",
+                    context={**self._context, "theme": theme_name},
+                )
+            else:
+                raise ThemeError(f"Theme not found: {theme_name}")
+
+        except Exception as e:
+            self.logger.error(
+                "Failed to apply theme",
+                error=e,
+                context={**self._context, "theme_name": theme_name},
+            )
+            self.error_occurred.emit(f"Failed to apply theme: {theme_name}")
+            raise
+
+    @property
+    def available_theme_names(self) -> list[str]:
+        """Get list of available theme names."""
+        return list(self._available_themes.keys())
+
+    def _check_system_theme(self) -> None:
+        """Check for system theme changes."""
+        try:
+            current_mode = detect_system_theme_mode()
+            if (
+                self._last_known_system_mode is not None
+                and current_mode != self._last_known_system_mode
+            ):
+
+                self.logger.debug(
+                    "System theme change detected",
+                    context={
+                        **self._context,
+                        "old_mode": self._last_known_system_mode,
+                        "new_mode": current_mode,
+                    },
+                )
+
+                self._last_known_system_mode = current_mode
+                self.system_theme_changed.emit()
+
+                # Update theme if using system theme
+                if self._theme_mode == ThemeMode.SYSTEM:
+                    self._update_current_theme()
+
+        except Exception as e:
+            self.logger.error(
+                "Error checking system theme",
+                error=e,
+                context=self._context,
+            )
+
     def register_theme(self, theme: Theme) -> None:
         """
         Register a new theme.
@@ -137,9 +240,13 @@ class ThemeManager(QObject):
     def _apply_theme(self, theme: Theme) -> None:
         """Apply the theme to the application."""
         try:
+            # Get application instance with proper type casting
             app = QApplication.instance()
             if not app:
                 raise RuntimeError("No QApplication instance found")
+
+            # Cast to QApplication to satisfy type checker
+            app = cast(QApplication, app)
 
             # Store the new theme
             self._current_theme = theme
@@ -196,20 +303,66 @@ class ThemeManager(QObject):
         """Update the current theme based on theme mode."""
         try:
             if self._theme_mode == ThemeMode.SYSTEM:
-                # Detect system theme mode
-                detected_mode = detect_system_theme_mode()
-                theme_name = "Light" if detected_mode == ThemeMode.LIGHT else "Dark"
+                # Create fresh system theme to get latest OS colors
+                system_theme = create_system_theme()
+                self._apply_theme(system_theme)
             else:
                 theme_name = self._theme_mode.capitalize()
-
-            new_theme = self._available_themes[theme_name]
-            self._apply_theme(new_theme)
+                if theme := self._available_themes.get(theme_name):
+                    self._apply_theme(theme)
+                else:
+                    raise ThemeError(f"Theme not found: {theme_name}")
 
         except Exception as e:
             self.logger.error(
                 "Failed to update current theme", error=e, context=self._context
             )
             raise ThemeError("Failed to update current theme") from e
+
+    def set_theme_mode(self, mode: ThemeMode) -> None:
+        """
+        Set the theme mode and update the theme accordingly.
+
+        Args:
+            mode: The theme mode to set
+        """
+        try:
+            if mode != self._theme_mode:
+                self._theme_mode = mode
+                self._settings.setValue("theme/mode", mode.value)
+                self._update_current_theme()
+                self.theme_mode_changed.emit(mode)
+
+                self.logger.info(
+                    f"Theme mode changed to: {mode}",
+                    context={**self._context, "mode": mode},
+                )
+        except Exception as e:
+            self.logger.error(
+                "Failed to set theme mode",
+                error=e,
+                context={**self._context, "mode": mode},
+            )
+            raise ThemeError(f"Failed to set theme mode: {mode}") from e
+
+    def get_component_stylesheet(self, component_name: str) -> Optional[str]:
+        """
+        Get stylesheet for a specific component.
+
+        Args:
+            component_name: Name of the component to style
+
+        Returns:
+            Component-specific stylesheet or None if no style exists
+        """
+        if self._stylesheet_generator is None:
+            return None
+        return self._stylesheet_generator.generate_component_stylesheet(component_name)
+
+    def cleanup(self) -> None:
+        """Clean up resources used by the theme manager."""
+        if self._system_theme_timer is not None:
+            self._system_theme_timer.stop()
 
     def _save_current_theme(self) -> None:
         """Save current theme to settings."""

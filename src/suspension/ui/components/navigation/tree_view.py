@@ -1,7 +1,7 @@
 # src/suspension/ui/components/navigation/tree_view.py
 
 from typing import Optional
-from PyQt6.QtWidgets import QTreeWidget, QTreeWidgetItem
+from PyQt6.QtWidgets import QTreeWidget, QTreeWidgetItem, QWidget
 from PyQt6.QtCore import Qt
 
 from ...managers.navigation import NavigationManager
@@ -20,7 +20,9 @@ class NavigationTree(QTreeWidget):
     - Icon management
     """
 
-    def __init__(self, nav_manager: NavigationManager, parent=None) -> None:
+    def __init__(
+        self, nav_manager: NavigationManager, parent: QWidget | None = None
+    ) -> None:
         """Initialize the navigation tree.
 
         Args:
