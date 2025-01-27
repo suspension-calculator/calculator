@@ -1,4 +1,54 @@
 .
+|-- htmlcov
+|   |-- class_index.html
+|   |-- coverage_html_cb_6fb7b396.js
+|   |-- favicon_32_cb_58284776.png
+|   |-- function_index.html
+|   |-- index.html
+|   |-- keybd_closed_cb_ce680311.png
+|   |-- status.json
+|   |-- style_cb_8e611ae1.css
+|   |-- z_2ecd325ec2b5d1b7_app_py.html
+|   |-- z_2ecd325ec2b5d1b7_styles_py.html
+|   |-- z_5e0f04b447adfb30_Y_equals_0_py.html
+|   |-- z_5e0f04b447adfb30_axle_point_movement_py.html
+|   |-- z_5e0f04b447adfb30_distance_2d_py.html
+|   |-- z_5e0f04b447adfb30_distance_3d_py.html
+|   |-- z_5e0f04b447adfb30_floor_2_zero_py.html
+|   |-- z_5e0f04b447adfb30_line_intersection_py.html
+|   |-- z_5e0f04b447adfb30_line_seperation_py.html
+|   |-- z_5e0f04b447adfb30_link_travel_py.html
+|   |-- z_5e0f04b447adfb30_pinion_rotation_py.html
+|   |-- z_5e0f04b447adfb30_points_angle_py.html
+|   |-- z_5e0f04b447adfb30_rotation_py.html
+|   |-- z_5e0f04b447adfb30_segment_seperation_py.html
+|   |-- z_5e0f04b447adfb30_travel_wheel_2_lca_py.html
+|   |-- z_5e0f04b447adfb30_unit_conversion_py.html
+|   |-- z_65b331027357100a_driveshaft_py.html
+|   |-- z_65b331027357100a_link_calc_py.html
+|   |-- z_65b331027357100a_link_sizing_py.html
+|   |-- z_65b331027357100a_shocks_py.html
+|   |-- z_65b331027357100a_vehicle_pitch_py.html
+|   |-- z_7d7e469705c876a8_main_py.html
+|   |-- z_8feda3e1304ce799_link_sizing_IO_py.html
+|   |-- z_a20c261ca584f80b_initialize_IO_py.html
+|   |-- z_a20c261ca584f80b_load_suspension_py.html
+|   |-- z_a20c261ca584f80b_material_add_py.html
+|   |-- z_a20c261ca584f80b_materials_py.html
+|   |-- z_a20c261ca584f80b_rod_end_add_py.html
+|   |-- z_a20c261ca584f80b_rod_ends_py.html
+|   |-- z_a20c261ca584f80b_save_suspension_py.html
+|   |-- z_a20c261ca584f80b_springs_py.html
+|   |-- z_a20c261ca584f80b_variables_py.html
+|   |-- z_b6966b291a115ef9_about_py.html
+|   |-- z_b6966b291a115ef9_driveshaft_py.html
+|   |-- z_b6966b291a115ef9_link_py.html
+|   |-- z_b6966b291a115ef9_materials_py.html
+|   |-- z_b6966b291a115ef9_pitch_py.html
+|   |-- z_b6966b291a115ef9_rod_end_py.html
+|   |-- z_b6966b291a115ef9_settings_py.html
+|   |-- z_b6966b291a115ef9_shock_py.html
+|   `-- z_b6966b291a115ef9_sizing_py.html
 |-- resources
 |   `-- data
 |       |-- materials.txt
@@ -100,7 +150,6 @@
 |   |   |   |   |   |-- README.md
 |   |   |   |   |   |-- __init__.py
 |   |   |   |   |   |-- analysis.py
-|   |   |   |   |   |-- navigation.py
 |   |   |   |   |   |-- plot.py
 |   |   |   |   |   |-- ui.py
 |   |   |   |   |   |-- utils.py
@@ -121,59 +170,97 @@
 |   |   |   `-- __init__.py
 |   |   |-- ui
 |   |   |   |-- components
-|   |   |   |   |-- base
+|   |   |   |   |-- navigation
 |   |   |   |   |   |-- __init__.py
-|   |   |   |   |   |-- models.py
-|   |   |   |   |   |-- plot_container.py
-|   |   |   |   |   `-- tab.py
-|   |   |   |   |-- __init__.py
-|   |   |   |   |-- input_grid.py
-|   |   |   |   |-- link_input_panel.py
-|   |   |   |   |-- navigation.py
-|   |   |   |   |-- navigation_header.py
-|   |   |   |   |-- navigation_item.py
-|   |   |   |   |-- navigation_strip.py
-|   |   |   |   `-- plot_frame.py
-|   |   |   |-- pages
-|   |   |   |   |-- legacy
-|   |   |   |   |   |-- tabs
-|   |   |   |   |   |   |-- __init__.py
-|   |   |   |   |   |   |-- about.py
-|   |   |   |   |   |   |-- driveshaft.py
-|   |   |   |   |   |   |-- link.py
-|   |   |   |   |   |   |-- materials.py
-|   |   |   |   |   |   |-- pitch.py
-|   |   |   |   |   |   |-- rod_end.py
-|   |   |   |   |   |   |-- settings.py
-|   |   |   |   |   |   |-- shock.py
-|   |   |   |   |   |   `-- sizing.py
+|   |   |   |   |   `-- tree_view.py
+|   |   |   |   |-- panels
 |   |   |   |   |   `-- __init__.py
+|   |   |   |   `-- toolbar
+|   |   |   |       `-- __init__.py
+|   |   |   |-- constants
 |   |   |   |   |-- __init__.py
-|   |   |   |   `-- base_page.py
-|   |   |   |-- plots
+|   |   |   |   |-- icons.py
+|   |   |   |   `-- themes.py
+|   |   |   |-- managers
+|   |   |   |   |-- README.md
 |   |   |   |   |-- __init__.py
-|   |   |   |   `-- suspension_plots.py
+|   |   |   |   |-- navigation.py
+|   |   |   |   `-- theme.py
+|   |   |   |-- models
+|   |   |   |   |-- __init__.py
+|   |   |   |   `-- theme.py
 |   |   |   |-- styles
 |   |   |   |   |-- __init__.py
-|   |   |   |   |-- colors.py
-|   |   |   |   |-- constants.py
-|   |   |   |   `-- theme.py
-|   |   |   |-- utils
-|   |   |   |   `-- __init__.py
-|   |   |   |-- __init__.py
-|   |   |   |-- app.py
-|   |   |   |-- main_window.py
-|   |   |   `-- styles.py
+|   |   |   |   |-- base.py
+|   |   |   |   |-- stylesheet.py
+|   |   |   |   `-- system.py
+|   |   |   |-- ui prompts
+|   |   |   |   `-- prompt start.txt
+|   |   |   |-- windows
+|   |   |   |-- README.md
+|   |   |   `-- __init__.py
 |   |   |-- utils
 |   |   |   |-- __init__.py
-|   |   |   `-- events.py
+|   |   |   |-- events.py
+|   |   |   `-- logging.py
 |   |   |-- __init__.py
-|   |   `-- main.py
+|   |   |-- constants.py
+|   |   |-- exceptions.py
+|   |   |-- main.py
+|   |   `-- types.py
 |   `-- suspension_calculator.egg-info
+|       |-- components
+|       |   |-- base
+|       |   |   |-- __init__.py
+|       |   |   |-- models.py
+|       |   |   `-- plot_container.py
+|       |   |-- navigation
+|       |   |   |-- __init__.py
+|       |   |   |-- navigation_header.py
+|       |   |   |-- navigation_item.py
+|       |   |   `-- navigation_strip.py
+|       |   |-- __init__.py
+|       |   |-- input_grid.py
+|       |   |-- link_input_panel.py
+|       |   |-- navigation.py
+|       |   `-- plot_frame.py
+|       |-- managers
+|       |   |-- __init__.py
+|       |   `-- navagation.py
+|       |-- pages
+|       |   |-- legacy
+|       |   |   |-- tabs
+|       |   |   |   |-- __init__.py
+|       |   |   |   |-- about.py
+|       |   |   |   |-- driveshaft.py
+|       |   |   |   |-- link.py
+|       |   |   |   |-- materials.py
+|       |   |   |   |-- pitch.py
+|       |   |   |   |-- rod_end.py
+|       |   |   |   |-- settings.py
+|       |   |   |   |-- shock.py
+|       |   |   |   `-- sizing.py
+|       |   |   `-- __init__.py
+|       |   |-- __init__.py
+|       |   `-- base_page.py
+|       |-- plots
+|       |   |-- __init__.py
+|       |   `-- suspension_plots.py
+|       |-- styles
+|       |   |-- __init__.py
+|       |   |-- colors.py
+|       |   |-- constants.py
+|       |   `-- theme.py
+|       |-- utils
+|       |   `-- __init__.py
 |       |-- PKG-INFO
 |       |-- SOURCES.txt
+|       |-- __init__.py
+|       |-- app.py
 |       |-- dependency_links.txt
+|       |-- main_window.py
 |       |-- requires.txt
+|       |-- styles.py
 |       `-- top_level.txt
 |-- tests
 |   |-- core
@@ -183,12 +270,14 @@
 |   |       |-- test_geometry.py
 |   |       `-- test_link_models.py
 |   `-- conftest.py
+|-- ui_attempt_1
 |-- Calculator.spec
 |-- Makefile
 |-- README.md
 |-- my_tree_structure.txt
 |-- pyproject.toml
 |-- setup.py
-`-- tree_output.py
+|-- tree_output.py
+`-- ui layout design.txt
 
-39 directories, 203 files
+52 directories, 229 files

@@ -1,4 +1,3 @@
-# src/suspension/exceptions.py
 class SuspensionError(Exception):
     """Base exception for all application errors."""
 
@@ -13,5 +12,29 @@ class ThemeError(SuspensionError):
 
 class ConfigurationError(SuspensionError):
     """Configuration-related errors."""
+
+    pass
+
+
+class NavigationError(SuspensionError):
+    """Base class for navigation-related errors."""
+
+    pass
+
+
+class InvalidNavigationItemError(NavigationError):
+    """Raised when attempting to interact with an invalid navigation item."""
+
+    pass
+
+
+class NavigationStateError(NavigationError):
+    """Raised when navigation state becomes invalid or inconsistent."""
+
+    pass
+
+
+class NavigationPersistenceError(NavigationError):
+    """Raised when there are issues saving or loading navigation state."""
 
     pass

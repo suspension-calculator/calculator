@@ -1,12 +1,35 @@
 # src/suspension/ui/__init__.py
-"""UI package initialization."""
-from .main_window import MainWindow
-from .styles import *  # Import any style definitions
+"""
+UI package for Suspension Calculator.
+Provides the user interface components, managers, and styling.
+"""
 
-# Version information
-__version__ = "0.1.0"
+from .constants import (
+    AppIcon,
+    LIGHT_THEME,
+    DARK_THEME,
+)
+from .models.theme import (
+    Theme,
+    ThemeMode,
+    ThemeMetadata,
+    ColorScheme,
+    Typography,
+    Spacing,
+    Shadows,
+)
 
-# Public API
 __all__ = [
-    "MainWindow",
+    # Theme models
+    "Theme",
+    "ThemeMode",
+    "ThemeMetadata",
+    "ColorScheme",
+    "Typography",
+    "Spacing",
+    "Shadows",
+    # Constants
+    "AppIcon",
+    "LIGHT_THEME",
+    "DARK_THEME",
 ]
