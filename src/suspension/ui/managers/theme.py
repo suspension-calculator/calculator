@@ -224,3 +224,6 @@ class ThemeManager(QObject):
         self.register_theme(DARK_THEME)
         # Register system theme
         self.register_theme(create_system_theme())
+
+
+""

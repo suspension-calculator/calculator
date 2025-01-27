@@ -1,4 +1,5 @@
 # src/suspension/ui/components/navigation/tree_view.py
+
 from typing import Optional
 from PyQt6.QtWidgets import QTreeWidget, QTreeWidgetItem
 from PyQt6.QtCore import Qt

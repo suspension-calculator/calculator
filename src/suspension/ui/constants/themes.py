@@ -3,7 +3,7 @@
 """
 Predefined themes for the Suspension Calculator.
 """
-from suspension.ui.models.theme import (  # Change to absolute import
+from suspension.ui.models.theme import (
     Theme,
     ThemeMode,
     ThemeMetadata,
