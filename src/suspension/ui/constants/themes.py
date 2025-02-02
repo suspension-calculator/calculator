@@ -4,13 +4,13 @@
 Predefined themes for the Suspension Calculator.
 """
 from suspension.ui.models.theme import (
-    Theme,
-    ThemeMode,
-    ThemeMetadata,
     ColorScheme,
-    Typography,
-    Spacing,
     Shadows,
+    Spacing,
+    Theme,
+    ThemeMetadata,
+    ThemeMode,
+    Typography,
 )
 
 # Light theme color scheme
@@ -112,14 +112,14 @@ IRATE_THEME = Theme(
         # Base colors
         primary="#8DC63F",
         secondary="#455E0F",
-        background="#000000",
-        surface="#2A2A2A",
+        background="#1E1E1E",
+        surface="#2D2D2D",  # Slightly lighter than background
         # Text colors
         text_primary="#C2C2C2",
         text_secondary="#909090",
         text_disabled="#606060",
         # UI element colors
-        border="#353535",
+        border="#353535",  # Darker border for better contrast
         divider="#353535",
         # State colors
         error="#FF3B30",
@@ -127,9 +127,9 @@ IRATE_THEME = Theme(
         success="#8DC63F",
         info="#4A90E2",
         # Component colors
-        toolbar="#2A2A2A",
+        toolbar="#2A2A2A",  # Slightly lighter than background
         toolbar_text="#C2C2C2",
-        sidebar="#1A1A1A",
+        sidebar="#252526",  # Darker than toolbar for contrast
         sidebar_text="#C2C2C2",
     ),
     typography=Typography(

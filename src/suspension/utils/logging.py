@@ -3,17 +3,17 @@ Logging system for the Suspension Calculator application.
 Provides structured logging with contextual information and error tracking.
 """
 
+import json
 import logging
-import sys
 import platform
+import sys
+import traceback
+from dataclasses import asdict, dataclass
 from datetime import datetime
 from pathlib import Path
-from typing import Optional, Dict, Any
-import json
-from dataclasses import dataclass, asdict
-import traceback
+from typing import Any, Dict, Optional
 
-from ..constants import LogLevel, APP_NAME, DEFAULT_CONFIG_PATH
+from ..constants import APP_NAME, DEFAULT_CONFIG_PATH, LogLevel
 from ..types import JsonDict, PathLike
 
 
@@ -160,4 +160,4 @@ class StructuredLogger:
 
 
 # Create default application logger
-app_logger = StructuredLogger(APP_NAME)
+app_logger = StructuredLogger(APP_NAME, level=LogLevel.DEBUG)

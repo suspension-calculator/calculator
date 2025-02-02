@@ -5,10 +5,12 @@ import os
 import platform
 import subprocess
 import sys
-from typing import cast, TypedDict
+from typing import TypedDict, cast
 
 from PyQt6.QtGui import QPalette
 from PyQt6.QtWidgets import QApplication
+
+from suspension.utils import app_logger
 
 try:
     import winreg
@@ -18,13 +20,13 @@ except ImportError:
     HAS_WINREG = False
 
 from suspension.ui.models.theme import (
-    Theme,
-    ThemeMode,
     ColorScheme,
-    Typography,
-    ThemeMetadata,
-    Spacing,
     Shadows,
+    Spacing,
+    Theme,
+    ThemeMetadata,
+    ThemeMode,
+    Typography,
 )
 
 
@@ -124,23 +126,42 @@ def _adjust_color(color: str, lightness: float = 0.0) -> str:
     Returns:
         Adjusted hex color string
     """
+    app_logger.debug(
+        "Adjusting color",
+        {
+            "original_color": color,
+            "lightness_adjustment": lightness,
+        },
+    )
+
     # Convert hex to RGB
     color = color.lstrip("#")
     r = int(color[0:2], 16)
     g = int(color[2:4], 16)
     b = int(color[4:6], 16)
 
-    # Adjust lightness
+    # Adjust lightness with more dramatic effect
     if lightness > 0:
-        r = min(255, int(r * (1 + lightness)))
-        g = min(255, int(g * (1 + lightness)))
-        b = min(255, int(b * (1 + lightness)))
+        r = min(255, int(r + (255 - r) * lightness))
+        g = min(255, int(g + (255 - g) * lightness))
+        b = min(255, int(b + (255 - b) * lightness))
     else:
         r = max(0, int(r * (1 + lightness)))
         g = max(0, int(g * (1 + lightness)))
         b = max(0, int(b * (1 + lightness)))
 
-    return f"#{r:02x}{g:02x}{b:02x}"
+    adjusted = f"#{r:02x}{g:02x}{b:02x}"
+
+    app_logger.debug(
+        "Color adjusted",
+        {
+            "original_color": color,
+            "adjusted_color": adjusted,
+            "adjustment": lightness,
+        },
+    )
+
+    return adjusted
 
 
 def _is_palette_dark(palette: QPalette) -> bool:
@@ -170,17 +191,46 @@ def get_system_colors() -> ColorScheme:
     else:
         os_colors = _get_linux_system_colors()
 
+    # Detect dark mode
+    is_dark = bool(os_colors.get("is_dark", _is_palette_dark(palette)))
+
+    # Log system colors
+    app_logger.debug(
+        "System colors detected",
+        {
+            "is_dark": is_dark,
+            "window_color": palette.window().color().name(),
+            "base_color": palette.base().color().name(),
+            "platform": sys.platform,
+        },
+    )
+
     # Use OS accent color if available, otherwise use palette
     primary_color = os_colors.get("accent", palette.button().color().name())
+    base_color = palette.window().color().name()
 
-    # Adjust colors based on light/dark mode
-    is_dark = bool(os_colors.get("is_dark", _is_palette_dark(palette)))
+    # More dramatic adjustments for visual hierarchy
+    toolbar_adjustment = 0.15 if is_dark else -0.1
+    sidebar_adjustment = -0.2 if is_dark else 0.15
+
+    toolbar_color = _adjust_color(base_color, toolbar_adjustment)
+    sidebar_color = _adjust_color(base_color, sidebar_adjustment)
+
+    # Log the adjusted colors
+    app_logger.debug(
+        "Color adjustments",
+        {
+            "base_color": base_color,
+            "toolbar_color": toolbar_color,
+            "sidebar_color": sidebar_color,
+        },
+    )
 
     return ColorScheme(
         # Base colors
         primary=primary_color,
         secondary=_adjust_color(primary_color, lightness=0.1),
-        background=palette.window().color().name(),
+        background=base_color,
         surface=palette.base().color().name(),
         # Text colors
         text_primary=palette.windowText().color().name(),
@@ -189,17 +239,15 @@ def get_system_colors() -> ColorScheme:
         # UI element colors
         border=palette.mid().color().name(),
         divider=palette.mid().color().name(),
-        # State colors (consistent across themes)
+        # State colors
         error="#DC3545",
         warning="#FFC107",
         success="#28A745",
         info="#17A2B8",
         # Component specific colors
-        toolbar=palette.window().color().name(),
+        toolbar=toolbar_color,
         toolbar_text=palette.windowText().color().name(),
-        sidebar=_adjust_color(
-            palette.window().color().name(), lightness=-0.05 if is_dark else 0.05
-        ),
+        sidebar=sidebar_color,
         sidebar_text=palette.windowText().color().name(),
     )
 

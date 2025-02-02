@@ -58,34 +58,64 @@ class StylesheetGenerator:
             return style_generator()
         return ""
 
-    # Add to StylesheetGenerator in stylesheet.py
-
     def _generate_drawer_style(self) -> str:
         """Generate drawer-specific styles."""
+        # src/suspension/ui/styles/stylesheet.py
         return f"""
-            #base_drawer {{
-                background-color: {self.theme.colors.background};
-            }}
+        /* Main container - should be light like the toolbar */
+        QMainWindow {{
+            background-color: {self.theme.colors.toolbar};
+        }}
 
-            #drawer_frame {{
-                background-color: {self.theme.colors.sidebar};
-                border-right: 1px solid {self.theme.colors.border};
-                border-top: 1px solid {self.theme.colors.border};
-            }}
+        /* Base drawer container */
+        QWidget#base_drawer {{
+            background-color: {self.theme.colors.sidebar};
+            border-right: 1px solid {self.theme.colors.border};
+        }}
 
-            #drawer_toggle {{
-                background-color: transparent;
-                border: none;
-                color: {self.theme.colors.text_primary};
-                font-size: 18px;
-                padding: {self.theme.spacing.small}px;
-                margin: {self.theme.spacing.xsmall}px;
-            }}
+        /* All navigation tree items should inherit the sidebar color */
+        QWidget#base_drawer QTreeView {{
+            background-color: {self.theme.colors.sidebar};
+            color: {self.theme.colors.sidebar_text};
+        }}
 
-            #drawer_toggle:hover {{
-                background-color: {self.theme.colors.secondary};
-                border-radius: {self.theme.border_radius}px;
-            }}
+        /* Button container should match the toolbar */
+        QWidget#button_container {{
+            background-color: {self.theme.colors.toolbar};
+            border-bottom: 1px solid {self.theme.colors.border};
+            max-height: 48px;
+            min-height: 48px;
+            padding: 0px;
+            margin: 0px;
+        }}
+
+        /* Drawer content area */
+        QFrame#drawer_frame {{
+            background-color: {self.theme.colors.sidebar};
+            margin-top: 0px;
+            padding-top: 0px;
+        }}
+
+        /* Toggle button styling */
+        QPushButton#drawer_toggle {{
+            background-color: transparent;
+            border: none;
+            border-radius: {self.theme.border_radius}px;
+            padding: 4px;
+            margin: 8px;
+            qproperty-iconSize: 16px;
+            width: 32px;
+            height: 32px;
+        }}
+
+        QPushButton#drawer_toggle:hover {{
+            background-color: {self.theme.colors.secondary};
+        }}
+
+        /* Make sure button container doesn't act like a button */
+        QWidget#button_container > QPushButton {{
+            position: absolute;
+        }}
         """
 
     def _generate_global_styles(self) -> str:
@@ -198,7 +228,10 @@ class StylesheetGenerator:
             background-color: {self.theme.colors.background};
         }}
 
-        QLineEdit:disabled, QTextEdit:disabled, QSpinBox:disabled, QDoubleSpinBox:disabled {{
+        QLineEdit:disabled,
+        QTextEdit:disabled,
+        QSpinBox:disabled,
+        QDoubleSpinBox:disabled {{
             background-color: {self.theme.colors.divider};
             color: {self.theme.colors.text_disabled};
         }}

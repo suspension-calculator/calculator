@@ -8,13 +8,14 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QCloseEvent
 from PyQt6.QtWidgets import (
     QMainWindow,
-    QWidget,
-    QVBoxLayout,
     QSplitter,
     QStatusBar,
     QToolBar,
+    QVBoxLayout,
+    QWidget,
 )
 
+from ...utils.logging import StructuredLogger, app_logger
 from ..components.base.placeholder import PlaceholderWidget
 from ..components.navigation import Drawer, NavigationTree
 from ..components.navigation.menu import MainMenu
@@ -25,7 +26,6 @@ from ..managers.panel import PanelManager
 from ..managers.theme import ThemeManager
 from ..managers.window import WindowManager
 from ..models.theme import Theme
-from ...utils.logging import app_logger, StructuredLogger
 
 
 class MainWindow(QMainWindow):
@@ -165,16 +165,12 @@ class MainWindow(QMainWindow):
             animation_duration=animation_duration,
         )
 
-        # Position the toggle button absolutely in the top-left corner
-        self.nav_drawer.toggle_button.setFixedSize(32, 32)  # Make button bigger
-        self.nav_drawer.toggle_button.move(4, 4)  # Position it with some padding
-
-        # Connect to theme system
-        self.theme_manager.theme_changed.connect(
-            lambda theme: self.nav_drawer.apply_theme(theme)
-        )
+        # Apply initial theme
         if current_theme := self.theme_manager.theme:
             self.nav_drawer.apply_theme(current_theme)
+            stylesheet = self.theme_manager.get_component_stylesheet("drawer")
+            if stylesheet:
+                self.nav_drawer.setStyleSheet(stylesheet)
 
         # Add the drawer to the main window
         main_content = self.centralWidget()
@@ -182,6 +178,7 @@ class MainWindow(QMainWindow):
             layout = main_content.layout()
             if isinstance(layout, QVBoxLayout):
                 layout.insertWidget(0, self.nav_drawer)
+                layout.setStretchFactor(self.nav_drawer, 0)  # Don't stretch the drawer
 
     def _create_navigation_container(self) -> QWidget:
         """Create and setup the navigation container widget."""
@@ -253,15 +250,51 @@ class MainWindow(QMainWindow):
 
     def _handle_theme_changed(self, theme: Theme) -> None:
         """Handle theme changes."""
-        # Apply component-specific styles
-        stylesheet = self.theme_manager.get_component_stylesheet("navigation")
-        if stylesheet:
-            self.nav_tree.setStyleSheet(stylesheet)
+        try:
+            # Log the theme colors
+            self.logger.debug(
+                "Applying theme colors",
+                {
+                    **self._context,
+                    "toolbar_color": theme.colors.toolbar,
+                    "sidebar_color": theme.colors.sidebar,
+                    "background_color": theme.colors.background,
+                },
+            )
 
-        toolbar_style = self.theme_manager.get_component_stylesheet("toolbar")
-        if toolbar_style:
-            self.main_toolbar.setStyleSheet(toolbar_style)
-            self.context_toolbar.setStyleSheet(toolbar_style)
+            # Apply navigation styles
+            navigation_style = self.theme_manager.get_component_stylesheet("navigation")
+            drawer_style = self.theme_manager.get_component_stylesheet("drawer")
+
+            if navigation_style and hasattr(self, "nav_tree"):
+                self.logger.debug(
+                    "Applying navigation style", {**self._context, "has_nav_tree": True}
+                )
+                self.nav_tree.setStyleSheet(navigation_style)
+
+            if drawer_style and hasattr(self, "nav_drawer"):
+                self.logger.debug(
+                    "Applying drawer style", {**self._context, "has_drawer": True}
+                )
+                self.nav_drawer.setStyleSheet(drawer_style)
+
+            # Apply toolbar styles
+            toolbar_style = self.theme_manager.get_component_stylesheet("toolbar")
+            if toolbar_style:
+                self.logger.debug("Applying toolbar style", self._context)
+                self.main_toolbar.setStyleSheet(toolbar_style)
+                self.context_toolbar.setStyleSheet(toolbar_style)
+
+            # Apply panel styles
+            self.data_panel.apply_theme(theme)
+            self.plot_panel.apply_theme(theme)
+
+            self.logger.info(
+                "Theme applied successfully",
+                {**self._context, "theme": theme.metadata.name},
+            )
+        except Exception as e:
+            self.logger.error("Failed to apply theme", e, self._context)
 
     def closeEvent(self, event: QCloseEvent | None) -> None:
         """Handle window close event."""
