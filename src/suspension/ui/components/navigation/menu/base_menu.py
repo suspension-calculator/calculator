@@ -4,10 +4,11 @@ Base menu component providing common functionality.
 """
 
 from typing import Optional, Dict, Any
-from PyQt6.QtWidgets import QMenu, QAction, QWidget
 from PyQt6.QtCore import pyqtSignal
+from PyQt6.QtGui import QAction
+from PyQt6.QtWidgets import QMenu, QWidget
 
-from ...constants.icons import AppIcon
+from ....constants.icons import AppIcon
 
 
 class BaseMenu(QMenu):

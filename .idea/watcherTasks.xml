@@ -9,7 +9,7 @@
       <option name="fileExtension" value="py" />
       <option name="immediateSync" value="true" />
       <option name="name" value="Black" />
-      <option name="output" value="" />
+      <option name="output" value="$FilePath$" />
       <option name="outputFilters">
         <array />
       </option>
@@ -18,7 +18,7 @@
       <option name="runOnExternalChanges" value="true" />
       <option name="scopeName" value="Project Files" />
       <option name="trackOnlyRoot" value="false" />
-      <option name="workingDir" value="" />
+      <option name="workingDir" value="$ProjectFileDir$" />
       <envs />
     </TaskOptions>
     <TaskOptions isEnabled="true">
@@ -26,10 +26,10 @@
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" />
       <option name="exitCodeBehavior" value="ERROR" />
-      <option name="fileExtension" value="UNKNOWN" />
+      <option name="fileExtension" value="py" />
       <option name="immediateSync" value="true" />
       <option name="name" value="Ruff" />
-      <option name="output" value="" />
+      <option name="output" value="$FilePath$" />
       <option name="outputFilters">
         <array />
       </option>

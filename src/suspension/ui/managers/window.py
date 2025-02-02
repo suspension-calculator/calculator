@@ -5,7 +5,8 @@ Handles window state, geometry, and component coordination.
 """
 
 from typing import Optional, TypedDict
-from PyQt6.QtCore import QObject, pyqtSignal, QSettings
+
+from PyQt6.QtCore import QByteArray, QEvent, QObject, QSettings, pyqtSignal
 from PyQt6.QtWidgets import QMainWindow, QToolBar
 
 
@@ -39,19 +40,31 @@ class WindowManager(QObject):
         self._window = window
         self._settings = QSettings()
 
-        # Connect window signals
-        self._window.windowStateChanged.connect(self._handle_state_changed)
+        # Install event filter instead of trying to connect to windowStateChanged
+        self._window.installEventFilter(self)
 
     def save_state(self) -> None:
         """Save current window state to settings."""
         state: WindowState = {
-            "geometry": bytes(self._window.saveGeometry()),
-            "state": bytes(self._window.saveState()),
+            "geometry": self._window.saveGeometry().data(),
+            "state": self._window.saveState().data(),
             "maximized": self._window.isMaximized(),
             "fullscreen": self._window.isFullScreen(),
         }
 
         self._settings.setValue("window/state", state)
+
+    def eventFilter(self, obj: Optional[QObject], event: Optional[QEvent]) -> bool:
+        """Handle window state change events"""
+        if (
+            obj is not None
+            and event is not None
+            and obj == self._window
+            and event.type() == QEvent.Type.WindowStateChange
+        ):  # Fix the event type check
+            self._handle_state_changed()
+            return False
+        return super().eventFilter(obj, event)
 
     def restore_state(self) -> None:
         """Restore window state from settings."""
@@ -61,11 +74,11 @@ class WindowManager(QObject):
 
         # Restore geometry first
         if geometry := state.get("geometry"):
-            self._window.restoreGeometry(geometry)
+            self._window.restoreGeometry(QByteArray(geometry))
 
         # Restore window state (toolbars, etc)
         if window_state := state.get("state"):
-            self._window.restoreState(window_state)
+            self._window.restoreState(QByteArray(window_state))
 
         # Restore window mode
         if state.get("maximized"):
@@ -128,29 +141,3 @@ class WindowManager(QObject):
             title: New window title
         """
         self._window.setWindowTitle(title)
-
-
-# src/suspension/ui/models/window.py
-"""
-Window-related models for the Suspension Calculator.
-"""
-
-from enum import Enum
-from pydantic import BaseModel
-
-
-class WindowMode(str, Enum):
-    """Window display modes."""
-
-    NORMAL = "normal"
-    MAXIMIZED = "maximized"
-    FULLSCREEN = "fullscreen"
-
-
-class WindowPreferences(BaseModel):
-    """User preferences for window behavior."""
-
-    remember_geometry: bool = True
-    remember_state: bool = True
-    startup_mode: WindowMode = WindowMode.NORMAL
-    status_message_duration: int = 5000  # milliseconds

@@ -84,6 +84,11 @@ class ThemeManager(QObject):
             self.error_occurred.emit(str(e))
             raise ThemeError("Failed to initialize theme manager") from e
 
+    @property
+    def theme(self) -> Optional[Theme]:
+        """Get the current theme."""
+        return self._current_theme
+
     def _initialize_theme(self) -> None:
         """Initialize the theme system."""
         try:

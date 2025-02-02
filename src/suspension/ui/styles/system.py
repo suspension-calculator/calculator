@@ -1,75 +1,87 @@
 # src/suspension/ui/styles/system.py
+"""System theme detection and creation."""
+
+import os
+import platform
+import subprocess
+import sys
+from typing import cast, TypedDict
 
 from PyQt6.QtGui import QPalette
 from PyQt6.QtWidgets import QApplication
 
-from ..models.theme import (
-    Spacing,
-    Shadows,
-)
-from ..models.theme import (
+try:
+    import winreg
+
+    HAS_WINREG = True
+except ImportError:
+    HAS_WINREG = False
+
+from suspension.ui.models.theme import (
     Theme,
     ThemeMode,
     ColorScheme,
     Typography,
     ThemeMetadata,
+    Spacing,
+    Shadows,
 )
 
 
-def _get_windows_system_colors() -> Dict[str, str]:
+class SystemColors(TypedDict, total=False):
+    """Type definition for system color information."""
+
+    is_dark: bool
+    accent: str
+
+
+def _get_windows_system_colors() -> SystemColors:
     """Get system colors from Windows registry."""
-    if platform.system() != "Windows":
+    if platform.system() != "Windows" or not HAS_WINREG:
         return {}
 
     try:
-        import winreg
-
-        with winreg.OpenKey(
-            winreg.HKEY_CURRENT_USER,
+        with winreg.OpenKey(  # type: ignore
+            winreg.HKEY_CURRENT_USER,  # type: ignore
             r"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize",
         ) as key:
-            is_dark = winreg.QueryValueEx(key, "AppsUseDarkTheme")[0] == 1
+            is_dark = winreg.QueryValueEx(key, "AppsUseDarkTheme")[0] == 1  # type: ignore
 
         color_key_path = r"Software\Microsoft\Windows\DWM"
-        with winreg.OpenKey(winreg.HKEY_CURRENT_USER, color_key_path) as key:
-            accent_color = winreg.QueryValueEx(key, "ColorizationColor")[0]
+        with winreg.OpenKey(winreg.HKEY_CURRENT_USER, color_key_path) as key:  # type: ignore
+            accent_color = winreg.QueryValueEx(key, "ColorizationColor")[0]  # type: ignore
 
         # Convert Windows accent color to hex
         accent = f"#{accent_color & 0xFFFFFF:06x}"
 
-        return {"is_dark": is_dark, "accent": accent}
+        return SystemColors(is_dark=is_dark, accent=accent)
     except Exception:
         return {}
 
 
-def _get_macos_system_colors() -> Dict[str, str]:
+def _get_macos_system_colors() -> SystemColors:
     """Get system colors from macOS."""
     if platform.system() != "Darwin":
         return {}
 
     try:
-        import subprocess
-
         # Get macOS appearance setting
         cmd = ["defaults", "read", "-g", "AppleInterfaceStyle"]
         is_dark = (
             subprocess.run(cmd, capture_output=True, text=True).stdout.strip() == "Dark"
         )
 
-        # Get accent color (requires additional permissions)
-        return {"is_dark": is_dark}
+        return SystemColors(is_dark=is_dark)
     except Exception:
         return {}
 
 
-def _get_linux_system_colors() -> Dict[str, str]:
+def _get_linux_system_colors() -> SystemColors:
     """Get system colors from Linux desktop environment."""
     if platform.system() != "Linux":
         return {}
 
     try:
-        import subprocess
-
         # Try to detect desktop environment
         desktop = os.environ.get("XDG_CURRENT_DESKTOP", "").lower()
 
@@ -87,72 +99,18 @@ def _get_linux_system_colors() -> Dict[str, str]:
             cmd = ["gsettings", "get", "org.gnome.desktop.interface", "accent-color"]
             accent = subprocess.run(cmd, capture_output=True, text=True).stdout.strip()
 
-            return {"is_dark": is_dark, "accent": accent if accent else None}
+            if accent:
+                return SystemColors(is_dark=is_dark, accent=accent)
+            return SystemColors(is_dark=is_dark)
 
         elif "kde" in desktop:
             # TODO: Add KDE Plasma theme detection
             pass
 
     except Exception:
-        return {}
+        pass
 
     return {}
-
-
-def get_system_colors() -> ColorScheme:
-    """Get colors from system palette with platform-specific enhancements."""
-    app = QApplication.instance()
-    if not app:
-        raise RuntimeError("QApplication must be created before getting system colors")
-
-    app = cast(QApplication, app)
-    palette = app.palette()
-
-    # Get platform-specific colors
-    os_colors = {}
-    if sys.platform == "win32":
-        os_colors = _get_windows_system_colors()
-    elif sys.platform == "darwin":
-        os_colors = _get_macos_system_colors()
-    else:
-        os_colors = _get_linux_system_colors()
-
-    # Use OS accent color if available, otherwise use palette
-    primary_color = os_colors.get("accent", palette.button().color().name())
-
-    # Adjust colors based on light/dark mode
-    is_dark = os_colors.get("is_dark", _is_palette_dark(palette))
-
-    return ColorScheme(
-        # Base colors
-        primary=primary_color,
-        secondary=_adjust_color(
-            primary_color, lightness=0.1
-        ),  # Slightly lighter/darker than primary
-        background=palette.window().color().name(),
-        surface=palette.base().color().name(),
-        # Text colors
-        text_primary=palette.windowText().color().name(),
-        text_secondary=palette.text().color().name(),
-        text_disabled=palette.color(
-            QPalette.ColorRole.Disabled, QPalette.ColorRole.Text
-        ).name(),
-        # UI element colors
-        border=palette.mid().color().name(),
-        divider=palette.mid().color().name(),
-        # State colors (consistent across themes)
-        error="#DC3545",
-        warning="#FFC107",
-        success="#28A745",
-        info="#17A2B8",
-        # Component specific colors
-        toolbar=palette.window().color().name(),
-        toolbar_text=palette.windowText().color().name(),
-        sidebar=_adjust_color(
-            palette.window().color().name(), lightness=-0.05 if is_dark else 0.05
-        ),
-        sidebar_text=palette.windowText().color().name(),
-    )
 
 
 def _adjust_color(color: str, lightness: float = 0.0) -> str:
@@ -194,12 +152,65 @@ def _is_palette_dark(palette: QPalette) -> bool:
     return brightness < 128
 
 
+def get_system_colors() -> ColorScheme:
+    """Get colors from system palette with platform-specific enhancements."""
+    app = QApplication.instance()
+    if not app:
+        raise RuntimeError("QApplication must be created before getting system colors")
+
+    app = cast(QApplication, app)
+    palette = app.palette()
+
+    # Get platform-specific colors
+    os_colors: SystemColors = {}
+    if sys.platform == "win32":
+        os_colors = _get_windows_system_colors()
+    elif sys.platform == "darwin":
+        os_colors = _get_macos_system_colors()
+    else:
+        os_colors = _get_linux_system_colors()
+
+    # Use OS accent color if available, otherwise use palette
+    primary_color = os_colors.get("accent", palette.button().color().name())
+
+    # Adjust colors based on light/dark mode
+    is_dark = bool(os_colors.get("is_dark", _is_palette_dark(palette)))
+
+    return ColorScheme(
+        # Base colors
+        primary=primary_color,
+        secondary=_adjust_color(primary_color, lightness=0.1),
+        background=palette.window().color().name(),
+        surface=palette.base().color().name(),
+        # Text colors
+        text_primary=palette.windowText().color().name(),
+        text_secondary=palette.text().color().name(),
+        text_disabled=palette.placeholderText().color().name(),
+        # UI element colors
+        border=palette.mid().color().name(),
+        divider=palette.mid().color().name(),
+        # State colors (consistent across themes)
+        error="#DC3545",
+        warning="#FFC107",
+        success="#28A745",
+        info="#17A2B8",
+        # Component specific colors
+        toolbar=palette.window().color().name(),
+        toolbar_text=palette.windowText().color().name(),
+        sidebar=_adjust_color(
+            palette.window().color().name(), lightness=-0.05 if is_dark else 0.05
+        ),
+        sidebar_text=palette.windowText().color().name(),
+    )
+
+
 def get_system_font() -> Typography:
-    """Get system font settings"""
+    """Get system font settings."""
     app = QApplication.instance()
     if not app:
         raise RuntimeError("QApplication must be created before getting system font")
 
+    app = cast(QApplication, app)
     default_font = app.font()
     base_size = default_font.pointSize()
 
@@ -254,6 +265,7 @@ def detect_system_theme_mode() -> ThemeMode:
     if not app:
         return ThemeMode.SYSTEM
 
+    app = cast(QApplication, app)
     palette = app.palette()
     background = palette.color(QPalette.ColorRole.Window)
 

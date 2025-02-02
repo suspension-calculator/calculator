@@ -5,7 +5,7 @@ Base panel component providing common panel functionality.
 """
 
 from typing import Optional, Dict, Any
-from PyQt6.QtCore import pyqtSignal, QSettings
+from PyQt6.QtCore import pyqtSignal, QSettings, Qt, QByteArray
 from PyQt6.QtWidgets import (
     QDockWidget,
     QWidget,
@@ -46,6 +46,7 @@ class BasePanel(QDockWidget):
         parent: Optional[QWidget] = None,
         allow_close: bool = True,
         allow_float: bool = True,
+        dock_area: Optional[Qt.DockWidgetArea] = None,
     ) -> None:
         """
         Initialize the panel.
@@ -56,13 +57,18 @@ class BasePanel(QDockWidget):
             parent: Parent widget
             allow_close: Whether panel can be closed
             allow_float: Whether panel can be floated
+            dock_area: Default dock area for the panel
         """
         super().__init__(title, parent)
+
+        # Set the object name using the panel_id
+        self.setObjectName(panel_id)
 
         self.panel_id = panel_id
         self._settings = QSettings()
         self._allow_close = allow_close
         self._allow_float = allow_float
+        self._dock_area = dock_area or Qt.DockWidgetArea.LeftDockWidgetArea
 
         # Initialize UI
         self._setup_ui()
@@ -144,9 +150,9 @@ class BasePanel(QDockWidget):
                 if layout := content_frame.layout():
                     # Clear existing content
                     while layout.count():
-                        item = layout.takeAt(0)
-                        if w := item.widget():
-                            w.deleteLater()
+                        if item := layout.takeAt(0):
+                            if old_widget := item.widget():
+                                old_widget.deleteLater()
                     # Add new content
                     layout.addWidget(widget)
 
@@ -191,10 +197,11 @@ class BasePanel(QDockWidget):
             Dictionary containing panel state
         """
         state = {
-            "geometry": bytes(self.saveGeometry()),
+            "geometry": self.saveGeometry().data(),  # Convert QByteArray to bytes
             "floating": self.isFloating(),
             "visible": self.isVisible(),
-            "dock_area": int(self.features()),
+            "features": self.features().value,  # Get raw enum value
+            "dock_area": self.get_dock_area().value,  # Get raw enum value
         }
         return state
 
@@ -206,16 +213,19 @@ class BasePanel(QDockWidget):
             state: Dictionary containing panel state
         """
         if geometry := state.get("geometry"):
-            self.restoreGeometry(geometry)
+            self.restoreGeometry(QByteArray(geometry))
 
         if floating := state.get("floating"):
-            self.setFloating(floating)
+            self.setFloating(bool(floating))
 
         if visible := state.get("visible"):
-            self.setVisible(visible)
+            self.setVisible(bool(visible))
+
+        if features := state.get("features"):
+            self.setFeatures(QDockWidget.DockWidgetFeature(features))
 
         if dock_area := state.get("dock_area"):
-            self.setFeatures(QDockWidget.DockWidgetFeature(dock_area))
+            self.set_dock_area(Qt.DockWidgetArea(dock_area))
 
     def _handle_state_changed(self) -> None:
         """Handle panel state changes."""
@@ -235,3 +245,33 @@ class BasePanel(QDockWidget):
     def _toggle_floating(self) -> None:
         """Toggle panel floating state."""
         self.setFloating(not self.isFloating())
+
+    def get_dock_area(self) -> Qt.DockWidgetArea:
+        """
+        Get the current dock area of the panel.
+
+        Returns:
+            Current dock area
+        """
+        return self._dock_area
+
+    def set_dock_area(self, area: Qt.DockWidgetArea) -> None:
+        """
+        Set the dock area for the panel.
+
+        Args:
+            area: New dock area
+        """
+        self._dock_area = area
+        self.state_changed.emit()
+        self._save_panel_state()
+
+    def defaultDockArea(self) -> Qt.DockWidgetArea:
+        """
+        Get the default dock area for this panel.
+        Can be overridden by subclasses to specify different default locations.
+
+        Returns:
+            Default dock area for the panel
+        """
+        return self._dock_area

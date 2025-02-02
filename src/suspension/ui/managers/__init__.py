@@ -13,9 +13,11 @@ aspects of the application's state and behavior:
 from .navigation import NavigationManager
 from .theme import ThemeManager
 from .window import WindowManager
+from .panel import PanelManager
 
 __all__ = [
     "NavigationManager",
+    "PanelManager",
     "ThemeManager",
     "WindowManager",
 ]

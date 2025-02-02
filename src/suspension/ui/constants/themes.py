@@ -31,7 +31,7 @@ LIGHT_THEME = Theme(
         # Text colors
         text_primary="#000000",
         text_secondary="#3C3C43",
-        text_disabled="#3C3C4399",
+        text_disabled="#3C3C43",
         # UI element colors
         border="#C6C6C8",
         divider="#C6C6C8",
@@ -73,8 +73,8 @@ DARK_THEME = Theme(
         surface="#1C1C1E",
         # Text colors
         text_primary="#FFFFFF",
-        text_secondary="#EBEBF599",
-        text_disabled="#EBEBF54C",
+        text_secondary="#EBEBF5",
+        text_disabled="#EBEBF5",
         # UI element colors
         border="#38383A",
         divider="#38383A",
@@ -110,27 +110,27 @@ IRATE_THEME = Theme(
     mode=ThemeMode.DARK,
     colors=ColorScheme(
         # Base colors
-        primary="#8dc63f",  # Irate logo green
-        secondary="#455e0f",  # Banner dark green
-        background="#000000",  # Main black background
-        surface="#2a2a2a",  # Alternative background
+        primary="#8DC63F",
+        secondary="#455E0F",
+        background="#000000",
+        surface="#2A2A2A",
         # Text colors
-        text_primary="#c2c2c2",  # Main text color
-        text_secondary="#909090",  # Secondary text
-        text_disabled="#606060",  # Disabled text
+        text_primary="#C2C2C2",
+        text_secondary="#909090",
+        text_disabled="#606060",
         # UI element colors
-        border="#353535",  # Subtle borders
-        divider="#353535",  # Matching dividers
+        border="#353535",
+        divider="#353535",
         # State colors
-        error="#ff3b30",  # Error red
-        warning="#ffb74d",  # Warning orange
-        success="#8dc63f",  # Success (using logo green)
-        info="#4a90e2",  # Info blue
-        # Component specific colors
-        toolbar="#2a2a2a",  # Toolbar background
-        toolbar_text="#c2c2c2",  # Toolbar text
-        sidebar="#1a1a1a",  # Slightly darker than alt background
-        sidebar_text="#c2c2c2",  # Sidebar text
+        error="#FF3B30",
+        warning="#FFB74D",
+        success="#8DC63F",
+        info="#4A90E2",
+        # Component colors
+        toolbar="#2A2A2A",
+        toolbar_text="#C2C2C2",
+        sidebar="#1A1A1A",
+        sidebar_text="#C2C2C2",
     ),
     typography=Typography(
         font_family="Segoe UI",
@@ -151,7 +151,7 @@ IRATE_THEME = Theme(
         medium="0 4px 8px rgba(0,0,0,0.4)",
         large="0 8px 16px rgba(0,0,0,0.5)",
     ),
-    border_radius=2,  # Slightly tighter corners to match Irate style
+    border_radius=2,
     icon_size=16,
     animation_duration_fast=100,
     animation_duration_normal=200,

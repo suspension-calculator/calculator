@@ -3,6 +3,7 @@
 Base toolbar component providing common functionality.
 """
 
+import qtawesome as qta  # type: ignore
 from typing import Optional, Dict, Any
 
 from PyQt6.QtCore import pyqtSignal
@@ -35,6 +36,7 @@ class BaseToolBar(QToolBar):
         """Initialize the toolbar."""
         super().__init__(name, parent)
 
+        self.setObjectName(name)
         self.setMovable(movable)
         self.setFloatable(floatable)
 
@@ -67,8 +69,6 @@ class BaseToolBar(QToolBar):
 
         if icon_name:
             if icon_name.startswith("fa"):
-                import qtawesome as qta
-
                 action.setIcon(qta.icon(icon_name))
             else:
                 icon = AppIcon(icon_name).to_icon()

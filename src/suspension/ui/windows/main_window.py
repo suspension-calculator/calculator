@@ -3,7 +3,6 @@
 """
 Main application window for the Suspension Calculator.
 """
-from typing import cast
 
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QCloseEvent
@@ -13,13 +12,16 @@ from PyQt6.QtWidgets import (
     QVBoxLayout,
     QSplitter,
     QStatusBar,
+    QToolBar,
 )
 
-from ..components.navigation.menu.main_menu import MainMenu
-from ..components.navigation.tree_view import NavigationTree
-from ..components.toolbar.context_toolbar import ContextToolbar
-from ..components.toolbar.main_toolbar import MainToolbar
+from ..components.base.placeholder import PlaceholderWidget
+from ..components.navigation import Drawer, NavigationTree
+from ..components.navigation.menu import MainMenu
+from ..components.panels import DataEntryPanel, PlotViewPanel
+from ..components.toolbar import ContextToolbar, MainToolbar
 from ..managers.navigation import NavigationManager
+from ..managers.panel import PanelManager
 from ..managers.theme import ThemeManager
 from ..managers.window import WindowManager
 from ..models.theme import Theme
@@ -43,12 +45,14 @@ class MainWindow(QMainWindow):
 
     theme_manager: ThemeManager
     nav_manager: NavigationManager
+    window_manager: WindowManager
+    panel_manager: PanelManager
     nav_tree: NavigationTree
     main_toolbar: MainToolbar
     context_toolbar: ContextToolbar
     main_splitter: QSplitter
-    data_panel: QWidget
-    plot_panel: QWidget
+    data_panel: DataEntryPanel
+    plot_panel: PlotViewPanel
     logger: StructuredLogger
     _context: dict[str, str]
     main_menu: MainMenu
@@ -60,7 +64,8 @@ class MainWindow(QMainWindow):
         # Initialize managers
         self.theme_manager = ThemeManager()
         self.nav_manager = NavigationManager()
-        self.window_manager = WindowManager(self)  # Add window manager
+        self.window_manager = WindowManager(self)
+        self.panel_manager = PanelManager(self)
 
         # Setup logging
         self.logger = app_logger
@@ -129,38 +134,112 @@ class MainWindow(QMainWindow):
 
     def _setup_main_layout(self) -> None:
         """Create the main three-panel layout."""
-        # Create splitter for resizable panels
-        self.main_splitter = QSplitter(Qt.Orientation.Horizontal)
+        self._setup_central_widget()
+        self._setup_navigation_drawer()
+        self._setup_panels()
 
-        # Navigation tree (left panel)
+    def _setup_central_widget(self) -> None:
+        """Setup the central widget and its layout."""
+        main_content = QWidget()
+        main_layout = QVBoxLayout(main_content)
+        main_layout.setContentsMargins(0, 0, 0, 0)
+        self.setCentralWidget(main_content)
+
+    def _setup_navigation_drawer(self) -> None:
+        """Setup the navigation drawer with tree view."""
+        # Create the navigation tree first
+        nav_tree = NavigationTree(self.nav_manager)
+
+        # Get animation duration with a safe default
+        animation_duration = (
+            self.theme_manager.theme.animation_duration_normal
+            if self.theme_manager.theme is not None
+            else 200
+        )
+
+        # Create the drawer containing the navigation tree
+        self.nav_drawer = Drawer(
+            content=nav_tree,
+            parent=self,
+            width=250,
+            animation_duration=animation_duration,
+        )
+
+        # Position the toggle button absolutely in the top-left corner
+        self.nav_drawer.toggle_button.setFixedSize(32, 32)  # Make button bigger
+        self.nav_drawer.toggle_button.move(4, 4)  # Position it with some padding
+
+        # Connect to theme system
+        self.theme_manager.theme_changed.connect(
+            lambda theme: self.nav_drawer.apply_theme(theme)
+        )
+        if current_theme := self.theme_manager.theme:
+            self.nav_drawer.apply_theme(current_theme)
+
+        # Add the drawer to the main window
+        main_content = self.centralWidget()
+        if isinstance(main_content, QWidget):
+            layout = main_content.layout()
+            if isinstance(layout, QVBoxLayout):
+                layout.insertWidget(0, self.nav_drawer)
+
+    def _create_navigation_container(self) -> QWidget:
+        """Create and setup the navigation container widget."""
+        nav_container = QWidget()
+        nav_container.setObjectName("nav_container")
+        nav_container_layout = QVBoxLayout(nav_container)
+        nav_container_layout.setContentsMargins(0, 0, 0, 0)
+
         self.nav_tree = NavigationTree(self.nav_manager)
-        self.main_splitter.addWidget(self.nav_tree)
+        nav_container_layout.addWidget(self.nav_tree)
 
-        # Content area (center + right panels)
-        content_splitter = QSplitter(Qt.Orientation.Horizontal)
+        nav_container.setFixedWidth(250)
+        nav_container.setStyleSheet(
+            """
+            QWidget#nav_container {
+                border-right: 1px solid palette(mid);
+                background-color: palette(window);
+            }
+        """
+        )
 
-        # Data entry panel
-        self.data_panel = QWidget()  # TODO: Replace with proper data entry panel
-        content_splitter.addWidget(self.data_panel)
+        return nav_container
 
-        # Plot view panel
-        self.plot_panel = QWidget()  # TODO: Replace with proper plot panel
-        content_splitter.addWidget(self.plot_panel)
+    def _add_navigation_toggle(self, nav_toolbar: QToolBar) -> None:
+        """Add the navigation toggle button to main toolbar."""
+        nav_toggle = self.main_toolbar.add_action(
+            "toggle_nav",
+            "Toggle Navigation",
+            "fa5s.bars",
+            tooltip="Toggle Navigation Panel",
+            checkable=True,
+        )
+        nav_toggle.setChecked(True)
+        nav_toggle.triggered.connect(lambda checked: nav_toolbar.setVisible(checked))
 
-        # Add content splitter to main splitter
-        self.main_splitter.addWidget(content_splitter)
+    def _setup_panels(self) -> None:
+        """Setup the data entry and plot view panels."""
+        # Create panels
+        self.data_panel = self._create_data_panel()
+        self.plot_panel = self._create_plot_panel()
 
-        # Set stretch factors
-        self.main_splitter.setStretchFactor(0, 0)  # Navigation tree doesn't stretch
-        self.main_splitter.setStretchFactor(1, 1)  # Content area stretches
+        # Add to window
+        self.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, self.data_panel)
+        self.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, self.plot_panel)
 
-        # Add to central widget - with proper type checking
-        central = self.centralWidget()
-        if central is not None:
-            layout = central.layout()
-            if layout is not None:
-                layout = cast(QVBoxLayout, layout)
-                layout.addWidget(self.main_splitter)
+    def _create_data_panel(self) -> DataEntryPanel:
+        """Create and initialize the data entry panel."""
+        panel = self.panel_manager.create_data_entry_panel("data_entry", "Data Entry")
+        placeholder = PlaceholderWidget("Data Entry Panel\nNo form loaded")
+        panel.set_content(placeholder)
+        return panel
+
+    def _create_plot_panel(self) -> PlotViewPanel:
+        """Create and initialize the plot view panel."""
+        panel = self.panel_manager.create_plot_panel("plot_view", "Plot View")
+        placeholder = PlaceholderWidget("Plot View Panel\nNo plot loaded")
+        panel.set_content(placeholder)
+        return panel
 
     def _setup_status_bar(self) -> None:
         """Setup the status bar."""
@@ -191,6 +270,7 @@ class MainWindow(QMainWindow):
 
         try:
             self.window_manager.save_state()
+            self.panel_manager.save_state()
             self.logger.info("Saved window state", context=self._context)
             event.accept()
         except Exception as e:

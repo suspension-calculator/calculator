@@ -4,7 +4,6 @@ StylesheetGenerator for the Suspension Calculator.
 
 from typing import Dict, Protocol
 
-
 from ..models.theme import Theme
 
 
@@ -23,6 +22,7 @@ class StylesheetGenerator:
         """Initialize the stylesheet generator with a theme."""
         self.theme = theme
         self._component_styles: Dict[str, StyleGenerator] = {
+            "drawer": self._generate_drawer_style,
             "navigation": self._generate_navigation_style,
             "toolbar": self._generate_toolbar_style,
             "content": self._generate_content_style,
@@ -57,6 +57,36 @@ class StylesheetGenerator:
         if style_generator is not None:
             return style_generator()
         return ""
+
+    # Add to StylesheetGenerator in stylesheet.py
+
+    def _generate_drawer_style(self) -> str:
+        """Generate drawer-specific styles."""
+        return f"""
+            #base_drawer {{
+                background-color: {self.theme.colors.background};
+            }}
+
+            #drawer_frame {{
+                background-color: {self.theme.colors.sidebar};
+                border-right: 1px solid {self.theme.colors.border};
+                border-top: 1px solid {self.theme.colors.border};
+            }}
+
+            #drawer_toggle {{
+                background-color: transparent;
+                border: none;
+                color: {self.theme.colors.text_primary};
+                font-size: 18px;
+                padding: {self.theme.spacing.small}px;
+                margin: {self.theme.spacing.xsmall}px;
+            }}
+
+            #drawer_toggle:hover {{
+                background-color: {self.theme.colors.secondary};
+                border-radius: {self.theme.border_radius}px;
+            }}
+        """
 
     def _generate_global_styles(self) -> str:
         """Generate global widget styles."""

@@ -1,54 +1,4 @@
 .
-|-- htmlcov
-|   |-- class_index.html
-|   |-- coverage_html_cb_6fb7b396.js
-|   |-- favicon_32_cb_58284776.png
-|   |-- function_index.html
-|   |-- index.html
-|   |-- keybd_closed_cb_ce680311.png
-|   |-- status.json
-|   |-- style_cb_8e611ae1.css
-|   |-- z_2ecd325ec2b5d1b7_app_py.html
-|   |-- z_2ecd325ec2b5d1b7_styles_py.html
-|   |-- z_5e0f04b447adfb30_Y_equals_0_py.html
-|   |-- z_5e0f04b447adfb30_axle_point_movement_py.html
-|   |-- z_5e0f04b447adfb30_distance_2d_py.html
-|   |-- z_5e0f04b447adfb30_distance_3d_py.html
-|   |-- z_5e0f04b447adfb30_floor_2_zero_py.html
-|   |-- z_5e0f04b447adfb30_line_intersection_py.html
-|   |-- z_5e0f04b447adfb30_line_seperation_py.html
-|   |-- z_5e0f04b447adfb30_link_travel_py.html
-|   |-- z_5e0f04b447adfb30_pinion_rotation_py.html
-|   |-- z_5e0f04b447adfb30_points_angle_py.html
-|   |-- z_5e0f04b447adfb30_rotation_py.html
-|   |-- z_5e0f04b447adfb30_segment_seperation_py.html
-|   |-- z_5e0f04b447adfb30_travel_wheel_2_lca_py.html
-|   |-- z_5e0f04b447adfb30_unit_conversion_py.html
-|   |-- z_65b331027357100a_driveshaft_py.html
-|   |-- z_65b331027357100a_link_calc_py.html
-|   |-- z_65b331027357100a_link_sizing_py.html
-|   |-- z_65b331027357100a_shocks_py.html
-|   |-- z_65b331027357100a_vehicle_pitch_py.html
-|   |-- z_7d7e469705c876a8_main_py.html
-|   |-- z_8feda3e1304ce799_link_sizing_IO_py.html
-|   |-- z_a20c261ca584f80b_initialize_IO_py.html
-|   |-- z_a20c261ca584f80b_load_suspension_py.html
-|   |-- z_a20c261ca584f80b_material_add_py.html
-|   |-- z_a20c261ca584f80b_materials_py.html
-|   |-- z_a20c261ca584f80b_rod_end_add_py.html
-|   |-- z_a20c261ca584f80b_rod_ends_py.html
-|   |-- z_a20c261ca584f80b_save_suspension_py.html
-|   |-- z_a20c261ca584f80b_springs_py.html
-|   |-- z_a20c261ca584f80b_variables_py.html
-|   |-- z_b6966b291a115ef9_about_py.html
-|   |-- z_b6966b291a115ef9_driveshaft_py.html
-|   |-- z_b6966b291a115ef9_link_py.html
-|   |-- z_b6966b291a115ef9_materials_py.html
-|   |-- z_b6966b291a115ef9_pitch_py.html
-|   |-- z_b6966b291a115ef9_rod_end_py.html
-|   |-- z_b6966b291a115ef9_settings_py.html
-|   |-- z_b6966b291a115ef9_shock_py.html
-|   `-- z_b6966b291a115ef9_sizing_py.html
 |-- resources
 |   `-- data
 |       |-- materials.txt
@@ -170,13 +120,26 @@
 |   |   |   `-- __init__.py
 |   |   |-- ui
 |   |   |   |-- components
+|   |   |   |   |-- base
+|   |   |   |   |   `-- placeholder.py
 |   |   |   |   |-- navigation
+|   |   |   |   |   |-- menu
+|   |   |   |   |   |   |-- __init__.py
+|   |   |   |   |   |   |-- base_menu.py
+|   |   |   |   |   |   `-- main_menu.py
 |   |   |   |   |   |-- __init__.py
+|   |   |   |   |   |-- breadcrumb.py
 |   |   |   |   |   `-- tree_view.py
 |   |   |   |   |-- panels
-|   |   |   |   |   `-- __init__.py
+|   |   |   |   |   |-- __init__.py
+|   |   |   |   |   |-- base_panel.py
+|   |   |   |   |   |-- data_entry.py
+|   |   |   |   |   `-- plot_view.py
 |   |   |   |   `-- toolbar
-|   |   |   |       `-- __init__.py
+|   |   |   |       |-- __init__.py
+|   |   |   |       |-- base_toolbar.py
+|   |   |   |       |-- context_toolbar.py
+|   |   |   |       `-- main_toolbar.py
 |   |   |   |-- constants
 |   |   |   |   |-- __init__.py
 |   |   |   |   |-- icons.py
@@ -185,18 +148,27 @@
 |   |   |   |   |-- README.md
 |   |   |   |   |-- __init__.py
 |   |   |   |   |-- navigation.py
-|   |   |   |   `-- theme.py
+|   |   |   |   |-- panel.py
+|   |   |   |   |-- theme.py
+|   |   |   |   `-- window.py
 |   |   |   |-- models
 |   |   |   |   |-- __init__.py
-|   |   |   |   `-- theme.py
+|   |   |   |   |-- layout.py
+|   |   |   |   |-- theme.py
+|   |   |   |   `-- window.py
 |   |   |   |-- styles
 |   |   |   |   |-- __init__.py
 |   |   |   |   |-- base.py
 |   |   |   |   |-- stylesheet.py
 |   |   |   |   `-- system.py
+|   |   |   |-- types
+|   |   |   |   |-- __init__.py
+|   |   |   |   `-- state.py
 |   |   |   |-- ui prompts
 |   |   |   |   `-- prompt start.txt
 |   |   |   |-- windows
+|   |   |   |   |-- __init__.py
+|   |   |   |   `-- main_window.py
 |   |   |   |-- README.md
 |   |   |   `-- __init__.py
 |   |   |-- utils
@@ -207,6 +179,7 @@
 |   |   |-- constants.py
 |   |   |-- exceptions.py
 |   |   |-- main.py
+|   |   |-- py.typed
 |   |   `-- types.py
 |   `-- suspension_calculator.egg-info
 |       |-- components
@@ -280,4 +253,4 @@
 |-- tree_output.py
 `-- ui layout design.txt
 
-52 directories, 229 files
+55 directories, 249 files

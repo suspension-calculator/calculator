@@ -25,8 +25,10 @@ class ContextToolbar(BaseToolBar):
     def __init__(self, parent: Optional[QWidget] = None) -> None:
         """Initialize the context toolbar."""
         super().__init__("Context Toolbar", parent, movable=False, floatable=False)
-        self._setup_actions()
+        # Create the context label first
         self._context_label = self._setup_context_label()
+        # Then set up actions that use it
+        self._setup_actions()
 
     def _setup_actions(self) -> None:
         """Setup toolbar actions."""

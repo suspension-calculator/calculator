@@ -1,11 +1,16 @@
 # src/suspension/ui/components/navigation/tree_view.py
 
 from typing import Optional
-from PyQt6.QtWidgets import QTreeWidget, QTreeWidgetItem, QWidget
-from PyQt6.QtCore import Qt
 
-from ...managers.navigation import NavigationManager
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import (
+    QTreeWidget,
+    QTreeWidgetItem,
+    QWidget,
+)
+
 from ...constants.icons import AppIcon
+from ...managers.navigation import NavigationManager
 
 
 class NavigationTree(QTreeWidget):
@@ -108,16 +113,12 @@ class NavigationTree(QTreeWidget):
     def _handle_item_click(self, item: QTreeWidgetItem, column: int) -> None:
         """Handle item clicks and update navigation manager."""
         item_id = item.data(0, Qt.ItemDataRole.UserRole)
+        self.nav_manager.set_selected_item(item_id)  # Always handle selection
 
-        # Check if click is in chevron area (first 20 pixels)
-        click_pos = self.visualItemRect(item)
-        mouse_pos = self.mapFromGlobal(self.cursor().pos())
-        is_chevron_click = mouse_pos.x() <= 20 and item.childCount() > 0
-
-        if is_chevron_click:
+        # Expand/collapse on single click if item has children
+        if item.childCount() > 0:
+            item.setExpanded(not item.isExpanded())
             self.nav_manager.toggle_item_expanded(item_id)
-        else:
-            self.nav_manager.set_selected_item(item_id)
 
     def _handle_item_selected(self, item_id: str) -> None:
         """Handle selection change from navigation manager."""
