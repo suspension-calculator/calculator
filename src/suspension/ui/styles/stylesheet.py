@@ -59,63 +59,95 @@ class StylesheetGenerator:
         return ""
 
     def _generate_drawer_style(self) -> str:
-        """Generate drawer-specific styles."""
-        # src/suspension/ui/styles/stylesheet.py
+        """Generate drawer-specific styles including navigation tree."""
         return f"""
-        /* Main container - should be light like the toolbar */
-        QMainWindow {{
-            background-color: {self.theme.colors.toolbar};
-        }}
+            /* Main drawer container */
+            QWidget#base_drawer {{
+                background-color: {self.theme.colors.sidebar};
+                border-right: 1px solid {self.theme.colors.border};
+            }}
 
-        /* Base drawer container */
-        QWidget#base_drawer {{
-            background-color: {self.theme.colors.sidebar};
-            border-right: 1px solid {self.theme.colors.border};
-        }}
+            /* Header section */
+            QWidget#drawerHeader {{
+                background-color: {self.theme.colors.toolbar};
+                border-bottom: 1px solid {self.theme.colors.border};
+                min-height: 48px;
+                max-height: 48px;
+                padding: 0px;
+                margin: 0px;
+            }}
 
-        /* All navigation tree items should inherit the sidebar color */
-        QWidget#base_drawer QTreeView {{
-            background-color: {self.theme.colors.sidebar};
-            color: {self.theme.colors.sidebar_text};
-        }}
+            QPushButton#drawer_toggle {{
+                background-color: transparent;
+                border: none;
+                border-radius: {self.theme.border_radius}px;
+                padding: 4px;
+                margin: 8px 4px;
+                min-width: 32px;
+                max-width: 32px;
+                min-height: 32px;
+                max-height: 32px;
+            }}
 
-        /* Button container should match the toolbar */
-        QWidget#button_container {{
-            background-color: {self.theme.colors.toolbar};
-            border-bottom: 1px solid {self.theme.colors.border};
-            max-height: 48px;
-            min-height: 48px;
-            padding: 0px;
-            margin: 0px;
-        }}
+            QPushButton#drawer_toggle:hover {{
+                background-color: {self.theme.colors.primary}40;
+            }}
 
-        /* Drawer content area */
-        QFrame#drawer_frame {{
-            background-color: {self.theme.colors.sidebar};
-            margin-top: 0px;
-            padding-top: 0px;
-        }}
+            QLabel#drawerHeaderText {{
+                color: {self.theme.colors.toolbar_text};
+                font-weight: bold;
+                font-size: {self.theme.typography.h3}px;
+                padding: 0 {self.theme.spacing.medium}px;
+                background: transparent;
+            }}
 
-        /* Toggle button styling */
-        QPushButton#drawer_toggle {{
-            background-color: transparent;
-            border: none;
-            border-radius: {self.theme.border_radius}px;
-            padding: 4px;
-            margin: 8px;
-            qproperty-iconSize: 16px;
-            width: 32px;
-            height: 32px;
-        }}
+            /* Content frame */
+            QWidget#drawer_frame {{
+                background-color: {self.theme.colors.sidebar};
+                border-right: 1px solid {self.theme.colors.border};
+                border-top: none;
+            }}
 
-        QPushButton#drawer_toggle:hover {{
-            background-color: {self.theme.colors.secondary};
-        }}
+            /* Navigation tree */
+            #base_drawer QTreeWidget {{
+                background-color: {self.theme.colors.sidebar};
+                border: none;
+                border-top: 1px solid {self.theme.colors.border};
+                padding: {self.theme.spacing.small}px;
+                color: {self.theme.colors.sidebar_text};
+            }}
 
-        /* Make sure button container doesn't act like a button */
-        QWidget#button_container > QPushButton {{
-            position: absolute;
-        }}
+            #base_drawer QTreeWidget::item {{
+                padding: {self.theme.spacing.small}px {self.theme.spacing.medium}px;
+                border-radius: {self.theme.border_radius}px;
+                margin: 1px 0px;
+            }}
+
+            #base_drawer QTreeWidget::item:hover {{
+                background-color: {self.theme.colors.secondary}40;
+            }}
+
+            #base_drawer QTreeWidget::item:selected {{
+                background-color: {self.theme.colors.primary};
+                color: {self.theme.colors.text_primary};
+            }}
+
+            /* Handle collapsed state */
+            QWidget#base_drawer[collapsed="true"] QLabel#drawerHeaderText {{
+                width: 0;
+                max-width: 0;
+                padding: 0;
+                margin: 0;
+                opacity: 0;
+            }}
+
+            QWidget#base_drawer[collapsed="true"] QWidget#drawer_frame {{
+                width: 0;
+                max-width: 0;
+                padding: 0;
+                margin: 0;
+                border: none;
+            }}
         """
 
     def _generate_global_styles(self) -> str:

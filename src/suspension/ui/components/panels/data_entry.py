@@ -4,10 +4,14 @@
 Dynamic data entry panel with support for form injection and real-time validation.
 """
 
-from typing import Optional
+from typing import ClassVar, Optional
+
 from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtWidgets import QWidget
 
+from suspension.utils import StructuredLogger, app_logger
+
+from ...managers.layout import LayoutManager
 from .base_panel import BasePanel
 
 
@@ -27,12 +31,14 @@ class DataEntryPanel(BasePanel):
         data_changed: Emitted when form data changes
     """
 
+    logger: ClassVar[StructuredLogger] = app_logger
     form_changed = pyqtSignal()  # Emitted when input form changes
     data_changed = pyqtSignal()  # Emitted when form data changes
 
     def __init__(
         self,
         panel_id: str,
+        layout_manager: LayoutManager,
         initial_form: Optional[QWidget] = None,
         parent: Optional[QWidget] = None,
     ) -> None:
@@ -47,10 +53,12 @@ class DataEntryPanel(BasePanel):
         super().__init__(
             title="Data Entry",
             panel_id=panel_id,
+            layout_manager=layout_manager,
             parent=parent,
             allow_close=True,
             allow_float=True,
         )
+
         self._current_form: Optional[QWidget] = None
 
         # Set initial form if provided

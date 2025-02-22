@@ -2,6 +2,7 @@
 
 PYTHON = ./venv/bin/python
 PIP = ./venv/bin/pip
+MYPY = ./venv/bin/mypy
 
 activate-pip:
 	source venv/bin/activate

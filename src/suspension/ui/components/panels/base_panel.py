@@ -3,20 +3,26 @@
 """
 Base panel component providing common panel functionality.
 """
+from base64 import b64decode, b64encode
+from typing import ClassVar, Optional
 
-from typing import Optional, Dict, Any
-from PyQt6.QtCore import pyqtSignal, QSettings, Qt, QByteArray
+from PyQt6.QtCore import QByteArray, Qt, pyqtSignal
 from PyQt6.QtWidgets import (
     QDockWidget,
-    QWidget,
-    QVBoxLayout,
     QFrame,
+    QHBoxLayout,
     QLabel,
     QToolButton,
-    QHBoxLayout,
+    QVBoxLayout,
+    QWidget,
 )
 
+from suspension.exceptions import PanelStateError
+from suspension.utils import StructuredLogger, app_logger
+
 from ...constants.icons import AppIcon
+from ...managers.layout import LayoutManager
+from ...models.state import ComponentState
 from ...models.theme import Theme
 
 
@@ -36,6 +42,7 @@ class BasePanel(QDockWidget):
         visibility_changed: Emitted when panel visibility changes
     """
 
+    logger: ClassVar[StructuredLogger] = app_logger
     state_changed = pyqtSignal()
     visibility_changed = pyqtSignal(bool)
 
@@ -43,6 +50,7 @@ class BasePanel(QDockWidget):
         self,
         title: str,
         panel_id: str,
+        layout_manager: LayoutManager,
         parent: Optional[QWidget] = None,
         allow_close: bool = True,
         allow_float: bool = True,
@@ -60,12 +68,12 @@ class BasePanel(QDockWidget):
             dock_area: Default dock area for the panel
         """
         super().__init__(title, parent)
+        self._context = {"component": "BasePanel", "panel_id": panel_id}
+        self.logger.info("Initializing panel", self._context)
 
-        # Set the object name using the panel_id
         self.setObjectName(panel_id)
-
         self.panel_id = panel_id
-        self._settings = QSettings()
+        self._layout_manager = layout_manager
         self._allow_close = allow_close
         self._allow_float = allow_float
         self._dock_area = dock_area or Qt.DockWidgetArea.LeftDockWidgetArea
@@ -189,53 +197,112 @@ class BasePanel(QDockWidget):
             """
             )
 
-    def save_state(self) -> Dict[str, Any]:
+    def save_state(self) -> ComponentState:
         """
         Save panel state.
 
         Returns:
-            Dictionary containing panel state
-        """
-        state = {
-            "geometry": self.saveGeometry().data(),  # Convert QByteArray to bytes
-            "floating": self.isFloating(),
-            "visible": self.isVisible(),
-            "features": self.features().value,  # Get raw enum value
-            "dock_area": self.get_dock_area().value,  # Get raw enum value
-        }
-        return state
+            ComponentState containing the panel's current state
 
-    def restore_state(self, state: Dict[str, Any]) -> None:
+        Raises:
+            PanelStateError: If saving state fails
+        """
+        try:
+            geometry_bytes = self.saveGeometry().data()
+            # Convert bytes to base64 string for JSON serialization
+            geometry_b64 = b64encode(geometry_bytes).decode("utf-8")
+
+            state: ComponentState = {
+                "visible": self.isVisible(),
+                "dock_area": self.get_dock_area().value,
+                "floating": self.isFloating(),
+                "width": self.width(),
+                "collapsed": False,  # Base panels aren't collapsible
+                "size_ratio": None,  # Base panels don't use size ratios
+                "geometry": geometry_b64,  # Add to ComponentState definition
+            }
+            return state
+        except Exception as e:
+            self.logger.error(
+                "Failed to save panel state",
+                error=e,
+                context={**self._context, "panel_id": self.panel_id},
+            )
+            raise PanelStateError(
+                f"Failed to save state for panel: {self.panel_id}"
+            ) from e
+
+    def restore_state(self, state: ComponentState) -> None:
         """
         Restore panel state.
 
         Args:
-            state: Dictionary containing panel state
+            state: ComponentState containing panel state
+
+        Raises:
+            PanelStateError: If restoring critical state fails
         """
-        if geometry := state.get("geometry"):
-            self.restoreGeometry(QByteArray(geometry))
+        try:
+            # Restore geometry if available
+            if geometry_b64 := state.get("geometry"):
+                try:
+                    # Add padding if necessary
+                    padding_needed = len(geometry_b64) % 4
+                    if padding_needed:
+                        geometry_b64 += "=" * padding_needed
 
-        if floating := state.get("floating"):
-            self.setFloating(bool(floating))
+                    # Attempt to decode and restore geometry
+                    geometry_bytes = b64decode(geometry_b64)
+                    self.restoreGeometry(QByteArray(geometry_bytes))
+                except Exception as e:
+                    # Log geometry restoration failure but continue
+                    self.logger.warning(
+                        "Failed to restore panel geometry",
+                        error=e,
+                        context={"panel_id": self.panel_id},
+                    )
+                    # Don't raise here - continue with other state restoration
 
-        if visible := state.get("visible"):
-            self.setVisible(bool(visible))
+            # Restore other state properties
+            self.setVisible(state["visible"])
+            self.setFloating(state["floating"])
 
-        if features := state.get("features"):
-            self.setFeatures(QDockWidget.DockWidgetFeature(features))
+            if dock_area := state["dock_area"]:
+                self.set_dock_area(Qt.DockWidgetArea(dock_area))
 
-        if dock_area := state.get("dock_area"):
-            self.set_dock_area(Qt.DockWidgetArea(dock_area))
+            if width := state.get("width"):
+                self.setFixedWidth(width)
+
+        except Exception as e:
+            self.logger.error(
+                "Failed to restore panel state",
+                error=e,
+                context={"panel_id": self.panel_id},
+            )
+            raise PanelStateError(
+                f"Failed to restore state for panel: {self.panel_id}"
+            ) from e
 
     def _handle_state_changed(self) -> None:
         """Handle panel state changes."""
-        self.state_changed.emit()
-        self._save_panel_state()
+        try:
+            state = self.save_state()
+            self._layout_manager.save_component_state(self.panel_id, state)
+            self.state_changed.emit()
+
+            self.logger.debug(
+                "Panel state changed",
+                {**self._context, "state": state},
+            )
+        except Exception as e:
+            self.logger.error("Failed to handle state change", e, self._context)
+            raise
 
     def _handle_visibility_changed(self, visible: bool) -> None:
         """Handle panel visibility changes."""
         self.visibility_changed.emit(visible)
-        self._save_panel_state()
+        state = self.save_state()
+        self._layout_manager.save_component_state(self.panel_id, state)
 
     def _save_panel_state(self) -> None:
         """Save panel state to settings."""
@@ -264,7 +331,8 @@ class BasePanel(QDockWidget):
         """
         self._dock_area = area
         self.state_changed.emit()
-        self._save_panel_state()
+        state = self.save_state()
+        self._layout_manager.save_component_state(self.panel_id, state)
 
     def defaultDockArea(self) -> Qt.DockWidgetArea:
         """

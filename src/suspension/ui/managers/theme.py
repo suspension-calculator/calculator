@@ -4,18 +4,18 @@
 Theme management for the Suspension Calculator.
 """
 import sys
-from typing import Optional, Dict, cast
+from typing import Dict, Optional, cast
 
-from PyQt6.QtCore import QObject, pyqtSignal, QSettings, QTimer
-from PyQt6.QtGui import QPalette, QColor
+from PyQt6.QtCore import QObject, QSettings, QTimer, pyqtSignal
+from PyQt6.QtGui import QColor, QPalette
 from PyQt6.QtWidgets import QApplication
 
-from ..constants import LIGHT_THEME, DARK_THEME
+from ...exceptions import ThemeError
+from ...utils.logging import app_logger
+from ..constants import DARK_THEME, LIGHT_THEME
 from ..models.theme import Theme, ThemeMode
 from ..styles.stylesheet import StylesheetGenerator
 from ..styles.system import create_system_theme, detect_system_theme_mode
-from ...exceptions import ThemeError
-from ...utils.logging import app_logger
 
 
 class ThemeManager(QObject):
@@ -245,6 +245,15 @@ class ThemeManager(QObject):
     def _apply_theme(self, theme: Theme) -> None:
         """Apply the theme to the application."""
         try:
+            if self._stylesheet_generator:
+                drawer_style = self._stylesheet_generator.generate_component_stylesheet(
+                    "drawer"
+                )
+                self.logger.debug(
+                    "Generated drawer stylesheet",
+                    {**self._context, "stylesheet": drawer_style},
+                )
+
             # Get application instance with proper type casting
             app = QApplication.instance()
             if not app:

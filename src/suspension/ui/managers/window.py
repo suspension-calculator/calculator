@@ -4,19 +4,12 @@ Window manager for the Suspension Calculator.
 Handles window state, geometry, and component coordination.
 """
 
-from typing import Optional, TypedDict
+from typing import Optional
 
 from PyQt6.QtCore import QByteArray, QEvent, QObject, QSettings, pyqtSignal
 from PyQt6.QtWidgets import QMainWindow, QToolBar
 
-
-class WindowState(TypedDict):
-    """Type-safe state definition for window configuration."""
-
-    geometry: bytes
-    state: bytes  # Window state including toolbars
-    maximized: bool
-    fullscreen: bool
+from suspension.ui.models.state import WindowState
 
 
 class WindowManager(QObject):

@@ -1,10 +1,11 @@
-from typing import Set, Optional, Dict, Any, List
-from PyQt6.QtCore import QObject, pyqtSignal, QSettings
+from typing import Any, Dict, List, Optional, Set
+
+from PyQt6.QtCore import QObject, QSettings, pyqtSignal
 
 from suspension import (
+    InvalidNavigationItemError,
     NavigationError,
     NavigationPersistenceError,
-    InvalidNavigationItemError,
     NavigationStateError,
 )
 from suspension.utils import app_logger
@@ -27,6 +28,7 @@ class NavigationManager(QObject):
     item_expanded = pyqtSignal(str)  # Item ID
     item_collapsed = pyqtSignal(str)  # Item ID
     nav_visibility_changed = pyqtSignal(bool)
+    drawer_state_changed = pyqtSignal(bool)
 
     def __init__(self) -> None:
         """Initialize the navigation manager and load persistent state."""
@@ -40,6 +42,7 @@ class NavigationManager(QObject):
         self._settings = QSettings()
         self._selected_item_id: Optional[str] = None
         self._expanded_item_ids: Set[str] = set()
+        self._drawer_visible = True
         self._nav_pane_visible: bool = True
         self._history: List[str] = []
         self._current_index: int = -1
@@ -70,27 +73,52 @@ class NavigationManager(QObject):
             )
             raise NavigationError("Failed to initialize navigation") from e
 
-    def _load_state(self) -> None:
-        """Load navigation state from persistent storage."""
+    def get_drawer_state(self) -> bool:
+        """Get the current drawer visibility state."""
+        return self._drawer_visible
+
+    def set_drawer_visible(self, visible: bool) -> None:
+        """Set drawer visibility state."""
         try:
+            if self._drawer_visible != visible:
+                self._drawer_visible = visible
+                self._settings.setValue("navigation/drawer/visible", visible)
+                self.drawer_state_changed.emit(visible)
+
+                self.logger.debug(
+                    "Set drawer visibility",
+                    {**self._context, "visible": visible},
+                )
+        except Exception as e:
+            self.logger.error("Failed to set drawer visibility", e, self._context)
+            raise
+
+    def _load_state(self) -> None:
+        """Load navigation state from settings."""
+        try:
+            # Load existing navigation state
             self._expanded_item_ids = set(
                 self._settings.value("navigation/expanded_items", [], type=list)
             )
-            self._nav_pane_visible = self._settings.value(
-                "navigation/pane_visible", True, type=bool
+            self._selected_item_id = self._settings.value(
+                "navigation/selected_item", None, type=str
             )
+            # Add drawer state loading
+            self._drawer_visible = self._settings.value(
+                "navigation/drawer/visible", True, type=bool
+            )
+
             self.logger.debug(
                 "Loaded navigation state",
-                context={
+                {
                     **self._context,
                     "expanded_items": list(self._expanded_item_ids),
+                    "drawer_visible": self._drawer_visible,
                 },
             )
         except Exception as e:
-            self.logger.error(
-                "Failed to load navigation state", error=e, context=self._context
-            )
-            raise NavigationPersistenceError("Failed to load navigation state") from e
+            self.logger.error("Failed to load navigation state", e, self._context)
+            raise
 
     def _save_state(self) -> None:
         """Save current navigation state to persistent storage."""

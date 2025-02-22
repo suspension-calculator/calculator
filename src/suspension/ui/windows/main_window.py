@@ -3,10 +3,12 @@
 """
 Main application window for the Suspension Calculator.
 """
+from typing import cast
 
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QCloseEvent
 from PyQt6.QtWidgets import (
+    QHBoxLayout,
     QMainWindow,
     QSplitter,
     QStatusBar,
@@ -15,12 +17,14 @@ from PyQt6.QtWidgets import (
     QWidget,
 )
 
+from ...exceptions import PanelLayoutError
 from ...utils.logging import StructuredLogger, app_logger
 from ..components.base.placeholder import PlaceholderWidget
 from ..components.navigation import Drawer, NavigationTree
 from ..components.navigation.menu import MainMenu
 from ..components.panels import DataEntryPanel, PlotViewPanel
 from ..components.toolbar import ContextToolbar, MainToolbar
+from ..managers.layout import LayoutManager
 from ..managers.navigation import NavigationManager
 from ..managers.panel import PanelManager
 from ..managers.theme import ThemeManager
@@ -65,7 +69,9 @@ class MainWindow(QMainWindow):
         self.theme_manager = ThemeManager()
         self.nav_manager = NavigationManager()
         self.window_manager = WindowManager(self)
-        self.panel_manager = PanelManager(self)
+        self.window_manager = WindowManager(self)
+        self.layout_manager = LayoutManager(window=self)
+        self.panel_manager = PanelManager(self, self.layout_manager)
 
         # Setup logging
         self.logger = app_logger
@@ -133,10 +139,52 @@ class MainWindow(QMainWindow):
         # TODO: Connect context toolbar actions
 
     def _setup_main_layout(self) -> None:
-        """Create the main three-panel layout."""
-        self._setup_central_widget()
-        self._setup_navigation_drawer()
-        self._setup_panels()
+        """Create the main application layout."""
+        try:
+            # Create central widget
+            main_widget = QWidget()
+            main_layout = QVBoxLayout(main_widget)
+            main_layout.setContentsMargins(0, 0, 0, 0)
+            main_layout.setSpacing(0)
+            self.setCentralWidget(main_widget)
+
+            # Create a container for the drawer and panels
+            content_container = QWidget()
+            content_layout = QHBoxLayout(content_container)
+            content_layout.setContentsMargins(0, 0, 0, 0)
+            content_layout.setSpacing(0)
+
+            # Setup drawer in the content container
+            self._setup_navigation_drawer()
+            if hasattr(self, "nav_drawer"):
+                content_layout.addWidget(self.nav_drawer)
+                self.logger.debug(
+                    "Added navigation drawer to content layout", self._context
+                )
+
+            # Create panel container
+            panel_container = QWidget()
+            panel_layout = QVBoxLayout(panel_container)
+            panel_layout.setContentsMargins(0, 0, 0, 0)
+            panel_layout.setSpacing(0)
+
+            # Add panel container to content layout
+            content_layout.addWidget(panel_container)
+            content_layout.setStretchFactor(
+                panel_container, 1
+            )  # Give panels more stretch
+
+            # Add content container to main layout
+            main_layout.addWidget(content_container)
+
+            # Setup panels in the panel container
+            self._setup_panels()
+
+            self.logger.info("Main layout setup completed successfully", self._context)
+
+        except Exception as e:
+            self.logger.error("Failed to setup main layout", e, self._context)
+            raise PanelLayoutError(f"Failed to setup main application layout: {str(e)}")
 
     def _setup_central_widget(self) -> None:
         """Setup the central widget and its layout."""
@@ -146,61 +194,67 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(main_content)
 
     def _setup_navigation_drawer(self) -> None:
-        """Setup the navigation drawer with tree view."""
-        # Create the navigation tree first
-        nav_tree = NavigationTree(self.nav_manager)
+        """Setup the navigation drawer."""
+        try:
+            # Create tree and drawer
+            nav_tree = NavigationTree(self.nav_manager)
+            self.nav_drawer = Drawer(
+                content=nav_tree,
+                nav_manager=self.nav_manager,  # Add this line
+                layout_manager=self.layout_manager,
+                parent=self,
+                width=250,
+                animation_duration=(
+                    self.theme_manager.theme.animation_duration_normal
+                    if self.theme_manager.theme
+                    else 200
+                ),
+            )
 
-        # Get animation duration with a safe default
-        animation_duration = (
-            self.theme_manager.theme.animation_duration_normal
-            if self.theme_manager.theme is not None
-            else 200
-        )
+            # Apply theme
+            if current_theme := self.theme_manager.theme:
+                if drawer_style := self.theme_manager.get_component_stylesheet(
+                    "drawer"
+                ):
+                    self.nav_drawer.setStyleSheet(drawer_style)
+                self.nav_drawer.apply_theme(current_theme)
 
-        # Create the drawer containing the navigation tree
-        self.nav_drawer = Drawer(
-            content=nav_tree,
-            parent=self,
-            width=250,
-            animation_duration=animation_duration,
-        )
+            # Add to layout
+            central_widget = self.centralWidget()
+            if central_widget is not None and (layout := central_widget.layout()):
+                vlayout = cast(QVBoxLayout, layout)
+                vlayout.insertWidget(0, self.nav_drawer)
+                vlayout.setStretchFactor(self.nav_drawer, 0)
 
-        # Apply initial theme
-        if current_theme := self.theme_manager.theme:
-            self.nav_drawer.apply_theme(current_theme)
-            stylesheet = self.theme_manager.get_component_stylesheet("drawer")
-            if stylesheet:
-                self.nav_drawer.setStyleSheet(stylesheet)
+            self.logger.info("Navigation drawer setup complete", context=self._context)
 
-        # Add the drawer to the main window
-        main_content = self.centralWidget()
-        if isinstance(main_content, QWidget):
-            layout = main_content.layout()
-            if isinstance(layout, QVBoxLayout):
-                layout.insertWidget(0, self.nav_drawer)
-                layout.setStretchFactor(self.nav_drawer, 0)  # Don't stretch the drawer
+        except Exception as e:
+            self.logger.error(
+                "Failed to setup navigation drawer", error=e, context=self._context
+            )
+            raise
 
-    def _create_navigation_container(self) -> QWidget:
-        """Create and setup the navigation container widget."""
-        nav_container = QWidget()
-        nav_container.setObjectName("nav_container")
-        nav_container_layout = QVBoxLayout(nav_container)
-        nav_container_layout.setContentsMargins(0, 0, 0, 0)
-
-        self.nav_tree = NavigationTree(self.nav_manager)
-        nav_container_layout.addWidget(self.nav_tree)
-
-        nav_container.setFixedWidth(250)
-        nav_container.setStyleSheet(
-            """
-            QWidget#nav_container {
-                border-right: 1px solid palette(mid);
-                background-color: palette(window);
-            }
-        """
-        )
-
-        return nav_container
+    # def _create_navigation_container(self) -> QWidget:
+    #     """Create and setup the navigation container widget."""
+    #     nav_container = QWidget()
+    #     nav_container.setObjectName("nav_container")
+    #     nav_container_layout = QVBoxLayout(nav_container)
+    #     nav_container_layout.setContentsMargins(0, 0, 0, 0)
+    #
+    #     self.nav_tree = NavigationTree(self.nav_manager)
+    #     nav_container_layout.addWidget(self.nav_tree)
+    #
+    #     nav_container.setFixedWidth(250)
+    #     nav_container.setStyleSheet(
+    #         """
+    #         QWidget#nav_container {
+    #             border-right: 1px solid palette(mid);
+    #             background-color: palette(window);
+    #         }
+    #     """
+    #     )
+    #
+    #     return nav_container
 
     def _add_navigation_toggle(self, nav_toolbar: QToolBar) -> None:
         """Add the navigation toggle button to main toolbar."""
@@ -220,9 +274,19 @@ class MainWindow(QMainWindow):
         self.data_panel = self._create_data_panel()
         self.plot_panel = self._create_plot_panel()
 
-        # Add to window
+        # Configure dock widget behavior
+        self.setDockOptions(
+            QMainWindow.DockOption.AllowNestedDocks  # Allows docking inside other dock areas
+            | QMainWindow.DockOption.AllowTabbedDocks  # Allows panels to be tabbed
+            | QMainWindow.DockOption.AnimatedDocks  # Smooth docking animations
+        )
+
+        # Add to window in the right dock area by default
         self.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, self.data_panel)
         self.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, self.plot_panel)
+
+        # Allow panels to be tabbed together initially
+        self.tabifyDockWidget(self.data_panel, self.plot_panel)
 
     def _create_data_panel(self) -> DataEntryPanel:
         """Create and initialize the data entry panel."""

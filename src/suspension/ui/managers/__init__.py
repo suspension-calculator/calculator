@@ -10,13 +10,15 @@ aspects of the application's state and behavior:
 - WindowManager: Controls window state and geometry
 """
 
+from .layout import LayoutManager
 from .navigation import NavigationManager
+from .panel import PanelManager
 from .theme import ThemeManager
 from .window import WindowManager
-from .panel import PanelManager
 
 __all__ = [
     "NavigationManager",
+    "LayoutManager",
     "PanelManager",
     "ThemeManager",
     "WindowManager",

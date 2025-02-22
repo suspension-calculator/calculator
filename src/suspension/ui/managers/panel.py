@@ -4,23 +4,17 @@
 Panel management for the Suspension Calculator.
 Handles panel lifecycle, state, and coordination.
 """
+from typing import Dict, Optional, Set
 
-from typing import Dict, Optional, Set, TypedDict
-
-from PyQt6.QtCore import QObject, pyqtSignal, QSettings, Qt
+from PyQt6.QtCore import QObject, QSettings, Qt, pyqtSignal
 from PyQt6.QtWidgets import QMainWindow
 
+from ...exceptions import PanelError, PanelLayoutError, PanelStateError
+from ...utils.logging import StructuredLogger, app_logger
 from ..components.panels import BasePanel, DataEntryPanel, PlotViewPanel
+from ..models.state import PanelState
 from ..models.theme import Theme
-from ...exceptions import PanelError, PanelStateError, PanelLayoutError
-from ...utils.logging import app_logger, StructuredLogger
-
-
-class PanelState(TypedDict):
-    """Type-safe panel state definition."""
-
-    layout: Dict[str, Dict[str, int]]  # panel_id -> {dock_area, index}
-    visible: Set[str]  # Set of visible panel IDs
+from .layout import LayoutManager
 
 
 class PanelManager(QObject):
@@ -43,7 +37,7 @@ class PanelManager(QObject):
     layout_changed = pyqtSignal()
     error_occurred = pyqtSignal(str)  # error message
 
-    def __init__(self, window: QMainWindow) -> None:
+    def __init__(self, window: QMainWindow, layout_manager: LayoutManager) -> None:
         """
         Initialize the panel manager.
 
@@ -52,6 +46,7 @@ class PanelManager(QObject):
         """
         super().__init__()
         self._window = window
+        self._layout_manager = layout_manager
         self._settings = QSettings()
         self._panels: Dict[str, BasePanel] = {}
         self._visible_panels: Set[str] = set()
@@ -62,7 +57,10 @@ class PanelManager(QObject):
 
         # Initialize state
         try:
-            self._restore_state()
+            # Load saved state if it exists
+            if saved_state := self._settings.value("panels/state"):
+                self.restore_state(saved_state)
+
             self.logger.info("Panel manager initialized", context=self._context)
         except Exception as e:
             self.logger.error(
@@ -90,6 +88,7 @@ class PanelManager(QObject):
         try:
             panel = DataEntryPanel(
                 panel_id=panel_id,
+                layout_manager=self._layout_manager,  # Add this line
                 parent=self._window,
             )
             if title:
@@ -125,6 +124,7 @@ class PanelManager(QObject):
         try:
             panel = PlotViewPanel(
                 panel_id=panel_id,
+                layout_manager=self._layout_manager,  # Add this line
                 parent=self._window,
             )
             if title:
@@ -249,30 +249,43 @@ class PanelManager(QObject):
             )
             raise PanelLayoutError("Failed to arrange panels") from e
 
-    def save_state(self) -> None:
-        """Save current panel states and layout to settings."""
-        try:
-            # Save individual panel states
-            for panel in self._panels.values():
-                self._save_panel_state(panel)
+    def save_state(self) -> PanelState:
+        """
+        Save current panel states and layout to settings.
 
-            # Save overall layout state
-            layout_state = {
-                panel_id: {
-                    # Change this line to get the integer value from the DockWidgetArea
-                    "dock_area": panel.get_dock_area().value,  # Access the enum's value
-                    "index": idx,
+        Returns:
+            PanelState containing the current state of all panels
+
+        Raises:
+            PanelStateError: If saving state fails
+        """
+        try:
+            # Create layout state with proper typing
+            layout_state: Dict[str, Dict[str, int]] = {
+                str(panel_id): {  # Ensure key is str
+                    "dock_area": panel.get_dock_area().value,  # type: ignore # int from enum
+                    "index": i,
                 }
-                for idx, (panel_id, panel) in enumerate(self._panels.items())
+                for i, (panel_id, panel) in enumerate(self._panels.items())
             }
 
             state: PanelState = {
                 "layout": layout_state,
-                "visible": self._visible_panels,
+                "visible": set(
+                    str(id) for id in self._visible_panels
+                ),  # Ensure Set[str]
             }
 
             self._settings.setValue("panels/state", state)
-            self.logger.debug("Saved panel states", context=self._context)
+            self.logger.debug(
+                "Saved panel states",
+                {
+                    **self._context,
+                    "layout": layout_state,
+                    "visible_panels": list(self._visible_panels),
+                },
+            )
+            return state
 
         except Exception as e:
             self.logger.error(
@@ -280,25 +293,36 @@ class PanelManager(QObject):
             )
             raise PanelStateError("Failed to save panel states") from e
 
-    def _restore_state(self) -> None:
-        """Restore panel states from settings."""
-        try:
-            if state := self._settings.value("panels/state"):
-                if isinstance(state, dict):
-                    # Restore layout
-                    if layout := state.get("layout"):
-                        self.arrange_panels(layout)
+    def restore_state(self, state: PanelState) -> None:
+        """
+        Restore panel states from saved state.
 
-                    # Restore visibility
-                    if visible := state.get("visible"):
-                        self._visible_panels = set(visible)
-                        for panel_id in visible:
-                            if panel := self.get_panel(panel_id):
-                                panel.setVisible(True)
+        Args:
+            state: PanelState containing the panel states to restore
+
+        Raises:
+            PanelStateError: If restoring state fails
+        """
+        try:
+            # Restore layout
+            for panel_id, layout_info in state["layout"].items():
+                if panel := self._panels.get(panel_id):
+                    dock_area = layout_info["dock_area"]
+                    self._window.addDockWidget(Qt.DockWidgetArea(dock_area), panel)
+
+            # Restore visibility
+            self._visible_panels = state["visible"]
+            for panel_id in self._panels:
+                if panel := self._panels.get(panel_id):
+                    panel.setVisible(panel_id in self._visible_panels)
 
             self.logger.debug(
                 "Restored panel states",
-                context={**self._context, "visible_panels": list(self._visible_panels)},
+                {
+                    **self._context,
+                    "restored_panels": list(state["layout"].keys()),
+                    "visible_panels": list(self._visible_panels),
+                },
             )
 
         except Exception as e:
@@ -313,9 +337,36 @@ class PanelManager(QObject):
         self._settings.setValue(f"panels/{panel.panel_id}/state", state)
 
     def _restore_panel_state(self, panel: BasePanel) -> None:
-        """Restore state for a specific panel."""
-        if state := self._settings.value(f"panels/{panel.panel_id}/state"):
-            panel.restore_state(state)
+        """
+        Restore state for a specific panel.
+        State restoration failures are logged but don't prevent panel registration.
+        """
+        try:
+            if state := self._settings.value(f"panels/{panel.panel_id}/state"):
+                try:
+                    panel.restore_state(state)
+                    self.logger.debug(
+                        "Restored panel state successfully",
+                        context={**self._context, "panel_id": panel.panel_id},
+                    )
+                except PanelStateError as e:
+                    # Log the error but continue with default state
+                    self.logger.warning(
+                        "Failed to restore panel state, using defaults",
+                        error=e,
+                        context={**self._context, "panel_id": panel.panel_id},
+                    )
+                    # Set default state
+                    panel.setVisible(True)
+                    panel.setFloating(False)
+                    panel.set_dock_area(panel.defaultDockArea())
+        except Exception as e:
+            # Log any other errors but don't prevent panel registration
+            self.logger.error(
+                "Unexpected error during panel state restoration",
+                error=e,
+                context={**self._context, "panel_id": panel.panel_id},
+            )
 
     def _handle_panel_state_changed(self, panel_id: str) -> None:
         """Handle panel state changes."""

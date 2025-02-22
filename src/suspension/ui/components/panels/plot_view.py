@@ -4,11 +4,14 @@
 Plot view panel with support for multiple plot types and real-time updates.
 """
 
-from typing import Optional, Dict, Any
+from typing import Any, ClassVar, Dict, Optional
 
 from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtWidgets import QWidget
 
+from suspension.utils import StructuredLogger, app_logger
+
+from ...managers.layout import LayoutManager
 from .base_panel import BasePanel
 
 
@@ -28,12 +31,14 @@ class PlotViewPanel(BasePanel):
         view_state_changed: Emitted when view state changes (zoom, pan, etc)
     """
 
+    logger: ClassVar[StructuredLogger] = app_logger
     plot_changed = pyqtSignal()  # Emitted when plot component changes
     view_state_changed = pyqtSignal(dict)  # View state changes
 
     def __init__(
         self,
         panel_id: str,
+        layout_manager: LayoutManager,
         initial_plot: Optional[QWidget] = None,
         parent: Optional[QWidget] = None,
     ) -> None:
@@ -48,6 +53,7 @@ class PlotViewPanel(BasePanel):
         super().__init__(
             title="Plot View",
             panel_id=panel_id,
+            layout_manager=layout_manager,
             parent=parent,
             allow_close=True,
             allow_float=True,
